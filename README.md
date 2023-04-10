@@ -46,7 +46,7 @@
 # **User Stories**
 
 
-## Userstory 1 
+## Prioritizing Patients Based on Arrival Method
 
 >**As a** nurse/hospital employee <br>
 **I want** to see how the patients arrived at the hospital <br>
@@ -68,7 +68,7 @@
 
  
 
-## Userstory 2
+## Waiting Room Map for Organizing Patient Seating
 
 >**As a** nurse/hospital employee <br>
 **I want** to have a map of the waiting room in a separate menu   <br>
@@ -80,7 +80,7 @@
 
  <br>
 
-## Userstory 3
+## Removing Treated Patients to Free Up Resources
 
 >**As a** nurse/hospital employee <br>
 **I want** to be able to remove patients after they are treated <br>
@@ -96,7 +96,7 @@
 
 <br>
 
-## Userstory 4
+## Marking Patients with Infectious Diseases for Tracking Purposes
 
 
 >**As a** nurse/hospital employee <br>
@@ -113,7 +113,7 @@
  
 <br>
 
-## Userstory 5
+## Printing Contact Persons of a Patient for Contact Tracing
 
  
 
@@ -134,7 +134,7 @@
 
 <br>
 
-## Userstory 6
+## Viewing List of Patients in the Waiting Room
  
 >**As a** hospital employee  <br>
 **I want** to be able to view the list of patients in the waiting room  <br>
@@ -147,7 +147,7 @@
 
 <br>
 
-## Userstory 7
+## Viewing Patient Information and Status
 
 >**As a** hospital employee <br>
 **I want** to be able to view a patient's information and status <br>
@@ -159,7 +159,7 @@
 
 <br>
 
-## Userstory 8
+## Registering Patient Information for Database and Contact Purposes
 
 >**As a** hospital employee <br>
 **I want** to register the patient information for the database and contact informations <br>
@@ -171,7 +171,7 @@
 
 <br>
 
-## Userstory 9 
+## Updating Patient Information
 
 >**As a** nurse/hospital employee  <br>
 **I want** to be able to update a patient's information after they have been registered  <br>
