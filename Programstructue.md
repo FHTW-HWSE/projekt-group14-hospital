@@ -80,7 +80,7 @@
 
  <br>
 
-## Removing Treated Patients to Free Up Resources
+## Removing Treated Patients
 
 >**As a** nurse/hospital employee <br>
 **I want** to be able to remove patients after they are treated <br>
