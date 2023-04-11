@@ -25,7 +25,7 @@ char* read_csv(const char* filename) {
     fp = fopen(filename, "r");
     if (fp == NULL) {
         printf("Error opening file %s\n", filename);
-        return 1;
+        return NULL;
     }
     
     // Determine the size of the file
@@ -48,7 +48,7 @@ char* read_csv(const char* filename) {
     // Close the file
     if(fclose(fp) != 0){
         printf("Error closing file %s", filename);
-        return 1;
+        return NULL;
     }
     
     return buffer;
@@ -78,6 +78,6 @@ void write_csv(const char* filename, const char* data) {
      // Close the file
     if(fclose(fp) != 0){
         printf("Error closing file %s", filename);
-        return 1;
+        return ;
     }
 }
