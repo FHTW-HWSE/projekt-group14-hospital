@@ -1,3 +1,3 @@
-time_t convertStringToDatetime(char * text){
-    if(text == nullptr)
-}
+#include "../include/dateFunctions.h"
+#include <time.h>
+

@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "file_handling.h"
+#include "../include/file_handling.h"
 
 
 /**
@@ -34,7 +34,7 @@ char* read_csv(const char* filename) {
     rewind(fp);
     
     // Allocate memory for the buffer
-    buffer = malloc(file_size + 1);
+    buffer = (char*)malloc(file_size + 1);
     if (buffer == NULL) {
         printf("Error allocating memory\n");
         fclose(fp);
