@@ -2,14 +2,14 @@
 #Bit lower for copatability
 cmake_minimum_required(VERSION 3.0)
 
-set (CMAKE_C_COMPILER "gcc-4.2")
+set (CMAKE_C_COMPILER "gcc")
 
 project (hospital14)
 
 set (INCLUDE 
 "../include")
 
-add_executable(${<PROJECT-NAME>}
+add_executable(hospital14
 main.cpp
 dateFunctions.cpp
 file_handling.cpp
@@ -17,7 +17,7 @@ file_handling.cpp
 )
 
 
-find_package(Catch2 REQIRED)
+find_package(Catch2 REQUIRED)
 
 include(CTest)
 
