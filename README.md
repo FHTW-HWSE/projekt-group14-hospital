@@ -10,3 +10,5 @@ projekt-group14-hospital created by GitHub Classroom
 > 14.04.23 -M
 * changed code so it compiles on my VM
 * Working on CmakeLists
+
+## Currently Working on
