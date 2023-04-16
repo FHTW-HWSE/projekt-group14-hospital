@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include "../include/file_handling.h"
 
+enum ERROR_CODES {
+    ERRORCODE1 = 3265,
+    ERRORCODE2 = 3245,
+};
+
 
 int main (int argc, char *argv[]){
 

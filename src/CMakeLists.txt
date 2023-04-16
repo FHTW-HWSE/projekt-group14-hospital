@@ -9,11 +9,11 @@ project (hospital14)
 set (INCLUDE 
 "../include")
 
-add_executable(hospital14
+add_executable ( hospital14
 main.cpp
 dateFunctions.cpp
-file_handling.cpp
-
+CSV_read.cpp
+CSV_write.cpp
 )
 
 

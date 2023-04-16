@@ -1,5 +1,5 @@
-#ifndef FILE_HANDLING_H
-#define FILE_HANDLING_H
+#ifndef CSV_READ_H
+#define CSV_READ_H
 
 
 #define MAX_FILE_SIZE 1000
