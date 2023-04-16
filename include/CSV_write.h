@@ -6,8 +6,9 @@
 
 /*
 -Michi
-Status: Unfinished
-Working on the writePatient Data Function
+Status: Finished but needs to be expanded
+Testing: Mostly done but still more needed
+
 */
 
 

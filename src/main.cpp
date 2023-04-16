@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/CSV_read.h"
-
+#include "../include/CSV_write.h"
+#include <catch2/catch.hpp>
 
 enum ERROR_CODES {
     ERRORCODE1 = 3265,
@@ -11,7 +12,8 @@ enum ERROR_CODES {
 
 int main (int argc, char *argv[]){
 
-//michi auskommentiert weil es bei mir nicht compitlet
+
+
 //char buffer[1000] = {0};
 char * buffer = (char*)malloc(sizeof(char)*1000);
 

@@ -1,12 +1,8 @@
 #include "../include/CSV_write.h"
 #define CONFIG_CATCH_CSV_WRITE
 #include <catch2/catch.hpp>
+ 
 
-
-
-SCENARIO("Test Write Worked"){
-
-    GIVEN("The Write function has been called")
 
 int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], char ArrivalTime[MAX_TIMESTRING_LENGTH],
                     char DepartureTime[MAX_TIMESTRING_LENGTH],char Infectious, unsigned short int seatingNumber){
@@ -14,7 +10,9 @@ int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PAT
 
 
     // Opening File Stream
-    FILE *file = fopen("../include/test.csv", "a");
+    //r+ so can also read from the file if last entery is newling
+    FILE *file = fopen("../programFiles/PatientData/test.csv", "r+");
+
 
     // Error Handeling if file could not be opened
     if (file == NULL){
@@ -22,31 +20,18 @@ int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PAT
         return -1;
     }
 
+ // Check if the last line is empty
+    fseek(file, -1, SEEK_END);
+    int lastChar = fgetc(file);
+    if (lastChar != '\n') {
+        // If the last line is not empty, add a new line before writing data
+        fprintf(file, "\n");
+    }
 
-
-
-//Testing
-SCENARIO("Writing the patient Data into the CSV File")
-{
-    GIVEN("The Write function has been called and the File sucessfully opened")
-    {
-        WHEN("The Write Patien Data Function is Preformed")
-        {
-
-  ///             ############      Write Patient Data Area      ##########
     //hu is unsigned short int
     fprintf(file, "%u,%s,%s,%s,%c,%hu\n", SocialSecurityNumber, PatientName, ArrivalTime, DepartureTime, Infectious, seatingNumber);
-int a = 10;  //just temporary to bridge Test while not finished
-       
-       THEN("The Write has to be Preformed successfully"){
-        REQUIRE(a == 10);
-       }
 
-        }// END WHEN
-    }// End GIVEN
- }//END SCENARIO
-                    
-
+                  
 
     // Closing the file Stream and error handeling
     if (fclose(file)){
@@ -58,7 +43,17 @@ int a = 10;  //just temporary to bridge Test while not finished
     return 0;
 }  //End WriteParameterData Function
 
+/*
+to main for testing
 
+//michi
+writePatientData(332146, "Hans", "19:00", "20:00", 'Y', 7);
+return 0;
+//michi end 
+
+
+
+*/
 
 
 
