@@ -9,7 +9,8 @@ project (hospital14)
 set (INCLUDE 
 "../include")
 
-add_executable ( hospital14
+add_executable (
+hospital14
 main.cpp
 dateFunctions.cpp
 CSV_read.cpp
@@ -18,6 +19,10 @@ CSV_write.cpp
 
 
 find_package(Catch2 REQUIRED)
+
+target_link_libraries(hospital14 Catch2::Catch2)
+
+
 
 include(CTest)
 
