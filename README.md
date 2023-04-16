@@ -11,6 +11,12 @@ projekt-group14-hospital created by GitHub Classroom
 * changed code so it compiles on my VM
 * Working on CmakeLists
 
+> 16.04.23 -V
+new in main:
+    - enum ERROR_CODES
+    - struct patientRecord
+    - menu function
+
 ## Currently Working on
 
 ## General Information
