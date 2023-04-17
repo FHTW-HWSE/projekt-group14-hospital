@@ -4,10 +4,28 @@
  
 
 
-int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], char ArrivalTime[MAX_TIMESTRING_LENGTH],
-                    char DepartureTime[MAX_TIMESTRING_LENGTH],char Infectious, unsigned short int seatingNumber){
+int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], int ArrivalTime,
+                    int DepartureTime,char Infectious, unsigned short int seatingNumber){
 
 
+
+char ArrivalTimeStr[MAX_TIMESTRING_LENGTH];
+ char DepartureTimeStr[MAX_TIMESTRING_LENGTH];
+
+
+//convert int to string area
+//untested!!
+int result = snprintf(ArrivalTimeStr, MAX_TIMESTRING_LENGTH, "%i", ArrivalTime);
+if (result < 0 || result >= MAX_TIMESTRING_LENGTH) {
+  fprintf(stderr,"\nERROR Converting int to string!\nError ID: %i\n", E_CONVERTING_INT_TO_STRING);
+        return -1;
+}
+
+result = snprintf(DepartureTimeStr, MAX_TIMESTRING_LENGTH, "%i", DepartureTime);
+if (result < 0 || result >= MAX_TIMESTRING_LENGTH) {
+  fprintf(stderr,"\nERROR Converting int to string!\nError ID: %i\n", E_CONVERTING_INT_TO_STRING);
+        return -1;
+}
 
     // Opening File Stream
     //r+ so can also read from the file if last entery is newling
@@ -16,7 +34,7 @@ int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PAT
 
     // Error Handeling if file could not be opened
     if (file == NULL){
-        fprintf(stderr,"\nERROR opening the CSV File\nError ID: %i\n\n", E_OPENING_CSV_FILE);
+        fprintf(stderr,"\nERROR opening the CSV File\nError ID: %i\n", E_OPENING_CSV_FILE);
         return -1;
     }
 
@@ -29,13 +47,13 @@ int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PAT
     }
 
     //hu is unsigned short int
-    fprintf(file, "%u,%s,%s,%s,%c,%hu\n", SocialSecurityNumber, PatientName, ArrivalTime, DepartureTime, Infectious, seatingNumber);
+    fprintf(file, "%u,%s,%s,%s,%c,%hu\n", SocialSecurityNumber, PatientName, ArrivalTimeStr, DepartureTimeStr, Infectious, seatingNumber);
 
                   
 
     // Closing the file Stream and error handeling
     if (fclose(file)){
-        fprintf(stderr,"\nERROR closing the CSV-File\nError ID: %i\n\n", E_CLOSING_CSV_FILE);
+        fprintf(stderr,"\nERROR closing the CSV-File\nError ID: %i\n", E_CLOSING_CSV_FILE);
         return -1;
     }
 
