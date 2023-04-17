@@ -1,6 +1,7 @@
 #pragma once
 
 #include <time.h>
+#include <stdio.h>
 
 //format of date/time
 //iso 8601: YYYY-MM-DDThh:mm:ss, fff
