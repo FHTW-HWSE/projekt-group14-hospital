@@ -1,6 +1,5 @@
 #include "../include/dateFunctions.h"
 #include <time.h>
-#include <stdio.h>
 
 
 int getTime() {
@@ -12,10 +11,12 @@ int getTime() {
     timeInfo = localtime(&now);
     hour = timeInfo->tm_hour;
     minute = timeInfo->tm_min;
+    
     hour = hour*100;
+
     result = hour+minute;
 
-    return result;
+    return result; //hhmm
 }
 
 long getDate() {
@@ -34,5 +35,6 @@ long getDate() {
     month=(month+1)*100;
 
     date = year+month+day;
-    return date;
+
+    return date; //yyyymmdd
 }
