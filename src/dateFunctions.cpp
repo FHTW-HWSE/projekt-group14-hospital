@@ -1,9 +1,19 @@
 #include "../include/dateFunctions.h"
 #include <time.h>
 
+/**
+ * @brief Calculates the time in the format hhmm as an integer.
+ *
+ * @param timeInfo Pointer to a struct tm containing the time information.
+ *
+ * @return The time in the format hhmm as an integer, or -1 if timeInfo is a null pointer.
+ */
 
 int getTime(struct tm *timeInfo) {
-    
+     
+     if (timeInfo == NULL) {
+        return -1;
+    }
     int hour, minute, result;
         
     hour = timeInfo->tm_hour;

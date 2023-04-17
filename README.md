@@ -5,7 +5,10 @@ projekt-group14-hospital created by GitHub Classroom
 ## TO-DO DOCUMENTATION
 * csv Functions
 * Date Function
-
+  
+## Fragen für LV
+* allgemeine headerfile für definitionen (struct & defines)
+* unit test - wie können wir sie ausführbar machen
 ## ChangeLog
 > 14.04.23 -M
 * changed code so it compiles on my VM
@@ -16,6 +19,7 @@ new in main:
     - enum ERROR_CODES
     - struct patientRecord
     - menu function
+
 
 ## Currently Working on
 
