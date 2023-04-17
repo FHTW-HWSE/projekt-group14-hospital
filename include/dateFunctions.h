@@ -6,7 +6,7 @@
 //format of date/time
 //iso 8601: YYYY-MM-DDThh:mm:ss, fff
 
-int getTime();
+int getTime(struct tm *timeInfo);
 long getDate();
 
 /*

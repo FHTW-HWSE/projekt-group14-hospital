@@ -2,13 +2,10 @@
 #include <time.h>
 
 
-int getTime() {
-    time_t now;
+int getTime(struct tm *timeInfo) {
+    
     int hour, minute, result;
-    struct tm *timeInfo;
-
-    time(&now);
-    timeInfo = localtime(&now);
+        
     hour = timeInfo->tm_hour;
     minute = timeInfo->tm_min;
     
@@ -18,6 +15,9 @@ int getTime() {
 
     return result; //hhmm
 }
+
+
+
 
 long getDate() {
     time_t now;

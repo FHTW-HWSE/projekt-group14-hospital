@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "../include/CSV_read.h"
 #include "../include/CSV_write.h"
+#include "../include/dateFunctions.h"
 #include <catch2/catch.hpp>
 
 #define MAX_NAME_LENGTH 50
@@ -13,6 +14,7 @@ enum ERROR_CODES
     ERR_CLOSING_FILE = 6
 };
 
+/*
 typedef struct {
   int ssn;                      // Social Security Number
   char name[MAX_NAME_LENGTH];   // Patient Name
@@ -21,7 +23,7 @@ typedef struct {
   char infectious;              // Infectious[Y/N]
   int seating_number;           // Seating Number
 } PatientRecord;
- 
+ */
 
 int menu();
 const char *printErrorMsg(int error_code);
@@ -29,6 +31,17 @@ const char *printErrorMsg(int error_code);
 int main(int argc, char *argv[])
 {
 
+/*------------test für time-----------------*/
+    int myTime = 0;
+    time_t now;
+    struct tm *timeInfo;
+
+    time(&now);
+    timeInfo = localtime(&now);
+
+    myTime = getTime(timeInfo);
+    printf("\n ---- Test für time fkt (to be deleted!)\n %d \n ---- end test time\n",myTime);
+/*-----------------------------*/
    
     char *buffer = (char *)malloc(sizeof(char) * 1000);
     if (buffer == NULL){
