@@ -1,10 +1,22 @@
 #ifndef CSV_READ_H
 #define CSV_READ_H
 
+#define MAX_NAME_LENGTH 50
+#define MAX_PATIENT_SIZE 1000
+/**
+ * @brief Reads the contents of a CSV file into structs of patients
+ *
+ * @return structs of patients, 0 successful, 1 error
+ */
 
-#define MAX_FILE_SIZE 1000
+typedef struct {
+		int ssn;                      // Social Security Number
+		char name[MAX_NAME_LENGTH];   // Patient Name
+		char arrival_time[6];             // Arrival Time
+		char departure_time[6];           // Departure Time
+		char infectious;              // Infectious[Y/N]
+		int seating_number;           // Seating Number
+	} PatientRecord;
 
-char* read_csv(const char* filename);
-void write_csv(const char* filename, const char* data);
-
+int csv_read();
 #endif
