@@ -71,6 +71,19 @@ return 0;
 
 
 
+
+
+//michi
+struct tm *testTimeStruct;
+int time1 ;
+time_t now2;
+ time(&now2);
+ testTimeStruct = localtime(&now2);
+ time1 = getTime(testTimeStruct);
+printf("This is The time: %d !\n",time1);
+//writePatientData(332146, "Hans", getTime(testTimeStruct), getTime(testTimeStruct), 'Y', 7);
+return 0;
+
 */
 
 

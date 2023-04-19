@@ -9,6 +9,8 @@ project (hospital14)
 set (INCLUDE 
 "../include")
 
+
+
 add_executable (
 hospital14
 main.cpp
