@@ -1,9 +1,10 @@
+
+#include "../include/definitions.h"
+
 #ifndef CSV_WRITE_H
 #define CSV_WRITE_H
-#include "CSV_write.h"
 
-#define MAX_PATIENT_NAME 30
-#define MAX_TIMESTRING_LENGTH 10
+
 
 /*
 -Michi
@@ -31,12 +32,16 @@ E_CONVERTING_INT_TO_STRING = 202
  * @param DepartureTime
  * @param Infectious
  * @param seatingNumber
+ * @param mode sets different extra modes in which the function can be executed //default functionality mode 0
  * @return int [0 if successfull normal write] [2 if a new csv file has been created] [-1 if an error occured]
  */
 
+
+#define DEBUG_MESSAGES_WRITE_CSV 1
+
 //michi, changed to int times
-int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], int ArrivalTime,
-                    int DepartureTime,char Infectious, unsigned short int seatingNumber);
+int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], long ArrivalDateTime ,
+                    long DepartureDateTime,char Infectious, unsigned short int seatingNumber, short mode);
 
 
 
