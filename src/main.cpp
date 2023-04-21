@@ -1,30 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/CSV_read.h"
-#include "../include/CSV_write.h"
+//#include "../include/CSV_read.h"
+//#include "../include/CSV_write.h"
 #include "../include/dateFunctions.h"
+#include "../include/definitions.h"
 #include <catch2/catch.hpp>
 
-#define MAX_NAME_LENGTH 50
 
-enum ERROR_CODES
-{
-    ERR_OPENING_FILE = 4,
-    ERR_MALLOC = 5,
-    ERR_CLOSING_FILE = 6
-};
-
-/*
-typedef struct {
-  int ssn;                      // Social Security Number
-  char name[MAX_NAME_LENGTH];   // Patient Name
-  int arrival_time;             // Arrival Time
-  int departure_time;           // Departure Time
-  char infectious;              // Infectious[Y/N]
-  int seating_number;           // Seating Number
-} PatientRecord;
- */
-
+void printOutMap(int (*seatingMap)[MAP_ROWS]);
 int menu();
 const char *printErrorMsg(int error_code);
 
@@ -54,6 +37,18 @@ int main(int argc, char *argv[])
     printf("%s", buffer);
     */
 
+    /*------Initalize seating map-------*/
+    int seatingMap[MAP_ROWS][MAP_COLUMNS];
+    int num = 1;
+    for (int i = 0; i < MAP_ROWS; i++) {
+        for (int j = 0; j < MAP_COLUMNS; j++) {
+            seatingMap[i][j] = num;
+            num++;
+        }
+    }
+    printOutMap(seatingMap);
+    /*-----------------------------*/
+   
 
     menu(); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
     free(buffer);
@@ -61,6 +56,68 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+
+void printOutMap(int (*seatingMap)[MAP_ROWS]){
+
+    printf("  Seating Map\n\n"); 
+
+    for (int i = 0; i < MAP_ROWS; i++) {
+        printf("------------------------------\n|");
+        for (int j = 0; j < MAP_COLUMNS; j++) {
+            if(seatingMap[i][j] == 0){          //if 0, seat number is occupied -> print X
+                printf("  X | ");
+            }
+            else{ 
+            printf(" %2d | ", seatingMap[i][j]);
+            }
+        }
+        printf("\n");
+    }
+    printf("------------------------------\n|");
+}
+//TO DO 
+int addNewPatient(){
+
+    int checkDefault = 0;
+    printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
+    
+    printf("\nPlease enter the patients name (FORMAT: Surname Forename)\n");
+
+    printf("\nPlease press 'a' if the patient came by ambluance or 'o' if they came by themself\n");
+     while (1) {
+        int c = getchar();
+            if (getchar() != '\n') {
+                while (getchar() != '\n'); // to catch all characters if user enters too many
+            }
+        switch (c){
+
+        /***patient came by ambulance***/
+        case 'a': 
+            printf("Patient by ambulance TBD\n");
+            //TO DO Set seatingNumber to -1
+            //TO DO Set infectious to N
+            return 0;
+        /***patient came by themself***/
+        case 'o':
+            printf("Patient by themself TBD\n");
+            //TO DO getTime & Date + save
+            //TO DO ask if infectous
+            //TO DO ask seating number
+            return 0;
+        default:
+                    checkDefault++;
+                    if (checkDefault > 10) {
+                        printf("Your input could not be processed for the %dth time...\n"
+                            "closing adding new patient...\n\n\n", checkDefault);
+                        return -1;
+                    }
+                    printf("Your input could not be processed! Please enter only one character\n\n");
+                    continue;
+        }
+    }
+
+    return 0;
+}
 /**
  * @brief Displays a menu and handles user input.
  *
@@ -71,7 +128,7 @@ int main(int argc, char *argv[])
  * @return 1 if the program should be closed, -1 if an error occurred.
  */
 int menu() {
-    int static check_default = 0;
+    int static checkDefault = 0;
 
     while (1) {
         printf("You are now in the menu...\n"
@@ -91,6 +148,7 @@ int menu() {
             /***Create new patient***/
             case 'n':
                 printf("tbd Funktionsaufruf new patient\n");
+                if(addNewPatient() == 0) printf("patient saved successfully!\n");
                 break;
             /***Showing priorization list***/
             case 'p':
@@ -114,10 +172,10 @@ int menu() {
                 return 1;
             /***Default: Wrong input -> entering again menu***/
             default:
-                check_default++;
-                if (check_default > 10) {
+                checkDefault++;
+                if (checkDefault > 10) {
                     printf("Your input could not be processed for the %dth time...\n"
-                           "closing program, bye!!!\n\n\n", check_default);
+                           "closing program, bye!!!\n\n\n", checkDefault);
                     return -1;
                 }
                 printf("Your input could not be processed! Please enter only one character\n\n");

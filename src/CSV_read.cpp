@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "../include/CSV_read.h"
 
-
+// TO DO ZLATKO: definitions.h & änderung struct date & time in funktion beachten 
 
 int csv_read(){
 	

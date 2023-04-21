@@ -24,5 +24,5 @@ new in main:
 ## Currently Working on
 
 ## General Information
-* The CSV files are organised in a way that every day a new csv file is created so we only have to save the time and not the date
+* The CSV files are organised in a way that every day a new csv file is created so we only have to save the time and not the date //TO DO change
 * Distinguishing normal Patient/priority patient: seating Number -1 = priority patient => Arrived by Abulance

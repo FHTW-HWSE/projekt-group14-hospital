@@ -9,6 +9,8 @@
  * @return structs of patients, 0 successful, 1 error
  */
 
+
+// TO DO ZLATKO: definitions.h & änderung struct date & time in funktion beachten + struct PatientRecord hier löschen
 typedef struct {
 		int ssn;                      // Social Security Number
 		char name[MAX_NAME_LENGTH];   // Patient Name
