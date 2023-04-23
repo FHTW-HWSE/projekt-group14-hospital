@@ -10,7 +10,8 @@
  */
 
 
-// TO DO ZLATKO: definitions.h & änderung struct date & time in funktion beachten + struct PatientRecord hier löschen
+// TO DO ZLATKO: definitions.h & änderung struct date & time in funktion beachten + 
+// struct PatientRecord hier löschen & verkettete liste beachten
 typedef struct {
 		int ssn;                      // Social Security Number
 		char name[MAX_NAME_LENGTH];   // Patient Name

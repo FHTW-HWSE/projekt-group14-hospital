@@ -31,6 +31,12 @@ typedef struct {
   int seatingNumber;           // Seating Number
 } PatientRecord;
 
+typedef struct{
+    PatientRecord *prev;
+    PatientRecord *data;
+    PatientRecord *next;
+} PatientList;
+
 //_____End
 
 #endif
