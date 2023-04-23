@@ -7,6 +7,7 @@
 
 #define MAX_PATIENT_NAME 30
 #define MAX_DATE_TIMESTRING_LENGTH 16
+#define MAX_SOCIAL_SECURITY_NUMBER_LENGTH 10
 
 //=========================================================================Valentina
 

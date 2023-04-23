@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 //#include "../include/CSV_read.h"
-//#include "../include/CSV_write.h"
+#include "../include/CSV_write.h"
 #include "../include/dateFunctions.h"
 #include "../include/definitions.h"
 #include <catch2/catch.hpp>
+#include <string.h>
 
 
 void printOutMap(int (*seatingMap)[MAP_ROWS]);
 int menu();
 const char *printErrorMsg(int error_code);
+ int readInPatientData(int elementCount, char ** returnWord);
 
 int main(int argc, char *argv[])
 {
@@ -54,7 +56,24 @@ int main(int argc, char *argv[])
     free(buffer);
 
     return 0;
-}
+}//end main
+
+
+//// READ IN PATIENT DATA ####################################
+//general function to read in patient data
+  int readInPatientData(int elementCount, char ** returnWord){
+    int checkDefault = 0;
+ 
+    fgets(*(returnWord), elementCount+2, stdin);
+    //Error handling if user enters too many characters
+    if (*(returnWord)[elementCount - 1] != '\n') {
+        while (getchar() != '\n'); // to catch all characters if user enters too many
+        printf("Your input could not be processed! Please enter only %d characters");
+  }
+  return 0;
+  }
+
+
 
 
 void printOutMap(int (*seatingMap)[MAP_ROWS]){
@@ -75,11 +94,37 @@ void printOutMap(int (*seatingMap)[MAP_ROWS]){
     }
     printf("------------------------------\n|");
 }
+
+
+
 //TO DO 
 int addNewPatient(){
 
+//initialize patient struct to save data which will be passed to the writePatientData function
+//All the data will be temporarily saved in the struct and then passed to the writePatientData function
+    PatientRecord tempPatient = {0, "", 0, 0, 0, 0, 'N', 0};
+
     int checkDefault = 0;
     printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
+
+    
+    char tempSSNchar[MAX_SOCIAL_SECURITY_NUMBER_LENGTH+2];
+    char** tempCharAdress = &tempSSNchar;
+   
+readInPatientData(MAX_SOCIAL_SECURITY_NUMBER_LENGTH, tempCharAdress);
+sscanf(tempSSNchar, "%lu", tempPatient.ssn);
+//debug prinf tempSSNcharSSNchar
+printf("tempSSNchar: %s", tempSSNchar);
+//debug printf of the patients ssn
+printf("SSN: %lu", tempPatient.ssn);
+
+
+
+
+
+   //general function for reading in of the patient data into the struct in the same way as above
+   //int readPatientDataInput(PatientRecord *tempPatient, char *tempSSNchar, int checkDefault){
+
     
     printf("\nPlease enter the patients name (FORMAT: Surname Forename)\n");
 
@@ -94,6 +139,8 @@ int addNewPatient(){
         /***patient came by ambulance***/
         case 'a': 
             printf("Patient by ambulance TBD\n");
+
+            
             //TO DO Set seatingNumber to -1
             //TO DO Set infectious to N
             return 0;
@@ -206,3 +253,5 @@ const char *printErrorMsg(int error_code) {
         return "No error message was found\n";
     }
 }
+
+

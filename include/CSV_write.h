@@ -55,7 +55,7 @@ enum CSV_WRITE_PD_RETURNS{
 #define DEBUG_MESSAGES_WRITE_CSV 0 //set to 1 if you want to Print out Debug information
 
 //michi, changed to int times
-int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], long ArrivalDateTime ,
+int writePatientData(unsigned long SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], long ArrivalDateTime ,
                     long DepartureDateTime,char Infectious, unsigned short int seatingNumber, short mode);
 
 
