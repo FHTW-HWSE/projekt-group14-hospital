@@ -70,7 +70,7 @@ fclose(TestFileOpen);
 
                   
 
-    // Closing the file Stream and error handeling
+    // Closing the file Stream and error handling
     if (fclose(file)){
         fprintf(stderr,"\nERROR closing the CSV-File\nError ID: %i\n", E_CLOSING_CSV_FILE);
         return -1;
