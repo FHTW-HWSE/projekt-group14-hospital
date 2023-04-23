@@ -3,7 +3,7 @@
 #include <catch2/catch.hpp>
 #include <stdbool.h>
 
-extern const char* PATH_TO_PATIENT_DATA_CSV_FILE = "../programFiles/PatientData/test.csv";
+const char* PATH_TO_PATIENT_DATA_CSV_FILE = "../programFiles/PatientData/PatientDataDB.csv";
 
 int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], long ArrivalDateTime,
                     long DepartureDateTime,char Infectious, unsigned short int seatingNumber,short mode){
