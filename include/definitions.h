@@ -27,6 +27,7 @@ typedef struct {
   int arrivalTime;             // Arrival Time
   long arrivalDate;             // Arrival Date
   int departureTime;           // Departure Time
+  long departureDate;          // Departure Date
   char infectious;              // Infectious[Y/N]
   int seatingNumber;           // Seating Number
 } PatientRecord;
