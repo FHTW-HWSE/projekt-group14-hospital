@@ -5,29 +5,12 @@
 
 const char* PATH_TO_PATIENT_DATA_CSV_FILE = "../programFiles/PatientData/PatientDataDB.csv";
 
-int writePatientData(unsigned int SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], long ArrivalDateTime,
-                    long DepartureDateTime,char Infectious, unsigned short int seatingNumber,short mode){
+int writePatientData(unsigned long SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], int arrivalTime, long arrivalDate,
+                    int departureTime,long departureDate,char Infectious, unsigned short int seatingNumber,short mode){
 
 bool markerFileWasCreated = false;
 
 
-char ArrivalDateTimeStr[MAX_DATE_TIMESTRING_LENGTH];
- char DepartureDateTimeStr[MAX_DATE_TIMESTRING_LENGTH];
-
-
-//convert int to string area
-//untested!!
-int result = snprintf(ArrivalDateTimeStr, MAX_DATE_TIMESTRING_LENGTH, "%ld", ArrivalDateTime);
-if (result < 0 || result >= MAX_DATE_TIMESTRING_LENGTH) {
-  fprintf(stderr,"\nERROR Converting int to string!\nError ID: %l\n", E_CONVERTING_INT_TO_STRING);
-        return -1;
-}
-
-result = snprintf(DepartureDateTimeStr, MAX_DATE_TIMESTRING_LENGTH, "%ld", DepartureDateTime);
-if (result < 0 || result >= MAX_DATE_TIMESTRING_LENGTH) {
-  fprintf(stderr,"\nERROR Converting int to string!\nError ID: %l\n", E_CONVERTING_INT_TO_STRING);
-        return -1;
-}
 
 //Testing if Requested File existes, if not creating it
 FILE * TestFileOpen = fopen(PATH_TO_PATIENT_DATA_CSV_FILE, "r");
@@ -66,7 +49,7 @@ fclose(TestFileOpen);
 
 // ########  Print into File     ####################
     //hu is unsigned short int
-    fprintf(file, "%u,%s,%s,%s,%c,%hu\n", SocialSecurityNumber, PatientName, ArrivalDateTimeStr, DepartureDateTimeStr, Infectious, seatingNumber);
+    fprintf(file, "%lu,%s,%i,%l,%i,%l,%c,%hu\n", SocialSecurityNumber, PatientName, arrivalDate, arrivalTime, departureDate, departureTime, Infectious, seatingNumber);
 
                   
 
