@@ -41,14 +41,34 @@ fclose(TestFileOpen);
         return -1;
     }
 
+
+  //var for formatting function
+  int lastChar;
+
+
+    //check if the file is empty to skipp the following formatting code
+    char test = getc(file);
+    if (test == EOF){
+      fseek(file, -1, SEEK_CUR);
+      goto skippedFormating;
+    } else {
+      fseek(file, -1, SEEK_CUR);
+    }
+
+
+// FORMATTING FUNCTION
 //so output is correctly formatted even if Manually entered entry doesn't contain \n
  // Check if the last line is empty
     fseek(file, -1, SEEK_END);
-    int lastChar = fgetc(file);
+     lastChar = fgetc(file);
     if (lastChar != '\n') {
         // If the last line is not empty, add a new line before writing data
         fprintf(file, "\n");
     }
+
+
+//label to skip the formatting code if the file is empty
+skippedFormating:
 
 // ########  Print into File     ####################
     //hu is unsigned short int
@@ -71,50 +91,21 @@ fclose(TestFileOpen);
     return 0;
 }  //End WriteParameterData Function
 
+
+
+//Test for main to copy
 /*
-to main for testing
-
-//michi
-writePatientData(332146, "Hans", "19:00", "20:00", 'Y', 7);
+// Test Writefunction Michi
+writePatientData(
+    1234567890,
+    "Abed",
+    1236,
+    12345677,
+    1234,
+    12345676,
+    'Y',
+    123,
+    0
+    );
 return 0;
-//michi end 
-
-
-
-
-
-//michi
-struct tm *testTimeStruct;
-int time1 ;
-time_t now2;
- time(&now2);
- testTimeStruct = localtime(&now2);
- time1 = getTime(testTimeStruct);
-printf("This is The time: %d !\n",time1);
-//writePatientData(332146, "Hans", getTime(testTimeStruct), getTime(testTimeStruct), 'Y', 7);
-return 0;
-
 */
-
-
-
-
-/*
-FIZZBUZ examle code
-
-SCENARIO("FizzBuzz Specification") 
-{
-  GIVEN("A number that is divisible by three and not by five") 
-  {
-    auto const number = GENERATE(3, 6, 9, 42, 3003);
-    WHEN("its FizzBuzz representation is calculated") 
-    {
-      auto const result = fizzbuzz(number);
-      THEN("the result is 'Fizz'") 
-      { 
-        REQUIRE(result == "Fizz"); 
-      }
-    }
-  }
-
-  */
