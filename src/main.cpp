@@ -16,6 +16,24 @@ const char *printErrorMsg(int error_code);
 int main(int argc, char *argv[])
 {
 
+/*
+// Test Writefunction Michi
+writePatientData(
+    1234567890,
+    "Abed",
+    1236,
+    12345677,
+    1234,
+    12345676,
+    'Y',
+    123,
+    0
+    );
+return 0;
+*/
+
+
+
 /*------------test für time-----------------*/
     int myTime = 0;
     time_t now;
@@ -107,18 +125,19 @@ int addNewPatient(){
     int checkDefault = 0;
     printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
 
-    
-    char tempSSNchar[MAX_SOCIAL_SECURITY_NUMBER_LENGTH+2];
-    char** tempCharAdress = &tempSSNchar;
+
+/*  completely fucked -michi
+char temChar[12] = "0000000000";
+    char* tempCharAdress[MAX_SOCIAL_SECURITY_NUMBER_LENGTH+2] = &temChar;
    
 readInPatientData(MAX_SOCIAL_SECURITY_NUMBER_LENGTH, tempCharAdress);
-sscanf(tempSSNchar, "%lu", tempPatient.ssn);
+sscanf(*tempCharAdress, "%lu", tempPatient.ssn);
 //debug prinf tempSSNcharSSNchar
-printf("tempSSNchar: %s", tempSSNchar);
+printf("tempSSNchar: %s", *tempCharAdress);
 //debug printf of the patients ssn
-printf("SSN: %lu", tempPatient.ssn);
+printf("SSN: %lu", tempPatient.ssn);l
 
-
+*/
 
 
 

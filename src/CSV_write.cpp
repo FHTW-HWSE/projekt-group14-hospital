@@ -3,6 +3,9 @@
 #include <catch2/catch.hpp>
 #include <stdbool.h>
 
+
+//TODO case first entry to db so no new \n at start of file
+
 const char* PATH_TO_PATIENT_DATA_CSV_FILE = "../programFiles/PatientData/PatientDataDB.csv";
 
 int writePatientData(unsigned long SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], int arrivalTime, long arrivalDate,
