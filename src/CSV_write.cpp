@@ -72,7 +72,16 @@ skippedFormating:
 
 // ########  Print into File     ####################
     //hu is unsigned short int
-    fprintf(file, "%lu,%s,%i,%l,%i,%l,%c,%hu\n", SocialSecurityNumber, PatientName, arrivalDate, arrivalTime, departureDate, departureTime, Infectious, seatingNumber);
+    fprintf(file, "%lu,%s,%i,%i,%i,%i,%c,%hu\n",
+    SocialSecurityNumber,
+     PatientName,
+      arrivalTime,
+       arrivalDate,
+        departureTime,
+         departureDate,         
+           Infectious,
+            seatingNumber
+            );
 
                   
 

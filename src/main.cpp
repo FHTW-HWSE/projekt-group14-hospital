@@ -16,21 +16,21 @@ const char *printErrorMsg(int error_code);
 int main(int argc, char *argv[])
 {
 
-/*
+
 // Test Writefunction Michi
 writePatientData(
     1234567890,
-    "Abed",
+    "Hans",
     1236,
-    12345677,
+    1234587,
     1234,
-    12345676,
+    1234578,
     'Y',
     123,
-    0
+    1
     );
 return 0;
-*/
+
 
 
 
