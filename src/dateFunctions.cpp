@@ -1,5 +1,5 @@
 #include "../include/dateFunctions.h"
-#include <time.h>
+#include "../include/definitions.h"
 
 /**
  * @brief Calculates the time in the format hhmm as an integer.
@@ -47,4 +47,48 @@ long getDate() {
     date = year+month+day;
 
     return date; //yyyymmdd
+}
+
+PatientRecord* searchPatientInCSV(unsigned long ssn) {
+  FILE* fp = fopen("../programFiles/PatientData/PatientDataDB.csv", "r");
+  if (fp == NULL) {
+    printf("Error: Could not open file ../programFiles/PatientData/PatientDataDB.csv\n");
+    return NULL;
+  }
+
+  char line[100];
+  PatientRecord* patient = NULL;
+  while (fgets(line, sizeof(line), fp) != NULL) {
+    char* ssnStr = strtok(line, ",");
+    if (ssn == atol(ssnStr)) {
+      patient = (PatientRecord*) malloc(sizeof(PatientRecord));
+      patient->ssn = ssn;
+
+      char* name = strtok(NULL, ",");
+      strcpy(patient->name, name);
+
+      char* arrivalTimeStr = strtok(NULL, ",");
+      patient->arrivalTime = atoi(arrivalTimeStr);
+
+      char* arrivalDateStr = strtok(NULL, ",");
+      patient->arrivalDate = atol(arrivalDateStr);
+
+      char* departureTimeStr = strtok(NULL, ",");
+      patient->departureTime = atoi(departureTimeStr);
+
+      char* departureDateStr = strtok(NULL, ",");
+      patient->departureDate = atol(departureDateStr);
+
+      char* infectiousStr = strtok(NULL, ",");
+      patient->infectious = infectiousStr[0];
+
+      char* seatingNumberStr = strtok(NULL, ",");
+      patient->seatingNumber = atoi(seatingNumberStr);
+
+      break;
+    }
+  }
+
+  fclose(fp);
+  return patient;
 }
