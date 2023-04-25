@@ -31,7 +31,6 @@ typedef struct {
 		long departureDate;           // Departure Date
 		char infectious;              // Infectious[Y/N]
 		int seatingNumber;            // Seating Number
-		struct PatientRecord *next;
 	} PatientRecord;
 
 typedef struct{

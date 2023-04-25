@@ -7,7 +7,7 @@
 #include <catch2/catch.hpp>
 #include <string.h>
 
-#pragma region delaration of all functions
+#pragma region declaration of all functions
 void printOutMap(int (*seatingMap)[MAP_ROWS]);
 /**
  * @brief Displays a menu and handles user input.
@@ -48,26 +48,12 @@ printf("Departure Time: %d\n", patienttest->departureTime);
 printf("Departure Date: %ld\n", patienttest->departureDate);
 printf("Infectious: %c\n", patienttest->infectious);
 printf("Seating Number: %d\n", patienttest->seatingNumber);
-return 0;
-
-/* Test Writefunction Michi
-writePatientData(
-    1234567890,
-    "Hans",
-    1236,
-    1234587,
-    1234,
-    1234578,
-    'Y',
-    123,
-    1
-    );
-return 0;*/
+//return 0;
 
 
 
 #pragma region test for time func
-/*------------test für time-----------------*/
+/*------------test für time-----------------
     int myTime = 0;
     time_t now;
     struct tm *timeInfo;
@@ -77,6 +63,8 @@ return 0;*/
 
     myTime = getTime(timeInfo);
     printf("\n ---- Test für time fkt (to be deleted!)\n %d \n ---- end test time\n",myTime);
+
+    */
 #pragma endregion
    
     char *buffer = (char *)malloc(sizeof(char) * 1000);
@@ -111,7 +99,7 @@ return 0;*/
 
 #pragma endregion MAIN
 
-
+/*
 //// READ IN PATIENT DATA ####################################
 //general function to read in patient data
   int readInPatientData(int elementCount, char ** returnWord){
@@ -126,7 +114,7 @@ return 0;*/
   return 0;
   }
 
-
+*/
 
 
 void printOutMap(int (*seatingMap)[MAP_ROWS]){
@@ -151,7 +139,7 @@ void printOutMap(int (*seatingMap)[MAP_ROWS]){
 //maybe some splitting up would be nice haha :(
 // no idea if it works, TBC
 int addNewPatient() {
-    PatientRecord tempPatient = {0, "", 0, 0, 0, 0, 'N', 0};
+    PatientRecord tempPatient = {0, "x", 0,0,0,0, 'N'};
     
     bool seatTaken[MAP_ROWS * MAP_COLUMNS] = {false};
 
