@@ -9,11 +9,15 @@
  * @return The time in the format hhmm as an integer, or -1 if timeInfo is a null pointer.
  */
 
-int getTime(struct tm *timeInfo) {
-     
-     if (timeInfo == NULL) {
-        return -1;
-    }
+int getTime() {
+    
+    time_t now;
+    struct tm *timeInfo;
+
+    time(&now);
+    timeInfo = localtime(&now);
+
+    
     int hour, minute, result;
         
     hour = timeInfo->tm_hour;

@@ -37,48 +37,8 @@ int readInPatientData(int elementCount, char ** returnWord);
 int main(int argc, char *argv[])
 {
 
-PatientRecord* patienttest;
-
-patienttest = searchPatientInCSV(1234567890);
-printf("SSN: %lu\n", patienttest->ssn);
-printf("Name: %s\n", patienttest->name);
-printf("Arrival Time: %d\n", patienttest->arrivalTime);
-printf("Arrival Date: %ld\n", patienttest->arrivalDate);
-printf("Departure Time: %d\n", patienttest->departureTime);
-printf("Departure Date: %ld\n", patienttest->departureDate);
-printf("Infectious: %c\n", patienttest->infectious);
-printf("Seating Number: %d\n", patienttest->seatingNumber);
-//return 0;
-
-
-
-#pragma region test for time func
-/*------------test für time-----------------
-    int myTime = 0;
-    time_t now;
-    struct tm *timeInfo;
-
-    time(&now);
-    timeInfo = localtime(&now);
-
-    myTime = getTime(timeInfo);
-    printf("\n ---- Test für time fkt (to be deleted!)\n %d \n ---- end test time\n",myTime);
-
-    */
-#pragma endregion
-   
-    char *buffer = (char *)malloc(sizeof(char) * 1000);
-    if (buffer == NULL){
-       fprintf(stderr, "%s", printErrorMsg(ERR_MALLOC));
-       return 1;
-    }
-
-    /* TODO new functions... 
-    buffer = read_csv("test.csv"); 
-    printf("%s", buffer);
-    */
-
-    /*------Initalize seating map-------*/
+    #pragma region SEATING MAP
+    //Initalize seating map
     int seatingMap[MAP_ROWS][MAP_COLUMNS];
     int num = 1;
     for (int i = 0; i < MAP_ROWS; i++) {
@@ -87,34 +47,18 @@ printf("Seating Number: %d\n", patienttest->seatingNumber);
             num++;
         }
     }
-    printOutMap(seatingMap);
-    /*-----------------------------*/
-   
 
+    //seatingMap[2][3] = 0;
+    printOutMap(seatingMap);
+   #pragma endregion
+   
     menu(); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
-    free(buffer);
 
     return 0;
-}//end main
+}
 
 #pragma endregion MAIN
 
-/*
-//// READ IN PATIENT DATA ####################################
-//general function to read in patient data
-  int readInPatientData(int elementCount, char ** returnWord){
-    int checkDefault = 0;
- 
-    fgets(*(returnWord), elementCount+2, stdin);
-    //Error handling if user enters too many characters
-    if (*(returnWord)[elementCount - 1] != '\n') {
-        while (getchar() != '\n'); // to catch all characters if user enters too many
-        printf("Your input could not be processed! Please enter only %d characters");
-  }
-  return 0;
-  }
-
-*/
 
 
 void printOutMap(int (*seatingMap)[MAP_ROWS]){
@@ -145,7 +89,7 @@ int addNewPatient() {
 
     int checkDefault = 0;
     printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
-
+//TODO CHECK IF SSN DOUBLE
     while (scanf("%lu", &tempPatient.ssn) != 1) {
         printf("Invalid input. Please enter a valid social security number (FORMAT: 0000YYMMDD):\n");
         while (getchar() != '\n');
@@ -197,10 +141,12 @@ int addNewPatient() {
                 tempPatient.infectious = 'N';
                 break;
             case 'o':
-                printf("Patient by themself TBD\n");
-                // TO DO: getTime & Date + save
-                // TO DO: ask seating number
+                printf("Patient came by themself - current time & date has been saved!\n");
 
+                tempPatient.arrivalTime = getTime();
+                tempPatient.arrivalDate = getDate();
+
+                // TO DO: check if seat is already taken
                 printf("\nPlease enter the seating number (1-%d):\n", MAP_ROWS * MAP_COLUMNS);
                     while (1) {
                         int result = scanf("%d", &tempPatient.seatingNumber);
@@ -232,6 +178,15 @@ int addNewPatient() {
         break;
     }
 
+    writePatientData(tempPatient.ssn, 
+    tempPatient.name, 
+    tempPatient.arrivalTime, 
+    tempPatient.arrivalDate, 
+    tempPatient.departureTime, 
+    tempPatient.departureDate, 
+    tempPatient.infectious, 
+    tempPatient.seatingNumber, 
+    0);
     // TODO Write tempPatient to file
     // writePatientData(tempPatient);
 /*TESTPRINT*/
@@ -250,9 +205,6 @@ int addNewPatient() {
 
     return 0;
 }
-
-
-
 
 
 
@@ -312,8 +264,6 @@ int menu() {
         }
     }
 }
-
-
 
 
 const char *printErrorMsg(int error_code) {

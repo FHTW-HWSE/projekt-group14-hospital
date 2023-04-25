@@ -9,7 +9,7 @@
 //format of date/time
 //iso 8601: YYYY-MM-DDThh:mm:ss, fff
 
-int getTime(struct tm *timeInfo);
+int getTime();
 long getDate();
 PatientRecord* searchPatientInCSV(unsigned long ssn);
 
