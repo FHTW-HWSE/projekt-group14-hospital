@@ -37,10 +37,14 @@ int readInPatientData(int elementCount, char ** returnWord);
 int main(int argc, char *argv[])
 {
 
-    PatientList * HEAD = NULL;
+    PatientList * HEAD = (PatientList *)malloc(sizeof(PatientList));
+    HEAD->next = NULL;
     csv_read(HEAD);
+    printf("after csv_read\n");
     printList(HEAD);
+    printf("after printList\n");
     freeLinkedList(HEAD);
+    printf("after freeLinkedList\n");
     return 23;
 
     #pragma region SEATING MAP

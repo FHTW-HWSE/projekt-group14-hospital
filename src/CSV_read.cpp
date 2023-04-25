@@ -40,21 +40,24 @@ int csv_read(PatientList * HEAD) {
         }
 
 		//###### Create Linked List Area ########
+
+	//following element case
+			if (HEAD->next != NULL){
+				lastElement->next = listElement;
+				listElement->next =NULL;
+				listElement->data = newPatient;
+				lastElement = listElement;
+			}
+
 			//IF first element case
-			if (HEAD == NULL){
+			if (HEAD->next == NULL){
 				HEAD->next = listElement;
 				listElement->next =NULL;
 				listElement->data = newPatient;
 				lastElement = listElement;
 			}
 
-			//following element case
-			if (HEAD != NULL){
-				lastElement->next = listElement;
-				listElement->next =NULL;
-				listElement->data = newPatient;
-				lastElement = listElement;
-			}
+		
 			
 
        
@@ -134,7 +137,7 @@ void printList(PatientList * HEAD){
        "Departure Time: %d\n"
        "Departure Date: %ld\n"
        "Infectious: %c\n"
-       "Seating Number: %d\n",
+       "Seating Number: %d\n\n\n",
        tempElement->data->ssn, tempElement->data->name, tempElement->data->arrivalTime, tempElement->data->arrivalDate,
        tempElement->data->departureTime, tempElement->data->departureDate, tempElement->data->infectious, tempElement->data->seatingNumber);
 
