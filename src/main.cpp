@@ -7,12 +7,33 @@
 #include <catch2/catch.hpp>
 #include <string.h>
 
-
+#pragma region delaration of all functions
 void printOutMap(int (*seatingMap)[MAP_ROWS]);
+/**
+ * @brief Displays a menu and handles user input.
+ *
+ * This function displays a menu with several options and waits for the user to input a single character to select an option.
+ * Depending on the selected option, a corresponding function is called or an error message is displayed.
+ * This function continues to display the menu until the user selects the "quit" option or an error occurs.
+ *
+ * @return 1 if the program should be closed, -1 if an error occurred.
+ */
 int menu();
+/**
+ * @brief The declaration of error messages
+ *
+ * Depending on enum error it prints out the correct error message
+ *
+ * @param check enum error code
+ *
+ * @return  string, containing the correct messages
+ */
 const char *printErrorMsg(int error_code);
- int readInPatientData(int elementCount, char ** returnWord);
+int readInPatientData(int elementCount, char ** returnWord);
+#pragma endregion
 
+
+#pragma region MAIN
 int main(int argc, char *argv[])
 {
 
@@ -45,7 +66,7 @@ return 0;*/
 
 
 
-
+#pragma region test for time func
 /*------------test für time-----------------*/
     int myTime = 0;
     time_t now;
@@ -56,7 +77,7 @@ return 0;*/
 
     myTime = getTime(timeInfo);
     printf("\n ---- Test für time fkt (to be deleted!)\n %d \n ---- end test time\n",myTime);
-/*-----------------------------*/
+#pragma endregion
    
     char *buffer = (char *)malloc(sizeof(char) * 1000);
     if (buffer == NULL){
@@ -87,6 +108,8 @@ return 0;*/
 
     return 0;
 }//end main
+
+#pragma endregion MAIN
 
 
 //// READ IN PATIENT DATA ####################################
@@ -125,86 +148,126 @@ void printOutMap(int (*seatingMap)[MAP_ROWS]){
     printf("------------------------------\n|");
 }
 
-
-
-//TO DO 
-int addNewPatient(){
-
-//initialize patient struct to save data which will be passed to the writePatientData function
-//All the data will be temporarily saved in the struct and then passed to the writePatientData function
+//maybe some splitting up would be nice haha :(
+// no idea if it works, TBC
+int addNewPatient() {
     PatientRecord tempPatient = {0, "", 0, 0, 0, 0, 'N', 0};
+    
+    bool seatTaken[MAP_ROWS * MAP_COLUMNS] = {false};
 
     int checkDefault = 0;
     printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
 
+    while (scanf("%lu", &tempPatient.ssn) != 1) {
+        printf("Invalid input. Please enter a valid social security number (FORMAT: 0000YYMMDD):\n");
+        while (getchar() != '\n');
+    }
+    getchar(); // remove the trailing newline character
 
-/*  completely fucked -michi
-char temChar[12] = "0000000000";
-    char* tempCharAdress[MAX_SOCIAL_SECURITY_NUMBER_LENGTH+2] = &temChar;
-   
-readInPatientData(MAX_SOCIAL_SECURITY_NUMBER_LENGTH, tempCharAdress);
-sscanf(*tempCharAdress, "%lu", tempPatient.ssn);
-//debug prinf tempSSNcharSSNchar
-printf("tempSSNchar: %s", *tempCharAdress);
-//debug printf of the patients ssn
-printf("SSN: %lu", tempPatient.ssn);l
-
-*/
-
-
-
-   //general function for reading in of the patient data into the struct in the same way as above
-   //int readPatientDataInput(PatientRecord *tempPatient, char *tempSSNchar, int checkDefault){
-
-    
     printf("\nPlease enter the patients name (FORMAT: Surname Forename)\n");
+    fgets(tempPatient.name, MAX_PATIENT_NAME, stdin);
+    tempPatient.name[strcspn(tempPatient.name, "\n")] = 0; // Remove newline character from the string
+
+    int attempts = 0;
+    printf("\nIs the patient infectious? [Y/N]\n");
+    while (1) {
+        char c = getchar();
+        if (getchar() != '\n') {
+            while (getchar() != '\n'); // discard extra characters
+        }
+        switch (tolower(c)) {
+            case 'y':
+                tempPatient.infectious = 'Y';
+                break;
+            case 'n':
+                tempPatient.infectious = 'N';
+                break;
+            default:
+                attempts++;
+                if (attempts >= 3) {
+                    printf("Invalid input entered too many times. Exiting...\n");
+                    return -1;
+                }
+                printf("Invalid input! Please enter 'Y' or 'N':\n");
+                continue;
+        }
+        break;
+    }
+
+
 
     printf("\nPlease press 'a' if the patient came by ambluance or 'o' if they came by themself\n");
-     while (1) {
-        int c = getchar();
-            if (getchar() != '\n') {
-                while (getchar() != '\n'); // to catch all characters if user enters too many
-            }
-        switch (c){
-
-        /***patient came by ambulance***/
-        case 'a': 
-            printf("Patient by ambulance TBD\n");
-
-            
-            //TO DO Set seatingNumber to -1
-            //TO DO Set infectious to N
-            return 0;
-        /***patient came by themself***/
-        case 'o':
-            printf("Patient by themself TBD\n");
-            //TO DO getTime & Date + save
-            //TO DO ask if infectous
-            //TO DO ask seating number
-            return 0;
-        default:
-                    checkDefault++;
-                    if (checkDefault > 10) {
-                        printf("Your input could not be processed for the %dth time...\n"
-                            "closing adding new patient...\n\n\n", checkDefault);
-                        return -1;
-                    }
-                    printf("Your input could not be processed! Please enter only one character\n\n");
-                    continue;
+    while (1) {
+        char c = getchar();
+        if (getchar() != '\n') {
+            while (getchar() != '\n');
         }
+        switch (tolower(c)) {
+            case 'a':
+                printf("Patient by ambulance TBD\n");
+                tempPatient.seatingNumber = -1;
+                tempPatient.infectious = 'N';
+                break;
+            case 'o':
+                printf("Patient by themself TBD\n");
+                // TO DO: getTime & Date + save
+                // TO DO: ask seating number
+
+                printf("\nPlease enter the seating number (1-%d):\n", MAP_ROWS * MAP_COLUMNS);
+                    while (1) {
+                        int result = scanf("%d", &tempPatient.seatingNumber);
+                        while (getchar() != '\n'); // discard extra characters
+
+                        if (result == 1 && tempPatient.seatingNumber >= 1 && tempPatient.seatingNumber <= (MAP_ROWS * MAP_COLUMNS)) {
+                            if (seatTaken[tempPatient.seatingNumber - 1]) {
+                                printf("Seat %d is already taken! Please enter another seating number (1-%d):\n", tempPatient.seatingNumber, MAP_ROWS * MAP_COLUMNS);
+                            } else {
+                                seatTaken[tempPatient.seatingNumber - 1] = true;
+                                break;
+                            }
+                        } else {
+                            printf("Invalid input! Please enter a valid seating number between 1 and %d:\n", MAP_ROWS * MAP_COLUMNS);
+                        }
+                    }
+
+                break;
+            default:
+                checkDefault++;
+                if (checkDefault > 10) {
+                    printf("Your input could not be processed for the %dth time...\n"
+                           "closing adding new patient...\n\n\n", checkDefault);
+                    return -1;
+                }
+                printf("Your input could not be processed! Please enter only one character\n\n");
+                continue;
+        }
+        break;
     }
+
+    // TODO Write tempPatient to file
+    // writePatientData(tempPatient);
+/*TESTPRINT*/
+    printf("Patient Record:\n"
+       "SSN: %lu\n"
+       "Name: %s\n"
+       "Arrival Time: %d\n"
+       "Arrival Date: %ld\n"
+       "Departure Time: %d\n"
+       "Departure Date: %ld\n"
+       "Infectious: %c\n"
+       "Seating Number: %d\n",
+       tempPatient.ssn, tempPatient.name, tempPatient.arrivalTime, tempPatient.arrivalDate,
+       tempPatient.departureTime, tempPatient.departureDate, tempPatient.infectious, tempPatient.seatingNumber);
+
 
     return 0;
 }
-/**
- * @brief Displays a menu and handles user input.
- *
- * This function displays a menu with several options and waits for the user to input a single character to select an option.
- * Depending on the selected option, a corresponding function is called or an error message is displayed.
- * This function continues to display the menu until the user selects the "quit" option or an error occurs.
- *
- * @return 1 if the program should be closed, -1 if an error occurred.
- */
+
+
+
+
+
+
 int menu() {
     int static checkDefault = 0;
 
@@ -261,15 +324,10 @@ int menu() {
         }
     }
 }
-/**
- * @brief The declaration of error messages
- *
- * Depending on enum error it prints out the correct error message
- *
- * @param check enum error code
- *
- * @return  string, containing the correct messages
- */
+
+
+
+
 const char *printErrorMsg(int error_code) {
     switch (error_code)
     {
