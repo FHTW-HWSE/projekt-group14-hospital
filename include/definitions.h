@@ -23,15 +23,16 @@ enum ERROR_CODES
 
 
 typedef struct {
-  unsigned long ssn;             // Social Security Number
-  char name[MAX_PATIENT_NAME];   // Patient Name
-  int arrivalTime;              // Arrival Time
-  long arrivalDate;             // Arrival Date
-  int departureTime;            // Departure Time
-  long departureDate;           // Departure Date
-  char infectious;              // Infectious[Y/N]
-  int seatingNumber;            // Seating Number
-} PatientRecord;
+		unsigned long ssn;             // Social Security Number
+		char name[MAX_PATIENT_NAME];   // Patient Name
+		int arrivalTime;              // Arrival Time
+		long arrivalDate;             // Arrival Date
+		int departureTime;            // Departure Time
+		long departureDate;           // Departure Date
+		char infectious;              // Infectious[Y/N]
+		int seatingNumber;            // Seating Number
+		struct PatientRecord *next;
+	} PatientRecord;
 
 typedef struct{
     PatientRecord *prev;
