@@ -4,65 +4,63 @@
 
 // TO DO ZLATKO: definitions.h & änderung struct date & time in funktion beachten 
 
-int csv_read(){
-	
-		//open file + error handling
-		FILE *file = fopen("test.csv", "r");
 
-		if (file == NULL) {
-			printf("Error opening file.\n");
-			return 1;
-		}
-		//create 100 patient records
-		PatientRecord Patient[100];
-		// ead= "value-counter" for iteration through the csv file
-		int read = 0;
-		// == lines/patients
-		int records = 0;
-		// read and store all infomration into the struct until eof
-		do {
+PatientRecord *csv_read() {
+	//open file + error handling
+	FILE *file = fopen("test.csv", "r");
 
-			read = fscanf(file, "%i,%49[^,],%5[^,],%5[^,],%c,%i\n",
-					&Patient[records].ssn,
-					Patient[records].name,
-					Patient[records].arrival_time,
-					Patient[records].departure_time,
-					&Patient[records].infectious,
-					&Patient[records].seating_number);
+	if (file == NULL) {
+		printf("Error opening file.\n");
+		return NULL;
+	}
 
-			// patient has 6 struct-elements, if read =6 store the following information to the next patient
-			if (read == 6)
-				records++;
+	// Declare a pointer to the head of the linked list
+	PatientRecord *head = NULL;
+	// read= "value-counter" for iteration through the csv file
+	int read = 0;
+	// read and store all information into the struct until eof
+	do {
+		//allocate memory for the list
+		PatientRecord *newPatient = malloc(sizeof(PatientRecord));
+		if (newPatient == NULL){
+        printf("Error allocating memory");
+        return NULL;
+        }
+        newPatient->next = NULL;
 
-			//if file format incorrect or eof error handling
-			if (read != 6 && !feof(file)) {
-				printf("File format incorrect.\n");
-				return 1;
+		read = fscanf(file, "%ld,%49[^,],%d,%ld,%d,%ld,%c,%d\n",
+				&newPatient->ssn, newPatient->name, &newPatient->arrivalTime,
+				&newPatient->arrivalDate, &newPatient->departureTime,
+				&newPatient->departureDate, &newPatient->infectious,
+				&newPatient->seatingNumber);
+
+		// patient has 8 struct-elements, if read =8 store the following information to the next patient
+		if (read == 8) {
+			// Add the new patient to the end of the linked list
+			if (head == NULL) {
+				head = newPatient;
+			} else {
+				PatientRecord *current = head;
+				while (current->next != NULL) {
+					current = current->next;
+				}
+				current->next = newPatient;
 			}
-			//error handling file pointer
-			if (ferror(file)) {
-				printf("Error reading file.\n");
-				return 1;
-			}
-
-		} while (!feof(file));
-
-		fclose(file);
-		//print out the patients
-		printf("\n%d records read.\n\n", records);
-		int index=1;
-		for (int i = 0; i < records; i++){
-			printf("%i: %i, %s, %s, %s, %c, %i\n",
-					index,
-					Patient[i].ssn,
-					Patient[i].name,
-					Patient[i].arrival_time,
-					Patient[i].departure_time,
-					Patient[i].infectious,
-					Patient[i].seating_number);
-			index++;
 		}
-		printf("\n");
+		//if file format incorrect or eof error handling
+		if (read != 8 && !feof(file)) {
+			printf("File format incorrect.\n");
+			return NULL;
+		}
+		//error handling file pointer
+		if (ferror(file)) {
+			printf("Error reading file.\n");
+			return NULL;
+		}
 
-		return 0;
+	} while (!feof(file));
+
+	fclose(file);
+
+	return head;
 }

@@ -1,25 +1,15 @@
+#include "../include/definitions.h"
 #ifndef CSV_READ_H
 #define CSV_READ_H
 
-#define MAX_NAME_LENGTH 50
-#define MAX_PATIENT_SIZE 1000
 /**
- * @brief Reads the contents of a CSV file into structs of patients
+ * @brief Reads the contents of a CSV file into linked list of patients
  *
- * @return structs of patients, 0 successful, 1 error
+ * @return head pointer of patients list, NULL if  error
  */
 
 
 // TO DO ZLATKO: definitions.h & änderung struct date & time in funktion beachten + 
 // struct PatientRecord hier löschen & verkettete liste beachten
-typedef struct {
-		int ssn;                      // Social Security Number
-		char name[MAX_NAME_LENGTH];   // Patient Name
-		char arrival_time[6];             // Arrival Time
-		char departure_time[6];           // Departure Time
-		char infectious;              // Infectious[Y/N]
-		int seating_number;           // Seating Number
-	} PatientRecord;
-
-int csv_read();
+PatientRecord *csv_read();
 #endif
