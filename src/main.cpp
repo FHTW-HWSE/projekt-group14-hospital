@@ -16,8 +16,20 @@ const char *printErrorMsg(int error_code);
 int main(int argc, char *argv[])
 {
 
+PatientRecord* patienttest;
 
-// Test Writefunction Michi
+patienttest = searchPatientInCSV(1234567890);
+printf("SSN: %lu\n", patienttest->ssn);
+printf("Name: %s\n", patienttest->name);
+printf("Arrival Time: %d\n", patienttest->arrivalTime);
+printf("Arrival Date: %ld\n", patienttest->arrivalDate);
+printf("Departure Time: %d\n", patienttest->departureTime);
+printf("Departure Date: %ld\n", patienttest->departureDate);
+printf("Infectious: %c\n", patienttest->infectious);
+printf("Seating Number: %d\n", patienttest->seatingNumber);
+return 0;
+
+/* Test Writefunction Michi
 writePatientData(
     1234567890,
     "Hans",
@@ -29,7 +41,7 @@ writePatientData(
     123,
     1
     );
-return 0;
+return 0;*/
 
 
 
