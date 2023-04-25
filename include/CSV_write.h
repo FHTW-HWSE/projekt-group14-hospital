@@ -34,6 +34,15 @@ enum CSV_WRITE_PD_RETURNS{
 
 };
 
+/**
+ * @brief for different modes which change the behavior of the function
+ */
+enum CSV_WRITE_OPEN_MODES{
+    CSV_WRITE_MOD_WRITE_PARAMETERS_NORMAL = 0,
+    CSV_WRITE_MOD_WRITE_STRUCT_NORMAL = 1,
+    CSV_WRITE_DELETE_PATIENT = 2,
+
+};
 
 
 /**
