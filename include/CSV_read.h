@@ -11,5 +11,15 @@
 
 // TO DO ZLATKO: definitions.h & änderung struct date & time in funktion beachten + 
 // struct PatientRecord hier löschen & verkettete liste beachten
-PatientRecord *csv_read();
+int csv_read(PatientList * HEAD);
+
+
+/**
+ * @brief 
+ * 
+ * @param HEAD 
+ */
+void freeLinkedList(PatientList * HEAD);
+
+void printList(PatientList * HEAD);
 #endif

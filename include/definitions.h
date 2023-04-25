@@ -33,10 +33,10 @@ typedef struct {
 		int seatingNumber;            // Seating Number
 	} PatientRecord;
 
-typedef struct{
-    PatientRecord *prev;
+
+typedef struct PatientList{
+    PatientList *next;
     PatientRecord *data;
-    PatientRecord *next;
 } PatientList;
 
 //_____End

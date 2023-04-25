@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "../include/CSV_read.h"
+#include "../include/CSV_read.h"
 #include "../include/CSV_write.h"
 #include "../include/dateFunctions.h"
 #include "../include/definitions.h"
@@ -36,6 +36,12 @@ int readInPatientData(int elementCount, char ** returnWord);
 #pragma region MAIN
 int main(int argc, char *argv[])
 {
+
+    PatientList * HEAD = NULL;
+    csv_read(HEAD);
+    printList(HEAD);
+    freeLinkedList(HEAD);
+    return 23;
 
     #pragma region SEATING MAP
     //Initalize seating map
@@ -201,6 +207,7 @@ int addNewPatient() {
        "Seating Number: %d\n",
        tempPatient.ssn, tempPatient.name, tempPatient.arrivalTime, tempPatient.arrivalDate,
        tempPatient.departureTime, tempPatient.departureDate, tempPatient.infectious, tempPatient.seatingNumber);
+
 
 
     return 0;

@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define DEACTIVATE_FILE_HANDLING_TEST 1
+
+#if DEACTIVATE_FILE_HANDLING_TEST
 
 int main(void) {
 
@@ -20,9 +23,9 @@ int main(void) {
 	// Write the data to the file
 	int writeResult = writePatientData(SocialSecurityNumber, PatientName,
 			arrivalTime, arrivalDate, departureTime, departureDate, Infectious,
-			seatingNumber);
+			seatingNumber, 1);
 
-	if (writeResult != 0) {
+	if (writeResult != CSV_WRITE_PD_FALIED) {
 		printf("Error writing data to file.\n");
 		return 1;
 	}
@@ -46,3 +49,6 @@ int main(void) {
 	printf("The data read from the file does match the data that was written to it");
 	return 0;
 }
+
+
+#endif
