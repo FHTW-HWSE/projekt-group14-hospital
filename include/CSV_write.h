@@ -6,25 +6,22 @@
 
 #include "../include/definitions.h"
 
-
+extern const char* PATH_TO_PATIENT_DATA_CSV_FILE;
 /*
 -Michi
 Status: Finished 
-
 */
 
-
 #pragma region enums
-
 /**
  * @brief enum containing the error codes of the write CSV file
+ *        only for the error codes 
  */
 enum CSV_WRITE_PD_ERRORS{
 E_OPENING_CSV_FILE = 200,
 E_CLOSING_CSV_FILE = 201,
 E_CONVERTING_INT_TO_STRING = 202
 };
-
 /**
  * @brief enum containing the return values of the 
  */
@@ -34,12 +31,7 @@ enum CSV_WRITE_PD_RETURNS{
     CSV_WRITE_PD_FALIED = -1
 
 };
-
-
-
 #pragma endregion enums
-
-
 /**
  * @brief Function which writes a new entery into the Patient Data CSV file
  *
