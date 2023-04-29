@@ -195,8 +195,7 @@ int addNewPatient() {
     tempPatient.departureTime, 
     tempPatient.departureDate, 
     tempPatient.infectious, 
-    tempPatient.seatingNumber, 
-    0);
+    tempPatient.seatingNumber);
     // TODO Write tempPatient to file
     // writePatientData(tempPatient);
 /*TESTPRINT*/

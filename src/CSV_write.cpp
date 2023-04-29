@@ -9,12 +9,14 @@
 const char* PATH_TO_PATIENT_DATA_CSV_FILE = "../programFiles/PatientData/PatientDataDB.csv";
 
 int writePatientData(unsigned long SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], int arrivalTime, long arrivalDate,
-                    int departureTime,long departureDate,char Infectious, unsigned short int seatingNumber,short mode){
+                    int departureTime,long departureDate,char Infectious,int seatingNumber){
 
+
+//marker for if a new file was created
 bool markerFileWasCreated = false;
 
-
-
+//opening the file and checking if it exists
+#pragma region File Opening
 //Testing if Requested File existes, if not creating it
 FILE * TestFileOpen = fopen(PATH_TO_PATIENT_DATA_CSV_FILE, "r");
 //if file doesnt exist create it 
@@ -40,8 +42,10 @@ fclose(TestFileOpen);
         fprintf(stderr,"\nERROR opening the CSV File\nError ID: %i\n", E_OPENING_CSV_FILE);
         return -1;
     }
+#pragma endregion File Opening
 
-
+//forrmatting the file so the enteries are allways stored in the same format
+#pragma region File Formatting
   //var for formatting function
   int lastChar;
 
@@ -66,11 +70,15 @@ fclose(TestFileOpen);
         fprintf(file, "\n");
     }
 
-
 //label to skip the formatting code if the file is empty
 skippedFormating:
+#pragma endregion File Foramtting
 
-// ########  Print into File     ####################
+//chosing Actions depending on the chosen mode
+
+
+
+  // ########  Print into File     ####################
     //hu is unsigned short int
     fprintf(file, "%lu,%s,%i,%i,%i,%i,%c,%hu\n",
     SocialSecurityNumber,
@@ -82,6 +90,9 @@ skippedFormating:
            Infectious,
             seatingNumber
             );
+
+
+
 
                   
 

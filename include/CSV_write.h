@@ -1,9 +1,10 @@
 
-#include "../include/definitions.h"
+
 
 #ifndef CSV_WRITE_H
 #define CSV_WRITE_H
 
+#include "../include/definitions.h"
 
 
 /*
@@ -13,7 +14,7 @@ Status: Finished
 */
 
 
-
+#pragma region enums
 
 /**
  * @brief enum containing the error codes of the write CSV file
@@ -34,15 +35,9 @@ enum CSV_WRITE_PD_RETURNS{
 
 };
 
-/**
- * @brief for different modes which change the behavior of the function
- */
-enum CSV_WRITE_OPEN_MODES{
-    CSV_WRITE_MOD_WRITE_PARAMETERS_NORMAL = 0,
-    CSV_WRITE_MOD_WRITE_STRUCT_NORMAL = 1,
-    CSV_WRITE_DELETE_PATIENT = 2,
 
-};
+
+#pragma endregion enums
 
 
 /**
@@ -50,23 +45,35 @@ enum CSV_WRITE_OPEN_MODES{
  *
  * All Parameters until mode are the Patient data beeing written into the 
  * 
- * @param SocialSecurityNumber 
- * @param PatientName
- * @param ArrivalTime
- * @param DepartureTime
- * @param Infectious
- * @param seatingNumber
- * @param mode sets different extra modes in which the function can be executed //default functionality mode 0ch
- * @return int [0 if successfull normal write] [2 if a new csv file has been created] [-1 if an error occured]
+ * @param SocialSecurityNumber Social Security Number of the Patient
+ * @param PatientName Name of the Patient
+ * @param arrivalTime Time of arrival of the Patient
+ * @param arrivalDate Date of arrival of the Patient
+ * @param departureTime Time of departure of the Patient
+ * @param departureDate Date of departure of the Patient
+ * @param Infectious Infectiousness of the Patient
+ * @param seatingNumber Seating Number of the Patient
+ * @return see enum CSV_WRITE_PD_RETURNS
  */
 
 
 #define DEBUG_MESSAGES_WRITE_CSV 0 //set to 1 if you want to Print out Debug information
 
+
 //michi, changed to int times
 int writePatientData(unsigned long SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], int arrivalTime, long arrivalDate,
-                    int departureTime,long departureDate,char Infectious, unsigned short int seatingNumber, short mode);
+                    int departureTime,long departureDate,char Infectious,int seatingNumber);
 
 
+// ################### M_WRITEPATIENTDATASTRUCT  ###################
+// Macro to help you write to the CSV file using a Struct
+// just write the macro and the PATIENT struct pointer into your code and it will write the data from the Struct
+#define M_WRITEPATIENTDATASTRUCT(patientStruct)  writePatientData(patientStruct->ssn, patientStruct->name, patientStruct->arrivalTime, patientStruct->arrivalDate, \
+       patientStruct->departureTime, patientStruct->departureDate,patientStruct->infectious, patientStruct->seatingNumber);
+
+// ################### M_WRITEPATIENTDATANODE ###################
+// same as above but with a node istead of a struct
+#define M_WRITEPATIENTDATANODE(patientNode)  writePatientData(patientNode->data->ssn,patientNode->data->name,patientNode->data->arrivalTime,\
+patientNode->data->arrivalDate,patientNode->data->departureTime,patientNode->data->departureDate,patientNode->data->infectious,patientNode->data->seatingNumber);
 
 #endif
