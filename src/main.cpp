@@ -6,9 +6,19 @@
 #include "../include/definitions.h"
 #include <catch2/catch.hpp>
 #include <string.h>
+typedef struct {
+    int seatNumber;
+    bool isReserved;
+} Seat;
+
 
 #pragma region declaration of all functions
-void printOutMap(int (*seatingMap)[MAP_ROWS]);
+
+void initializeSeatingMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+bool reserveSeatByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+bool cancelReservationByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+
+void printOutMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 /**
  * @brief Displays a menu and handles user input.
  *
@@ -18,7 +28,7 @@ void printOutMap(int (*seatingMap)[MAP_ROWS]);
  *
  * @return 1 if the program should be closed, -1 if an error occurred.
  */
-int menu();
+int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 /**
  * @brief The declaration of error messages
  *
@@ -54,7 +64,9 @@ int main(int argc, char *argv[])
 
     #pragma region SEATING MAP
     //Initalize seating map
-    int seatingMap[MAP_ROWS][MAP_COLUMNS];
+    Seat seatingMap[MAP_ROWS][MAP_COLUMNS];
+    initializeSeatingMap(seatingMap);
+    /*
     int num = 1;
     for (int i = 0; i < MAP_ROWS; i++) {
         for (int j = 0; j < MAP_COLUMNS; j++) {
@@ -62,20 +74,37 @@ int main(int argc, char *argv[])
             num++;
         }
     }
-
+*/
     //seatingMap[2][3] = 0;
-    printOutMap(seatingMap);
+    //printOutMap(seatingMap);
+
    #pragma endregion
    
-    menu(); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
+    menu(seatingMap); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
 
     return 0;
 }
 
 #pragma endregion MAIN
 
+void printOutMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+    printf("  Seating Map\n\n");
 
+    for (int i = 0; i < MAP_ROWS; i++) {
+        printf("------------------------------\n|");
+        for (int j = 0; j < MAP_COLUMNS; j++) {
+            if (seatingMap[i][j].isReserved) {
+                printf("  X | ");
+            } else {
+                printf(" %2d | ", seatingMap[i][j].seatNumber);
+            }
+        }
+        printf("\n");
+    }
+    printf("------------------------------\n|");
+}
 
+/*
 void printOutMap(int (*seatingMap)[MAP_ROWS]){
 
     printf("  Seating Map\n\n"); 
@@ -94,16 +123,61 @@ void printOutMap(int (*seatingMap)[MAP_ROWS]){
     }
     printf("------------------------------\n|");
 }
+*/
+
+
+
+
+
+void initializeSeatingMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+    int seatNumber = 1;
+    for (int i = 0; i < MAP_ROWS; i++) {
+        for (int j = 0; j < MAP_COLUMNS; j++) {
+            seatingMap[i][j].seatNumber = seatNumber++;
+            seatingMap[i][j].isReserved = false;
+        }
+    }
+}
+
+bool reserveSeatByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+    for (int i = 0; i < MAP_ROWS; i++) {
+        for (int j = 0; j < MAP_COLUMNS; j++) {
+            if (seatingMap[i][j].seatNumber == seatNumber) {
+                if (!seatingMap[i][j].isReserved) {
+                    seatingMap[i][j].isReserved = true;
+                    return true;
+                }
+                break;
+            }
+        }
+    }
+    return false;
+}
+
+bool cancelReservationByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+    for (int i = 0; i < MAP_ROWS; i++) {
+        for (int j = 0; j < MAP_COLUMNS; j++) {
+            if (seatingMap[i][j].seatNumber == seatNumber) {
+                if (seatingMap[i][j].isReserved) {
+                    seatingMap[i][j].isReserved = false;
+                    return true;
+                }
+                break;
+            }
+        }
+    }
+    return false;
+}
 
 
 
 
 //maybe some splitting up would be nice haha :(
 // no idea if it works, TBC
-int addNewPatient() {
+int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     PatientRecord tempPatient = {0, "x", 0,0,0,0, 'N'};
     
-    bool seatTaken[MAP_ROWS * MAP_COLUMNS] = {false};
+    //bool seatTaken[MAP_ROWS * MAP_COLUMNS] = {false};
 
     int checkDefault = 0;
     printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
@@ -171,10 +245,10 @@ int addNewPatient() {
                         while (getchar() != '\n'); // discard extra characters
 
                         if (result == 1 && tempPatient.seatingNumber >= 1 && tempPatient.seatingNumber <= (MAP_ROWS * MAP_COLUMNS)) {
-                            if (seatTaken[tempPatient.seatingNumber - 1]) {
+                            if (reserveSeatByNumber(tempPatient.seatingNumber, seatingMap) == false) {
                                 printf("Seat %d is already taken! Please enter another seating number (1-%d):\n", tempPatient.seatingNumber, MAP_ROWS * MAP_COLUMNS);
                             } else {
-                                seatTaken[tempPatient.seatingNumber - 1] = true;
+                                reserveSeatByNumber(tempPatient.seatingNumber, seatingMap);
                                 break;
                             }
                         } else {
@@ -231,7 +305,7 @@ int addNewPatient() {
 
 
 
-int menu() {
+int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     int static checkDefault = 0;
 
     while (1) {
@@ -252,7 +326,7 @@ int menu() {
             /***Create new patient***/
             case 'n':
                 printf("tbd Funktionsaufruf new patient\n");
-                if(addNewPatient() == 0) printf("patient saved successfully!\n");
+                if(addNewPatient(seatingMap) == 0) printf("patient saved successfully!\n");
                 break;
             /***Showing priorization list***/
             case 'p':
@@ -269,6 +343,7 @@ int menu() {
             /***Display the current seating arrangements***/
             case 's':
                 printf("tbd Funktionsaufruf display the current seating arrangements\n");
+                printOutMap(seatingMap);
                 break;
             /***Close program***/
             case 'q':
