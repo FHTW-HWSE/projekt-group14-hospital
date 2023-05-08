@@ -17,6 +17,7 @@ main.cpp
 dateFunctions.cpp
 CSV_read.cpp
 CSV_write.cpp
+otherfunctions.cpp
 )
 
 

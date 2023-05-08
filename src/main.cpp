@@ -4,6 +4,7 @@
 #include "../include/CSV_write.h"
 #include "../include/dateFunctions.h"
 #include "../include/definitions.h"
+#include "../include/otherfunctions.h"
 #include <catch2/catch.hpp>
 #include <string.h>
 typedef struct {
@@ -46,6 +47,16 @@ int readInPatientData(int elementCount, char ** returnWord);
 #pragma region MAIN
 int main(int argc, char *argv[])
 {
+    /*//Test find
+    PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
+    PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
+    HEAD->next = NULL;
+    printf("abc");
+    csv_read(HEAD);
+    printf("def\n");
+    pat = findPatient(HEAD, 97);
+    printf("Name: %lu\n", pat->ssn);
+    return 0;*/
 
 #pragma region MichisMagicTestArea
 /*
