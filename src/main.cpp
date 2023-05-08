@@ -37,6 +37,8 @@ int readInPatientData(int elementCount, char ** returnWord);
 int main(int argc, char *argv[])
 {
 
+#pragma region MichisMagicTestArea
+/*
     PatientList * HEAD = (PatientList *)malloc(sizeof(PatientList));
     HEAD->next = NULL;
     csv_read(HEAD);
@@ -46,6 +48,9 @@ int main(int argc, char *argv[])
     freeLinkedList(HEAD);
     printf("after freeLinkedList\n");
     return 23;
+*/
+
+#pragma endregion MichisMagicTestArea
 
     #pragma region SEATING MAP
     //Initalize seating map
@@ -89,6 +94,9 @@ void printOutMap(int (*seatingMap)[MAP_ROWS]){
     }
     printf("------------------------------\n|");
 }
+
+
+
 
 //maybe some splitting up would be nice haha :(
 // no idea if it works, TBC
@@ -187,7 +195,10 @@ int addNewPatient() {
         }
         break;
     }
+    M_WRITEPATIENTDATASTRUCT((&tempPatient));
 
+
+/*
     writePatientData(tempPatient.ssn, 
     tempPatient.name, 
     tempPatient.arrivalTime, 
@@ -196,6 +207,8 @@ int addNewPatient() {
     tempPatient.departureDate, 
     tempPatient.infectious, 
     tempPatient.seatingNumber);
+
+    */
     // TODO Write tempPatient to file
     // writePatientData(tempPatient);
 /*TESTPRINT*/
