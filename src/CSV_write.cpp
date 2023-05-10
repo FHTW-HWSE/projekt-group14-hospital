@@ -3,10 +3,38 @@
 #include <catch2/catch.hpp>
 #include <stdbool.h>
 
-
+// Write 
 //TODO case first entry to db so no new \n at start of file
 
 const char* PATH_TO_PATIENT_DATA_CSV_FILE = "../programFiles/PatientData/PatientDataDB.csv";
+
+#pragma region Helper Functions
+// helper function to generate the string to write to the file
+// for easier testing
+char * generate_Write_String(unsigned long SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], int arrivalTime, long arrivalDate,
+                    int departureTime,long departureDate,char Infectious,int seatingNumber){
+  char * writeString = (char*)malloc(1000*sizeof(char));
+  sprintf(writeString, "%lu,%s,%i,%i,%i,%i,%c,%i\n",
+    SocialSecurityNumber,
+     PatientName,
+      arrivalTime,
+       arrivalDate,
+        departureTime,
+         departureDate,         
+           Infectious,
+            seatingNumber
+            );
+  return writeString;
+}
+
+// helper function to write a write string to the file
+void write_String_To_File(char * writeString){
+  FILE *file = fopen(PATH_TO_PATIENT_DATA_CSV_FILE, "a");
+//  fprintf(file, "%s", writeString);
+  fputs(writeString, file); // used puts so automatically uses \n
+  fclose(file);
+}
+#pragma endregion Helper Functions
 
 int writePatientData(unsigned long SocialSecurityNumber, char PatientName[MAX_PATIENT_NAME], int arrivalTime, long arrivalDate,
                     int departureTime,long departureDate,char Infectious,int seatingNumber){
@@ -76,8 +104,12 @@ skippedFormating:
 
 //chosing Actions depending on the chosen mode
 
+#pragma region File Writing
 
+//old way to write without unit test
+#if 0
 
+ old way to write without unit test
   // ########  Print into File     ####################
     //hu is unsigned short int
     fprintf(file, "%lu,%s,%i,%i,%i,%i,%c,%i\n",
@@ -90,11 +122,23 @@ skippedFormating:
            Infectious,
             seatingNumber
             );
+#endif
+
+//new way to write with unit test
+//generate the string to write to the file
+char * writeString = generate_Write_String(SocialSecurityNumber, PatientName, arrivalTime, arrivalDate, departureTime, departureDate, Infectious, seatingNumber);
+if(writeString == NULL){
+  fprintf(stderr,"\nERROR generating the write string\nError ID: %i\n", E_GENERATING_WRITE_STRING);
+  return -1;
+}
 
 
 
+//writing the string to the file
+write_String_To_File(writeString);
 
-                  
+      //freeing the memory of the write string to avoid memory leaks
+free(writeString);            
 
     // Closing the file Stream and error handling
     if (fclose(file)){
@@ -112,20 +156,3 @@ skippedFormating:
 }  //End WriteParameterData Function
 
 
-
-//Test for main to copy
-/*
-// Test Writefunction Michi
-writePatientData(
-    1234567890,
-    "Abed",
-    1236,
-    12345677,
-    1234,
-    12345676,
-    'Y',
-    123,
-    0
-    );
-return 0;
-*/

@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     return 0;*/
 
 #pragma region MichisMagicTestArea
-/*
+#if 0
     PatientList * HEAD = (PatientList *)malloc(sizeof(PatientList));
     HEAD->next = NULL;
     csv_read(HEAD);
@@ -69,7 +69,15 @@ int main(int argc, char *argv[])
     freeLinkedList(HEAD);
     printf("after freeLinkedList\n");
     return 23;
-*/
+#endif
+
+#if 0
+writePatientData(123456, "Michi", 0340,20345555, 1234, 654321, 'n', -1);
+writePatientData(123456, "Fritz", 0340,20345555, 1234, 654321, 'n', -1);
+writePatientData(123456, "Fred", 0340,20345555, 1234, 654321, 'n', -1);
+return 10;
+#endif
+
 
 #pragma endregion MichisMagicTestArea
 

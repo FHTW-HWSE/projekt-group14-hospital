@@ -20,7 +20,8 @@ Status: Finished
 enum CSV_WRITE_PD_ERRORS{
 E_OPENING_CSV_FILE = 200,
 E_CLOSING_CSV_FILE = 201,
-E_CONVERTING_INT_TO_STRING = 202
+E_CONVERTING_INT_TO_STRING = 202,
+E_GENERATING_WRITE_STRING = 203
 };
 /**
  * @brief enum containing the return values of the 
