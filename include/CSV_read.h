@@ -21,5 +21,7 @@ int csv_read(PatientList * HEAD);
  */
 void freeLinkedList(PatientList * HEAD);
 
-void printList(PatientList * HEAD);
+//old fucntion - Michi
+//void printList(PatientList * HEAD);
+
 #endif

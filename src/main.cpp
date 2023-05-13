@@ -7,6 +7,7 @@
 #include "../include/otherfunctions.h"
 #include <catch2/catch.hpp>
 #include <string.h>
+#include "../include/printFunctions.h"
 typedef struct {
     int seatNumber;
     bool isReserved;
@@ -61,10 +62,9 @@ int main(int argc, char *argv[])
 #pragma region MichisMagicTestArea
 #if 0
     PatientList * HEAD = (PatientList *)malloc(sizeof(PatientList));
-    HEAD->next = NULL;
     csv_read(HEAD);
     printf("after csv_read\n");
-    printList(HEAD);
+    printPatientList(HEAD, WHOLE);
     printf("after printList\n");
     freeLinkedList(HEAD);
     printf("after freeLinkedList\n");

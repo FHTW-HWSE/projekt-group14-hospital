@@ -123,6 +123,11 @@ void freeLinkedList(PatientList * HEAD){
 	}
 }
 
+
+/*
+
+Michi, old but works, replaced with new function
+
 //function to print the linked list
 void printList(PatientList * HEAD){
 		PatientList * tempElement = HEAD;
@@ -144,3 +149,5 @@ void printList(PatientList * HEAD){
 	
 	}
 }
+
+*/

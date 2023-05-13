@@ -11,14 +11,8 @@ set (INCLUDE
 
 
 
-add_executable (
-hospital14
-main.cpp
-dateFunctions.cpp
-CSV_read.cpp
-CSV_write.cpp
-otherfunctions.cpp
-)
+add_executable(hospital14 main.cpp dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp)
+
 
 
 find_package(Catch2 REQUIRED)
