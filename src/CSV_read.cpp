@@ -24,13 +24,7 @@ int csv_read(PatientList * HEAD) {
 	do {
 
 
-		//allocate Memory for the PatientList
-		PatientList * listElement = (PatientList *)malloc(sizeof(PatientList));
-		if (listElement == NULL){
-        printf("Error allocating memory");
-        return NULL;
-        }
-
+	
 
 		//allocate memory for the list
 		PatientRecord *newPatient = (PatientRecord*)malloc(sizeof(PatientRecord));
@@ -39,24 +33,38 @@ int csv_read(PatientList * HEAD) {
         return NULL;
         }
 
-		//###### Create Linked List Area ########
+
+PatientList * listElement;
+	//allocate Memory for the PatientList
+	if (HEAD->data != NULL){
+		 listElement = (PatientList *)malloc(sizeof(PatientList));
+		if (listElement == NULL){
+        printf("Error allocating memory");
+        return NULL;
+        }
+	}
+
+//REWRITTEN SO FIRST ELEMENT IS HEAD
+			//IF first element case
+			if (HEAD->data == NULL){
+				//HEAD->next = listElement;
+				HEAD->data = newPatient;
+			lastElement = HEAD;	
+			// skip the creation of a new list element by jupting over the following code
+			goto skip;
+			}
 
 	//following element case
-			if (HEAD->next != NULL){
+			if (HEAD->data != NULL){
 				lastElement->next = listElement;
 				listElement->next =NULL;
 				listElement->data = newPatient;
 				lastElement = listElement;
 			}
 
-			//IF first element case
-			if (HEAD->next == NULL){
-				HEAD->next = listElement;
-				listElement->next =NULL;
-				listElement->data = newPatient;
-				lastElement = listElement;
-			}
 
+// So data is only written to the first element in the first cycle
+skip:
 		
 			
 

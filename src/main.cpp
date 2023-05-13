@@ -61,13 +61,27 @@ int main(int argc, char *argv[])
 
 #pragma region MichisMagicTestArea
 #if 0
+
+
     PatientList * HEAD = (PatientList *)malloc(sizeof(PatientList));
+HEAD->data = NULL;
+HEAD->next = NULL;
+
+
+
     csv_read(HEAD);
-    printf("after csv_read\n");
-    printPatientList(HEAD, WHOLE);
-    printf("after printList\n");
+    //printf("after csv_read\n");
+   // printf("1: %p \n", HEAD);
+    //printf("2: %p \n", HEAD->next);
+   
+
+
+short retPrint = printPatientList(HEAD, SHORT);
+   printf("retPrint: %d\n", retPrint);
+
+    //printf("after printList\n");
     freeLinkedList(HEAD);
-    printf("after freeLinkedList\n");
+    //printf("after freeLinkedList\n");
     return 23;
 #endif
 
