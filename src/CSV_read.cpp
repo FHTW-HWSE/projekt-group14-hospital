@@ -10,8 +10,8 @@ int csv_read(PatientList * HEAD) {
 	FILE *file = fopen("../programFiles/PatientData/PatientDataDB.csv", "r");
 
 	if (file == NULL) {
-		printf("Error opening file.\n");
-		return NULL;
+		printErrorMsg(ERR_OPENING_FILE);
+		return -1;
 	}
 
 
@@ -29,8 +29,8 @@ int csv_read(PatientList * HEAD) {
 		//allocate memory for the list
 		PatientRecord *newPatient = (PatientRecord*)malloc(sizeof(PatientRecord));
 		if (newPatient == NULL){
-        printf("Error allocating memory");
-        return NULL;
+        printErrorMsg(ERR_MALLOC);
+        return -1;
         }
 
 
@@ -39,8 +39,8 @@ PatientList * listElement;
 	if (HEAD->data != NULL){
 		 listElement = (PatientList *)malloc(sizeof(PatientList));
 		if (listElement == NULL){
-        printf("Error allocating memory");
-        return NULL;
+        printErrorMsg(ERR_MALLOC);
+        return -1;
         }
 	}
 
@@ -108,7 +108,7 @@ skip:
 		//error handling file pointer
 		if (ferror(file)) {
 			printf("Error reading file.\n");
-			return NULL;
+			return -1;
 		}
 
 	} while (!feof(file));

@@ -5,7 +5,7 @@
 /**
  * @brief Reads the contents of a CSV file into linked list of patients
  *
- * @return head pointer of patients list, NULL if  error
+ * @return head pointer of patients list, -1 if  error
  */
 
 
