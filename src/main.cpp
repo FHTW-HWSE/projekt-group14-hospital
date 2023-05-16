@@ -1,22 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../include/definitions.h"
 #include "../include/CSV_read.h"
 #include "../include/CSV_write.h"
 #include "../include/dateFunctions.h"
-#include "../include/definitions.h"
 #include "../include/otherfunctions.h"
 #include <catch2/catch.hpp>
 #include <string.h>
 #include "../include/printFunctions.h"
-typedef struct {
-    int seatNumber;
-    bool isReserved;
-} Seat;
 
-
-#pragma region declaration of all functions
-
-#pragma endregion
 
 
 #pragma region MAIN

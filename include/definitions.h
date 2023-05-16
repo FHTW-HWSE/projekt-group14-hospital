@@ -2,7 +2,7 @@
 //=========================================================================Michi 
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
-
+#include <stdbool.h>
 
 
 #define MAX_PATIENT_NAME 30
@@ -23,7 +23,6 @@ enum ERROR_CODES
 	ERR_EMPTY_LIST_PRINTFUNCTION = 8
 };
 
-
 typedef struct {
 		unsigned long ssn;             // Social Security Number
 		char name[MAX_PATIENT_NAME];   // Patient Name
@@ -41,9 +40,16 @@ typedef struct PatientList{
     PatientRecord *data;
 } PatientList;
 
+typedef struct Seat {
+    int seatNumber;
+    bool isReserved;
+} Seat;
+
 
 void initializeSeatingMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+
 bool reserveSeatByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+
 bool cancelReservationByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 
 void printOutMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
