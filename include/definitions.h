@@ -72,7 +72,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
  *
  * @return  string, containing the correct messages
  */
-const char *printErrorMsg(int error_code);
+void printErrorMsg(int error_code);
 int readInPatientData(int elementCount, char ** returnWord);
 //_____End
 

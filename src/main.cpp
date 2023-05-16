@@ -14,18 +14,16 @@
 #pragma region MAIN
 int main(int argc, char *argv[])
 {
-    
+    /*//Test find
     PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
-    csv_read(HEAD);
-
-//TEST FIND
-/*
     PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
-    pat = findPatient(HEAD, 1234123344);
-    printf("Name: %s\n", pat->name);
-    return 0;
-*/
-    
+    HEAD->next = NULL;
+    printf("abc");
+    csv_read(HEAD);
+    printf("def\n");
+    pat = findPatient(HEAD, 97);
+    printf("Name: %lu\n", pat->ssn);
+    return 0;*/
 
 #pragma region MichisMagicTestArea
 #if 0
@@ -365,18 +363,22 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
 }
 
 
-const char *printErrorMsg(int error_code) {
+void printErrorMsg(int error_code) {
     switch (error_code)
     {
     case ERR_CLOSING_FILE:
-        return "An error occurred while closing a file\n";
+        fprintf(stderr,"An error occurred while closing a file\n");
+        return;
     case ERR_OPENING_FILE:
-        return "An error occurred while opening a file\n";
+    fprintf(stderr,"An error occurred while opening a file\n");
+        return ;
     case ERR_MALLOC:
-        return "Error allocating memory\n";
+    fprintf(stderr,"Error allocating memory\n");
+        return;
 
     default:
-        return "No error message was found\n";
+    fprintf(stderr,"No error message was found\n");
+        return ;
     }
 }
 
