@@ -14,16 +14,18 @@
 #pragma region MAIN
 int main(int argc, char *argv[])
 {
-    /*//Test find
+    
     PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
-    PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
-    HEAD->next = NULL;
-    printf("abc");
     csv_read(HEAD);
-    printf("def\n");
-    pat = findPatient(HEAD, 97);
-    printf("Name: %lu\n", pat->ssn);
-    return 0;*/
+
+//TEST FIND
+/*
+    PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
+    pat = findPatient(HEAD, 1234123344);
+    printf("Name: %s\n", pat->name);
+    return 0;
+*/
+    
 
 #pragma region MichisMagicTestArea
 #if 0
