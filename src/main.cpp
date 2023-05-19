@@ -23,10 +23,10 @@ int main(int argc, char *argv[])
     HEAD->next = NULL;
     csv_read(HEAD);
     pat = findPatient(HEAD, 97);
-    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n---neu---\n", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
-    addDeparture(HEAD, 97);
-    updateInfection(HEAD, 97);
-    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
+    //printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n---neu---\n", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
+    //addDeparture(HEAD, 97);
+    //updateInfection(HEAD, 97);
+    //printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
 
     PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
     prio = getPrioList(HEAD);

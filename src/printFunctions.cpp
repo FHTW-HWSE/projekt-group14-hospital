@@ -30,7 +30,7 @@ short printPatientList(PatientList *head, short type){
 #if PRINT_HEADER_AND_CLOSE_MESSAGE 
     printf( "\n == Patient Print ==\n\n");
     if(type == WHOLE){
-    printf("SSN\t\tName\t\t\t\tArrival Date\tArrival Time\tDeparture Date\tDeparture Time\tInfectious\tSeating Number\n\n");
+    printf("SSN\t\tName\t\t\t\tArrival Time\tArrival Date\tDeparture Time\tDeparture Date\tInfectious\tSeating Number\n\n");
     }
     if(type == SHORT){
     printf("SSN\t\tName\n\n");

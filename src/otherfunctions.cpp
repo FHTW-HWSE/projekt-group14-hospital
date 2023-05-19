@@ -60,7 +60,9 @@ PatientList* getPrioList(PatientList *head) {
             }
         }
         patient = patient->next;
-    } 
+    }
+
+    sortPatients(headPrio);
     return headPrio;
 }
 
@@ -79,6 +81,53 @@ void updateCSV(PatientList *head) {
         writePatientData(patient->data->ssn, patient->data->name, patient->data->arrivalTime, patient->data->arrivalDate, 
         patient->data->departureTime, patient->data->departureDate, patient->data->infectious, patient->data->seatingNumber);
         patient = patient->next;
+    }
+}
+
+//Sort der Prio Liste (Bubblesort LinkedList)
+void swapPatients(PatientList* a, PatientList* b) {
+    PatientRecord* temp = a->data;
+    a->data = b->data;
+    b->data = temp;
+}
+
+void sortPatients(PatientList* head) {
+    int swapped;
+    PatientList* pat;
+    PatientList* last = NULL;
+
+    if (head == NULL) {
+        return;
+    }
+
+    do {
+        swapped = 0;
+        pat = head;
+
+        while (pat->next != last) {
+            if (compare(pat->data, pat->next->data) > 0) {
+                swapPatients(pat, pat->next);
+                swapped = 1;
+            }
+            pat = pat->next;
+        }
+        last = pat;
+    } while (swapped);
+}
+
+int compare(PatientRecord* patient1, PatientRecord* patient2) {
+    if (patient1->arrivalDate < patient2->arrivalDate) {
+        return -1;
+    } else if (patient1->arrivalDate > patient2->arrivalDate) {
+        return 1;
+    } else {
+        if (patient1->arrivalTime < patient2->arrivalTime) {
+            return -1;
+        } else if (patient1->arrivalTime > patient2->arrivalTime) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
 

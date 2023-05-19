@@ -16,6 +16,11 @@ void updateInfection(PatientList *head, unsigned long soz);
 
 PatientList* getPrioList(PatientList *head);
 
+//sort prio
+void swapPatients(PatientList* a, PatientList* b);
+void sortPatients(PatientList* head);
+int compare(PatientRecord* patient1, PatientRecord* patient2);
+
 void initializeSeatingMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 
 bool reserveSeatByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
