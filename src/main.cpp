@@ -14,17 +14,17 @@
 #pragma region MAIN
 int main(int argc, char *argv[])
 {
-    /*//Test find
+    //Test find
     PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
     PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
     HEAD->next = NULL;
-    printf("abc");
     csv_read(HEAD);
-    printf("def\n");
     pat = findPatient(HEAD, 97);
-    printf("Name: %lu\n", pat->ssn);
-    return 0;*/
-
+    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\n", pat->ssn, pat->departureDate, pat->departureTime);
+    addDeparture(HEAD, 97);
+    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\n", pat->ssn, pat->departureDate, pat->departureTime);
+    return 0;
+/*
 #pragma region MichisMagicTestArea
 #if 0
 
@@ -76,13 +76,13 @@ return 10;
 */
     //seatingMap[2][3] = 0;
     //printOutMap(seatingMap);
-
+/*
 #pragma endregion
    
     menu(seatingMap); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
 
     return 0;
-}
+*/}
 
 #pragma endregion MAIN
 

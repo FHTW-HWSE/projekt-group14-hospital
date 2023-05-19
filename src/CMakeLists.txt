@@ -11,9 +11,9 @@ set (INCLUDE
 
 
 #for test but doesn't work
-add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp ../tests/test_PrintFunction_GenerateString.cpp)
+#add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp ../tests/test_PrintFunction_GenerateString.cpp)
 
-#add_executable(hospital14 main.cpp dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp )
+add_executable(hospital14 main.cpp dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp )
 
 find_package(Catch2 REQUIRED)
 
