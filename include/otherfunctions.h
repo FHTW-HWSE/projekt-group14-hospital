@@ -10,7 +10,7 @@ PatientRecord *findPatient(PatientList *head, unsigned long soz);
 
 void addDeparture(PatientList *head, unsigned long soz);
 
-void updateCSV(PatientList *head, unsigned long soz);
+void updateCSV(PatientList *head);
 
 void updateInfection(PatientList *head, unsigned long soz);
 

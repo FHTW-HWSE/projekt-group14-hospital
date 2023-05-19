@@ -27,7 +27,7 @@ void addDeparture(PatientList *head, unsigned long soz) {
     patient->departureDate = getDate();
     patient->departureTime = getTime();
 
-    updateCSV(head, soz);
+    updateCSV(head);
 }
 
 void updateInfection(PatientList *head, unsigned long soz) {
@@ -36,7 +36,7 @@ void updateInfection(PatientList *head, unsigned long soz) {
 
     if(patient->infectious == 'N') {
         patient->infectious = 'Y';
-        updateCSV(head, soz);
+        updateCSV(head);
     }
 }
 
@@ -49,7 +49,7 @@ PatientList* getPrioList(PatientList *head) {
     prio->next = NULL;
 
     while(patient != NULL) {
-        if(patient->data->seatingNumber == -1) {
+        if(patient->data->seatingNumber == -1 && patient->data->departureDate == 0) {
             if(prio->data == NULL) {
                 prio->data = patient->data;
             } else {
@@ -64,7 +64,7 @@ PatientList* getPrioList(PatientList *head) {
     return headPrio;
 }
 
-void updateCSV(PatientList *head, unsigned long soz) {
+void updateCSV(PatientList *head) {
     FILE* file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w");
     if (file == NULL) {
         printf("Fehler beim Öffnen der Datei.\n");
@@ -77,7 +77,7 @@ void updateCSV(PatientList *head, unsigned long soz) {
     //Befüllen der csv mit neuen Daten
     while (patient != NULL) {
         writePatientData(patient->data->ssn, patient->data->name, patient->data->arrivalTime, patient->data->arrivalDate, 
-        patient->data->departureTime, patient->data->arrivalDate, patient->data->infectious, patient->data->seatingNumber);
+        patient->data->departureTime, patient->data->departureDate, patient->data->infectious, patient->data->seatingNumber);
         patient = patient->next;
     }
 }
