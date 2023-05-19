@@ -14,15 +14,16 @@
 #pragma region MAIN
 int main(int argc, char *argv[])
 {
-    //Test find
+    //Test find and Departure Time/Date
     PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
     PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
+    HEAD->data = NULL;
     HEAD->next = NULL;
-    //csv_read(HEAD);
-    //pat = findPatient(HEAD, 97);
-    //printf("Name: %lu\nDepDate: %lu\nDepTime: %d\n", pat->ssn, pat->departureDate, pat->departureTime);
-    //addDeparture(HEAD, 97);
-    //printf("Name: %lu\nDepDate: %lu\nDepTime: %d\n", pat->ssn, pat->departureDate, pat->departureTime);
+    csv_read(HEAD);
+    pat = findPatient(HEAD, 97);
+    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\n", pat->ssn, pat->departureDate, pat->departureTime);
+    addDeparture(HEAD, 97);
+    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\n", pat->ssn, pat->departureDate, pat->departureTime);
     return 0;
 /*
 #pragma region MichisMagicTestArea

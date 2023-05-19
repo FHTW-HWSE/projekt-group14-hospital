@@ -26,6 +26,26 @@ void addDeparture(PatientList *head, unsigned long soz) {
 
     patient->departureDate = getDate();
     patient->departureTime = getTime();
+
+    updateCSV(head, soz);
+}
+
+void updateCSV(PatientList *head, unsigned long soz) {
+    FILE* file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w");
+    if (file == NULL) {
+        printf("Fehler beim Öffnen der Datei.\n");
+        return;
+    }
+    //Dateien schließen - aufgrund von "w" wurde der Inhalt gelöscht und wir haben ein leeres file
+    fclose(file);
+
+    PatientList* patient = head;
+    //Befüllen der csv mit neuen Daten
+    while (patient->next != NULL) {
+        writePatientData(patient->data->ssn, patient->data->name, patient->data->arrivalTime, patient->data->arrivalDate, 
+        patient->data->departureTime, patient->data->arrivalDate, patient->data->infectious, patient->data->seatingNumber);
+        patient = patient->next;
+    }
 }
 
 
