@@ -41,7 +41,7 @@ void updateCSV(PatientList *head, unsigned long soz) {
 
     PatientList* patient = head;
     //Befüllen der csv mit neuen Daten
-    while (patient->next != NULL) {
+    while (patient != NULL) {
         writePatientData(patient->data->ssn, patient->data->name, patient->data->arrivalTime, patient->data->arrivalDate, 
         patient->data->departureTime, patient->data->arrivalDate, patient->data->infectious, patient->data->seatingNumber);
         patient = patient->next;
