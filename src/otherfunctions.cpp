@@ -360,7 +360,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
         printf("You are now in the menu...\n"
                "\t- Press 'n' to create a new patient\n"
                "\t- Press 'p' to show the prioritization list\n"
-               "\t- Press 'c' to change the data of a patient\n"
+               "\t- Press 'c' to change the infectious status of a patient\n"
                "\t- Press 'i' to display infectious patients incl. seat neighbors\n"
                "\t- Press 's' to display the current seating arrangements\n"
                "\t- Press 'q' to close the program\n");
@@ -382,7 +382,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
                 break;
             /***Change patients date***/
             case 'c':
-                printf("tbd Funktionsaufruf change patient data\n");
+                printf("tbd Funktionsaufruf change infectious status\n");
                 break;
             /***Display infectious patients incl. seat neighbors***/
             case 'i':
