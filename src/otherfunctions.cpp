@@ -373,7 +373,6 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
         switch (c) {
             /***Create new patient***/
             case 'n':
-                printf("tbd Funktionsaufruf new patient\n");
                 if(addNewPatient(seatingMap) == 0) printf("patient saved successfully!\n");
                 break;
             /***Showing priorization list***/
