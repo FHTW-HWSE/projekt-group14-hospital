@@ -40,6 +40,30 @@ void updateInfection(PatientList *head, unsigned long soz) {
     }
 }
 
+PatientList* getPrioList(PatientList *head) {
+    PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *headPrio = prio;
+    PatientList *patient = head;
+
+    prio->data = NULL;
+    prio->next = NULL;
+
+    while(patient != NULL) {
+        if(patient->data->seatingNumber == -1) {
+            if(prio->data == NULL) {
+                prio->data = patient->data;
+            } else {
+                prio->next = (PatientList *)malloc(sizeof(PatientList));
+                prio = prio->next;
+                prio->data = patient->data;
+                prio->next = NULL;
+            }
+        }
+        patient = patient->next;
+    } 
+    return headPrio;
+}
+
 void updateCSV(PatientList *head, unsigned long soz) {
     FILE* file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w");
     if (file == NULL) {

@@ -14,6 +14,8 @@ void updateCSV(PatientList *head, unsigned long soz);
 
 void updateInfection(PatientList *head, unsigned long soz);
 
+PatientList* getPrioList(PatientList *head);
+
 void initializeSeatingMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 
 bool reserveSeatByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
