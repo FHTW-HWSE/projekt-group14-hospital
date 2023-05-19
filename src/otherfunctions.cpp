@@ -30,6 +30,16 @@ void addDeparture(PatientList *head, unsigned long soz) {
     updateCSV(head, soz);
 }
 
+void updateInfection(PatientList *head, unsigned long soz) {
+    PatientRecord *patient;
+    patient = findPatient(head, soz);
+
+    if(patient->infectious == 'N') {
+        patient->infectious = 'Y';
+        updateCSV(head, soz);
+    }
+}
+
 void updateCSV(PatientList *head, unsigned long soz) {
     FILE* file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w");
     if (file == NULL) {

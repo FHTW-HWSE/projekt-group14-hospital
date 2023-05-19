@@ -15,15 +15,17 @@
 int main(int argc, char *argv[])
 {
     //Test find and Departure Time/Date
+    //Test infection change
     PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
     PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
     HEAD->data = NULL;
     HEAD->next = NULL;
     csv_read(HEAD);
     pat = findPatient(HEAD, 97);
-    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\n", pat->ssn, pat->departureDate, pat->departureTime);
+    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n---neu---", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
     addDeparture(HEAD, 97);
-    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\n", pat->ssn, pat->departureDate, pat->departureTime);
+    updateInfection(HEAD, 97);
+    printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
     return 0;
 /*
 #pragma region MichisMagicTestArea
