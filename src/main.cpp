@@ -14,6 +14,46 @@
 #pragma region MAIN
 int main(int argc, char *argv[])
 {
+
+
+#pragma region MichisMagicTestArea
+
+#if 0
+
+
+    PatientList * HEAD2 = (PatientList *)malloc(sizeof(PatientList));
+HEAD2->data = NULL;
+HEAD2->next = NULL;
+
+
+
+    csv_read(HEAD2);
+    //printf("after csv_read\n");
+   // printf("1: %p \n", HEAD2);
+    //printf("2: %p \n", HEAD2->next);
+   
+
+
+short retPrint = printPatientList(HEAD2, SHORT);
+   printf("retPrint: %d\n", retPrint);
+
+    //printf("after printList\n");
+    freeLinkedList(HEAD2);
+    //printf("after freeLinkedList\n");
+    return 23;
+#endif
+
+#if 0
+writePatientData(123456, "Michi", 0340,20345555, 1234, 654321, 'n', -1);
+writePatientData(123456, "Fritz", 0340,20345555, 1234, 654321, 'n', -1);
+writePatientData(123456, "Fred", 0340,20345555, 1234, 654321, 'n', -1);
+return 10;
+#endif
+
+
+#pragma endregion MichisMagicTestArea
+
+
     //Test find and Departure Time/Date
     //Test infection change
     //Test prio list
@@ -33,42 +73,7 @@ int main(int argc, char *argv[])
     printPatientList(prio, WHOLE);
     return 0;
 */
-#pragma region MichisMagicTestArea
-/*
-#if 0
 
-
-    PatientList * HEAD = (PatientList *)malloc(sizeof(PatientList));
-HEAD->data = NULL;
-HEAD->next = NULL;
-
-
-
-    csv_read(HEAD);
-    //printf("after csv_read\n");
-   // printf("1: %p \n", HEAD);
-    //printf("2: %p \n", HEAD->next);
-   
-
-
-short retPrint = printPatientList(HEAD, SHORT);
-   printf("retPrint: %d\n", retPrint);
-
-    //printf("after printList\n");
-    freeLinkedList(HEAD);
-    //printf("after freeLinkedList\n");
-    return 23;
-#endif
-
-#if 0
-writePatientData(123456, "Michi", 0340,20345555, 1234, 654321, 'n', -1);
-writePatientData(123456, "Fritz", 0340,20345555, 1234, 654321, 'n', -1);
-writePatientData(123456, "Fred", 0340,20345555, 1234, 654321, 'n', -1);
-return 10;
-#endif
-
-*/
-#pragma endregion MichisMagicTestArea
 
 #pragma region SEATING MAP
    //Initalize seating map
