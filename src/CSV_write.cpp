@@ -1,7 +1,7 @@
 #include "../include/CSV_write.h"
-#define CONFIG_CATCH_CSV_WRITE
 #include <catch2/catch.hpp>
 #include <stdbool.h>
+#include "../include/otherfunctions.h"
 
 // Write 
 //TODO case first entry to db so no new \n at start of file
@@ -50,7 +50,7 @@ FILE * TestFileOpen = fopen(PATH_TO_PATIENT_DATA_CSV_FILE, "r");
 //if file doesnt exist create it 
 if (TestFileOpen == NULL){
   #if DEBUG_MESSAGES_WRITE_CSV 
-  printf("Status writing Patient Data: No existing database, databse was created at %s!\n",PATH_TO_PATIENT_DATA_CSV_FILE);
+  printErrorMsg(ERR_WCSV_OPENING_CSV_FILE);
   #endif
   TestFileOpen = fopen(PATH_TO_PATIENT_DATA_CSV_FILE, "w");
   fclose(TestFileOpen);
@@ -67,7 +67,7 @@ fclose(TestFileOpen);
 
     // Error Handeling if file could not be opened
     if (file == NULL){
-        fprintf(stderr,"\nERROR opening the CSV File\nError ID: %i\n", E_OPENING_CSV_FILE);
+        printErrorMsg(ERR_WCSV_OPENING_CSV_FILE);
         return -1;
     }
 #pragma endregion File Opening
@@ -128,7 +128,7 @@ skippedFormating:
 //generate the string to write to the file
 char * writeString = generate_Write_String(SocialSecurityNumber, PatientName, arrivalTime, arrivalDate, departureTime, departureDate, Infectious, seatingNumber);
 if(writeString == NULL){
-  fprintf(stderr,"\nERROR generating the write string\nError ID: %i\n", E_GENERATING_WRITE_STRING);
+  printErrorMsg(ERR_WCSV_GENERATING_WRITE_STRING);
   return -1;
 }
 
@@ -142,7 +142,7 @@ free(writeString);
 
     // Closing the file Stream and error handling
     if (fclose(file)){
-        fprintf(stderr,"\nERROR closing the CSV-File\nError ID: %i\n", E_CLOSING_CSV_FILE);
+        printErrorMsg(ERR_WCSV_CLOSING_CSV_FILE);
         return -1;
     }
 

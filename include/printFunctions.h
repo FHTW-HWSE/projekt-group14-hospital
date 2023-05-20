@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//written with test driven development in mind
 
 //Tests:
 // Pritheader and closing message definition works PASSED
@@ -13,7 +12,7 @@
 // printPatientList returns the correct number of printed patients PASSED
 // printPatientList returns -2 if the subfunction failed to generate a patient string PASSED
 
-//Further Tests in the specific test file
+//Further Tests in the test_PrintFunction_GenerateString.cpp file
 
 //definitions 
 //Types that can be passed to the printPatientList function
