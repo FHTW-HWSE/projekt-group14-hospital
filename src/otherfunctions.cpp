@@ -9,6 +9,65 @@
 #include "../include/printFunctions.h"
 #include <ctype.h>
 
+PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
+    PatientList *patient = head;
+    PatientRecord *infectpat;
+    PatientList *neighbours = (PatientList *)malloc(sizeof(PatientList));
+    //hilfsvariable
+    int seatingMin = 0;
+    int seatingMax = 0;
+
+    //get data for infected patient
+    infectpat = findPatient(head, soz);
+
+    if(infectpat->seatingNumber == -1) {
+        return NULL;
+    } else if(infectpat->seatingNumber <= 5) {
+        seatingMin = 0;
+        seatingMax = 5;
+    } else if(infectpat->seatingNumber <= 10) {
+        seatingMin = 6;
+        seatingMax = 10;
+    } else if(infectpat->seatingNumber <= 15) {
+        seatingMin = 11;
+        seatingMax = 15;
+    } else if(infectpat->seatingNumber <= 20) {
+        seatingMin = 16;
+        seatingMax = 20;
+    } else if(infectpat->arrivalDate <= 25) {
+        seatingMin = 21;
+        seatingMax = 25;
+    } else {
+        return NULL;
+    }
+
+    //very complicated code, made by a rookie
+    while (patient != NULL) {
+        if(patient->data->seatingNumber <= seatingMax && patient->data->seatingNumber >= seatingMin) {
+            long exceptionDate = 0;
+            if(infectpat->departureDate == 0) exceptionDate = getDate();
+            else exceptionDate = infectpat->departureDate;
+            if(infectpat->arrivalDate <= patient->data->arrivalDate && patient->data->arrivalDate <= exceptionDate) {
+                int exceptionTime = 0;
+                if(infectpat->departureTime == 0) exceptionTime = getTime();
+                else exceptionTime = infectpat->departureTime;
+                if(infectpat->arrivalTime <= patient->data->arrivalTime && patient->data->arrivalTime <= exceptionTime) {
+                    if(neighbours->data == NULL) {
+                        neighbours->data = patient->data;
+                    } else {
+                        neighbours->next = (PatientList *)malloc(sizeof(PatientList));
+                        neighbours = neighbours->next;
+                        neighbours->data = patient->data;
+                        neighbours->next = NULL;
+                    }
+                }
+            }
+        }
+        patient = patient->next;
+    }
+    return neighbours;
+}
+
 PatientRecord *findPatient(PatientList *head, unsigned long soz) {
     PatientList *patient = head;
     
