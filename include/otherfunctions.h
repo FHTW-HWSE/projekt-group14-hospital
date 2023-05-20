@@ -18,6 +18,8 @@ void updateInfection(PatientList *head, unsigned long soz);
 
 PatientList* getPrioList(PatientList *head);
 
+PatientList* getWaitList(PatientList *head);
+
 //sort prio
 void swapPatients(PatientList* a, PatientList* b);
 void sortPatients(PatientList* head);

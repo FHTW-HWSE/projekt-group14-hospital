@@ -55,7 +55,7 @@ return 10;
 //////////////////////////////////////
 #pragma region EmilsMagicTestArea
 
-#if 1
+#if 0
     //Test find and Departure Time/Date
     //Test infection change
     //Test prio list
@@ -84,6 +84,24 @@ return 10;
 #pragma endregion EmilsMagicTestArea
 //////////////////////////////////////
 
+#pragma region ZlatkosMagicTestArea
+
+#if 1
+    PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
+    PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
+    HEAD->data = NULL;
+    HEAD->next = NULL;
+    csv_read(HEAD);   
+    PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
+    wait = getWaitList(HEAD);
+    printPatientList(wait,WHOLE);
+    return 0;
+
+
+#endif
+
+#pragma endregion ZlatkosMagicTestArea
+//////////////////////////////////////
 //////////////////////////////////////
 #pragma region SEATING MAP
 #if 1
