@@ -482,9 +482,24 @@ void printErrorMsg(int error_code) {
     case ERR_MALLOC:
     fprintf(stderr,"Error allocating memory\n");
         return;
-
-    default:
     fprintf(stderr,"No error message was found\n");
-        return ;
+    return ;
+    case ERR_WCSV_CLOSING_CSV_FILE:
+    fprintf(stderr,"ERROR WriteCSV: the file could not be closed\n");
+    return;
+    case ERR_WCSV_OPENING_CSV_FILE:
+    fprintf(stderr,"ERROR WriteCSV: the file could not be opened\n");
+    return;
+    case ERR_WCSV_CONVERTING_INT_TO_STRING:
+    fprintf(stderr,"ERROR WriteCSV: the int could not be converted to a string\n");
+    return;
+    case ERR_WCSV_GENERATING_WRITE_STRING:
+    fprintf(stderr,"ERROR WriteCSV: the write string could not be successfully generated\n");
+    return;
+
+
+          default:
+          fprintf(stderr,"An Unknown Error has occured!\n");
+            return;
     }
 }

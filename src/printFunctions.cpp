@@ -1,6 +1,7 @@
 #include "../include/printFunctions.h"
 #include <catch2/catch.hpp>
 #include <string.h>
+#include "../include/otherfunctions.h"
 //michi
 
 
@@ -18,7 +19,7 @@ short printPatientList(PatientList *head, short type){
 
     //checks if the passed list is valid
     if(head->data == NULL ) {
-        fprintf(stderr, "Error: Empty List passed\n EID = %i\n", ERR_EMPTY_LIST_PRINTFUNCTION );
+        printErrorMsg(ERR_PRINTF_EMPTY_LIST);
         return -1;
     }
    
@@ -56,7 +57,7 @@ short retSub;
 
 //if the function returns -1 nothing was written to the buffer and the function will return -2
 if (retSub == -1){
-    fprintf(stderr, "Error: Failed to generate patient string\n EID = %i\n", ERR_GENERATING_PATIENT_STRING_PRINTFUNCTION );
+    printErrorMsg(ERR_PRINTF_GENERATING_PATIENT_STRING);
     return -2;
 }else {
     printf("%s", charBuffer); //printing the patient string
