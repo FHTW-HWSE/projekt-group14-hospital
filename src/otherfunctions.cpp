@@ -135,6 +135,32 @@ PatientList* getPrioList(PatientList *head) {
     return headPrio;
 }
 
+PatientList* getWaitList(PatientList *head) {
+    PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *headWait = wait;
+    PatientList *patient = head;
+
+    wait->data = NULL;
+    wait->next = NULL;
+
+    while(patient != NULL) {
+        if(patient->data->seatingNumber != -1 && patient->data->departureDate == 0) {
+            if(wait->data == NULL) {
+                wait->data = patient->data;
+            } else {
+                wait->next = (PatientList *)malloc(sizeof(PatientList));
+                wait = wait->next;
+                wait->data = patient->data;
+                wait->next = NULL;
+            }
+        }
+        patient = patient->next;
+    }
+
+    sortPatients(headWait);
+    return headWait;
+}
+
 void updateCSV(PatientList *head) {
     FILE* file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w");
     if (file == NULL) {
