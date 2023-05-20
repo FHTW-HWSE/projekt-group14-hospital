@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+PatientList* getSeatNeighbour(PatientList *head, unsigned long soz);
+
 PatientRecord *findPatient(PatientList *head, unsigned long soz);
 
 void addDeparture(PatientList *head, unsigned long soz);

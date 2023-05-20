@@ -13,6 +13,11 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
     PatientList *patient = head;
     PatientRecord *infectpat;
     PatientList *neighbours = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *headNeighbour = neighbours;
+
+    neighbours->data = NULL;
+    neighbours->next = NULL;
+
     //hilfsvariable
     int seatingMin = 0;
     int seatingMax = 0;
@@ -43,29 +48,31 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
 
     //very complicated code, made by a rookie
     while (patient != NULL) {
-        if(patient->data->seatingNumber <= seatingMax && patient->data->seatingNumber >= seatingMin) {
-            long exceptionDate = 0;
-            if(infectpat->departureDate == 0) exceptionDate = getDate();
-            else exceptionDate = infectpat->departureDate;
-            if(infectpat->arrivalDate <= patient->data->arrivalDate && patient->data->arrivalDate <= exceptionDate) {
-                int exceptionTime = 0;
-                if(infectpat->departureTime == 0) exceptionTime = getTime();
-                else exceptionTime = infectpat->departureTime;
-                if(infectpat->arrivalTime <= patient->data->arrivalTime && patient->data->arrivalTime <= exceptionTime) {
-                    if(neighbours->data == NULL) {
-                        neighbours->data = patient->data;
-                    } else {
-                        neighbours->next = (PatientList *)malloc(sizeof(PatientList));
-                        neighbours = neighbours->next;
-                        neighbours->data = patient->data;
-                        neighbours->next = NULL;
+        if(patient->data != infectpat) {
+            if(patient->data->seatingNumber <= seatingMax && patient->data->seatingNumber >= seatingMin) {
+                long exceptionDate = 0;
+                if(infectpat->departureDate == 0) exceptionDate = getDate();
+                else exceptionDate = infectpat->departureDate;
+                if(infectpat->arrivalDate <= patient->data->arrivalDate && patient->data->arrivalDate <= exceptionDate) {
+                    int exceptionTime = 0;
+                    if(infectpat->departureTime == 0) exceptionTime = getTime();
+                    else exceptionTime = infectpat->departureTime;
+                    if(infectpat->arrivalTime <= patient->data->arrivalTime && patient->data->arrivalTime <= exceptionTime) {
+                        if(neighbours->data == NULL) {
+                            neighbours->data = patient->data;
+                        } else {
+                            neighbours->next = (PatientList *)malloc(sizeof(PatientList));
+                            neighbours = neighbours->next;
+                            neighbours->data = patient->data;
+                            neighbours->next = NULL;
+                        }
                     }
                 }
             }
         }
         patient = patient->next;
     }
-    return neighbours;
+    return headNeighbour;
 }
 
 PatientRecord *findPatient(PatientList *head, unsigned long soz) {
