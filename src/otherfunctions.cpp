@@ -15,6 +15,7 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
     PatientList *neighbours = (PatientList *)malloc(sizeof(PatientList));
     PatientList *headNeighbour = neighbours;
 
+    //initaliserung
     neighbours->data = NULL;
     neighbours->next = NULL;
 
@@ -25,6 +26,7 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
     //get data for infected patient
     infectpat = findPatient(head, soz);
 
+    //check seating
     if(infectpat->seatingNumber == -1) {
         return NULL;
     } else if(infectpat->seatingNumber <= 5) {

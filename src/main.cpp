@@ -1,21 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <catch2/catch.hpp>
 #include "../include/definitions.h"
 #include "../include/CSV_read.h"
 #include "../include/CSV_write.h"
 #include "../include/dateFunctions.h"
 #include "../include/otherfunctions.h"
-#include <catch2/catch.hpp>
-#include <string.h>
 #include "../include/printFunctions.h"
 
 
-
 #pragma region MAIN
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 
-
+//////////////////////////////////////
 #pragma region MichisMagicTestArea
 
 #if 0
@@ -52,8 +50,12 @@ return 10;
 
 
 #pragma endregion MichisMagicTestArea
+//////////////////////////////////////
 
+//////////////////////////////////////
+#pragma region EmilsMagicTestArea
 
+#if 1
     //Test find and Departure Time/Date
     //Test infection change
     //Test prio list
@@ -77,8 +79,14 @@ return 10;
     return 0;
 */
 
+#endif
 
+#pragma endregion EmilsMagicTestArea
+//////////////////////////////////////
+
+//////////////////////////////////////
 #pragma region SEATING MAP
+#if 1
    //Initalize seating map
     Seat seatingMap[MAP_ROWS][MAP_COLUMNS];
     initializeSeatingMap(seatingMap);
@@ -94,17 +102,21 @@ return 10;
     //seatingMap[2][3] = 0;
     //printOutMap(seatingMap);
 
+#endif
 #pragma endregion
-   
+//////////////////////////////////////
+
+//////////////////////////////////////
+#pragma region REAL MAIN
+#if 0
+
+    PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
     menu(seatingMap, HEAD); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
 
-return 0;
+#endif
+#pragma endregion
+//////////////////////////////////////
 
-
+    return 0;
 }
-
 #pragma endregion MAIN
-
-
-
-

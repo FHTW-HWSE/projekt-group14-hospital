@@ -8,7 +8,7 @@
 
 int csv_read(PatientList * HEAD) {
 	//open file + error handling
-	FILE *file = fopen("../programFiles/PatientData/PatientDataDB.csv", "r");
+	FILE *file = fopen("../programFiles/PatientData/PatientDataDB.csv", "r"); //Startpoint "src/"
 
 	if (file == NULL) {
 		printErrorMsg(ERR_OPENING_FILE);
