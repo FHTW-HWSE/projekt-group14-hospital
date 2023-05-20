@@ -37,7 +37,7 @@ void printOutMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
  *
  * @return 1 if the program should be closed, -1 if an error occurred.
  */
-int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head);
 /**
  * @brief The declaration of error messages
  *

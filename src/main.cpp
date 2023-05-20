@@ -27,13 +27,14 @@ int main(int argc, char *argv[])
     //addDeparture(HEAD, 97);
     //updateInfection(HEAD, 97);
     //printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
-
+/*
     PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
     prio = getPrioList(HEAD);
     printPatientList(prio, WHOLE);
     return 0;
-/*
+*/
 #pragma region MichisMagicTestArea
+/*
 #if 0
 
 
@@ -66,7 +67,7 @@ writePatientData(123456, "Fred", 0340,20345555, 1234, 654321, 'n', -1);
 return 10;
 #endif
 
-
+*/
 #pragma endregion MichisMagicTestArea
 
 #pragma region SEATING MAP
@@ -84,13 +85,15 @@ return 10;
 */
     //seatingMap[2][3] = 0;
     //printOutMap(seatingMap);
-/*
+
 #pragma endregion
    
-    menu(seatingMap); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
+    menu(seatingMap, HEAD); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
 
-    return 0;
-*/}
+return 0;
+
+
+}
 
 #pragma endregion MAIN
 

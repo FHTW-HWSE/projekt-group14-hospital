@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../include/dateFunctions.h"
+#include "../include/printFunctions.h"
 #include <ctype.h>
 
 PatientRecord *findPatient(PatientList *head, unsigned long soz) {
@@ -174,9 +175,6 @@ void printOutMap(int (*seatingMap)[MAP_ROWS]){
 */
 
 
-
-
-
 void initializeSeatingMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     int seatNumber = 1;
     for (int i = 0; i < MAP_ROWS; i++) {
@@ -216,8 +214,6 @@ bool cancelReservationByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COL
     }
     return false;
 }
-
-
 
 
 //maybe some splitting up would be nice haha :(
@@ -353,10 +349,11 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
 
 
 
-int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
     int static checkDefault = 0;
 
     while (1) {
+        PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
         printf("You are now in the menu...\n"
                "\t- Press 'n' to create a new patient\n"
                "\t- Press 'p' to show the prioritization list\n"
@@ -378,6 +375,9 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
             /***Showing priorization list***/
             case 'p':
                 printf("tbd Funktionsaufruf display priorization list\n");
+                    
+                    prio = getPrioList(head);
+                    printPatientList(prio, WHOLE);
                 break;
             /***Change patients date***/
             case 'c':
