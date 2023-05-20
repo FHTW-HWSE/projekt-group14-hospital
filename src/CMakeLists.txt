@@ -9,21 +9,40 @@ project (hospital14)
 set (INCLUDE 
 "../include")
 
+find_package(Catch2 REQUIRED)
+include(CTest)
+include(Catch)
 
-#for test but doesn't work
-#add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp ../tests/test_PrintFunction_GenerateString.cpp)
+#set TESTING to false for normal build, and true for testing build
+set (TESTING FALSE)
 
+
+#if statement to disable the add executable when testing
+if (NOT TESTING)
+
+
+#normal build
 add_executable(hospital14 main.cpp dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp )
 
-find_package(Catch2 REQUIRED)
 
+else() 
+
+
+set(TEST_BINARY ${PROJECT_NAME}_test)
+#testing build
+add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp 
+../tests/test_PrintFunction_GenerateString.cpp 
+../tests/testMain.cpp
+)
 target_link_libraries(hospital14 Catch2::Catch2)
+catch_discover_tests(${TEST_BINARY})
+
+endif()
 
 
+#add_executable(hospital14 main.cpp dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp )
 
-include(CTest)
 
-include(Catch)
 
 
 
