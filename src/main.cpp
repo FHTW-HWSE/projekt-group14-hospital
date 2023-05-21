@@ -65,7 +65,7 @@ return 10;
     HEAD->next = NULL;
     csv_read(HEAD);
     PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
-    prio = getSeatNeighbour(HEAD, 5678567877);
+    prio = getSeatNeighbour(HEAD, 98765499);
     printPatientList(prio, WHOLE);
     return 0;
     //printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n---neu---\n", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
@@ -84,6 +84,7 @@ return 10;
 #pragma endregion EmilsMagicTestArea
 //////////////////////////////////////
 
+//////////////////////////////////////
 #pragma region ZlatkosMagicTestArea
 
 #if 0
@@ -102,6 +103,7 @@ return 10;
 
 #pragma endregion ZlatkosMagicTestArea
 //////////////////////////////////////
+
 //////////////////////////////////////
 #pragma region SEATING MAP
 #if 0

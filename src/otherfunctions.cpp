@@ -48,15 +48,18 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
         return NULL;
     }
 
-    //very complicated code, made by a rookie
+    //extremly complicated code, made by a rookie
     while (patient != NULL) {
         if(patient->data != infectpat) {
             if(patient->data->seatingNumber <= seatingMax && patient->data->seatingNumber >= seatingMin) {
-                long exceptionDate = 0;
-                if(infectpat->departureDate == 0) exceptionDate = getDate();
-                else exceptionDate = infectpat->departureDate;
-                if(infectpat->arrivalDate <= patient->data->arrivalDate && patient->data->arrivalDate <= exceptionDate) {
-                    if(patient->data->arrivalDate < exceptionDate) {
+                long infDepDate = 0;
+                long patDepDate = 0;
+                if(patient->data->departureDate == 0) patDepDate = getDate();
+                else patDepDate = patient->data->departureDate;
+                if(infectpat->departureDate == 0) infDepDate = getDate();
+                else infDepDate = infectpat->departureDate;
+                if(infectpat->arrivalDate <= patDepDate && patient->data->arrivalDate <= infDepDate) {
+                    if(patient->data->arrivalDate < infDepDate) {
                         if(neighbours->data == NULL) {
                             neighbours->data = patient->data;
                         } else {
@@ -66,10 +69,13 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
                             neighbours->next = NULL;
                         }
                     } else {
-                        int exceptionTime = 0;
-                        if(infectpat->departureTime == 0) exceptionTime = getTime();
-                        else exceptionTime = infectpat->departureTime;
-                        if(infectpat->arrivalTime <= patient->data->arrivalTime && patient->data->arrivalTime <= exceptionTime) {
+                        int infDepTime = 0;
+                        int patDepTime = 0;
+                        if(patient->data->departureTime == 0) patDepTime = getTime();
+                        else patDepTime = patient->data->departureTime;
+                        if(infectpat->departureTime == 0) patDepTime = getTime();
+                        else patDepTime = infectpat->departureTime;
+                        if(infectpat->arrivalTime <= patDepTime && patient->data->arrivalTime <= patDepTime) {
                             if(neighbours->data == NULL) {
                                 neighbours->data = patient->data;
                             } else {
@@ -173,7 +179,7 @@ PatientList* getWaitList(PatientList *head) {
 }
 
 void updateCSV(PatientList *head) {
-    FILE* file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w");
+    FILE* file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w"); //Startpoint "src/"
     if (file == NULL) {
         printf("Fehler beim Öffnen der Datei.\n");
         return;
