@@ -148,6 +148,9 @@ PatientList* getPrioList(PatientList *head) {
         patient = patient->next;
     }
 
+    //if there are no patients to prioritize, return NULL
+    if (headPrio->data == NULL) return NULL;
+    
     sortPatients(headPrio);
     return headPrio;
 }
@@ -173,6 +176,9 @@ PatientList* getWaitList(PatientList *head) {
         }
         patient = patient->next;
     }
+
+    //if there are no patients in the waiting area, return NULL
+    if (headWait->data == NULL) return NULL;
 
     sortPatients(headWait);
     return headWait;
@@ -343,7 +349,7 @@ void reserveSeatsFromPatientList(PatientList* patientList, Seat seatingMap[MAP_R
         int seatNumber = currentPatientNode->data->seatingNumber;
         
         //check that the seat number is greater than 0 and does not exceed the total number of seats
-        if (seatNumber > 0 && seatNumber <= MAP_ROWS * MAP_COLUMNS) {
+        if (seatNumber > 0 && seatNumber <= MAP_ROWS * MAP_COLUMNS && currentPatientNode->data->departureDate == 0) {
             //reserve seat
             reserveSeatByNumber(seatNumber, seatingMap);
         }
@@ -509,9 +515,12 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
 
     while (1) {
         PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
+        PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
+        
         printf("You are now in the menu...\n"
                "\t- Press 'n' to create a new patient\n"
-               "\t- Press 'p' to show the prioritization list\n"
+               "\t- Press 'p' to display the prioritization list\n"
+               "\t- Press 'w' to display the waiting area list\n"
                "\t- Press 'c' to change the infectious status of a patient\n"
                "\t- Press 'i' to display infectious patients incl. seat neighbors\n"
                "\t- Press 's' to display the current seating arrangements\n"
@@ -529,14 +538,25 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
                 break;
             /***Showing priorization list***/
             case 'p':
-                printf("tbd Funktionsaufruf display priorization list\n");
-                    
-                    prio = getPrioList(head);
+                prio = getPrioList(head);
+                if(prio == NULL) printf("There are no patients in the prioritization list!\n\n");
+                else {
+                    printf("\nPatients in the priorization list:\n");
                     printPatientList(prio, WHOLE);
+                }
                 break;
             /***Change patients date***/
             case 'c':
                 printf("tbd Funktionsaufruf change infectious status\n");
+                break;
+            /***Display patients in the waiting area***/
+            case 'w':
+                wait = getWaitList(head);
+                if(wait == NULL) printf("There are no patients in the waiting area!\n\n");
+                else {
+                    printf("\nPatients in the waiting area:\n");
+                    printPatientList(wait,WHOLE);
+                }
                 break;
             /***Display infectious patients incl. seat neighbors***/
             case 'i':

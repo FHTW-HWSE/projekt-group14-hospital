@@ -55,7 +55,7 @@ return 10;
 //////////////////////////////////////
 #pragma region EmilsMagicTestArea
 
-#if 1
+#if 0
     //Test find and Departure Time/Date
     //Test infection change
     //Test prio list
@@ -128,9 +128,17 @@ return 10;
 
 //////////////////////////////////////
 #pragma region REAL MAIN
-#if 0
+#if 1
 
+    Seat seatingMap[MAP_ROWS][MAP_COLUMNS];
+    initializeSeatingMap(seatingMap);
+   
     PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
+
+    HEAD->data = NULL;
+    HEAD->next = NULL;
+    csv_read(HEAD);
+    reserveSeatsFromPatientList(HEAD, seatingMap);
     menu(seatingMap, HEAD); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
 
 #endif
