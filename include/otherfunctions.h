@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+PatientList* getSeatNeighbour(PatientList *head, unsigned long soz);
+
 PatientRecord *findPatient(PatientList *head, unsigned long soz);
 
 void addDeparture(PatientList *head, unsigned long soz);
@@ -15,6 +17,8 @@ void updateCSV(PatientList *head);
 void updateInfection(PatientList *head, unsigned long soz);
 
 PatientList* getPrioList(PatientList *head);
+
+PatientList* getWaitList(PatientList *head);
 
 //sort prio
 void swapPatients(PatientList* a, PatientList* b);

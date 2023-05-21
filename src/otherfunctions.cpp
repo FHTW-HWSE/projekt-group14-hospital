@@ -9,6 +9,74 @@
 #include "../include/printFunctions.h"
 #include <ctype.h>
 
+PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
+    PatientList *patient = head;
+    PatientRecord *infectpat;
+    PatientList *neighbours = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *headNeighbour = neighbours;
+
+    //initaliserung
+    neighbours->data = NULL;
+    neighbours->next = NULL;
+
+    //hilfsvariable
+    int seatingMin = 0;
+    int seatingMax = 0;
+
+    //get data for infected patient
+    infectpat = findPatient(head, soz);
+
+    //check seating
+    if(infectpat->seatingNumber == -1) {
+        return NULL;
+    } else if(infectpat->seatingNumber <= 5) {
+        seatingMin = 0;
+        seatingMax = 5;
+    } else if(infectpat->seatingNumber <= 10) {
+        seatingMin = 6;
+        seatingMax = 10;
+    } else if(infectpat->seatingNumber <= 15) {
+        seatingMin = 11;
+        seatingMax = 15;
+    } else if(infectpat->seatingNumber <= 20) {
+        seatingMin = 16;
+        seatingMax = 20;
+    } else if(infectpat->arrivalDate <= 25) {
+        seatingMin = 21;
+        seatingMax = 25;
+    } else {
+        return NULL;
+    }
+
+    //very complicated code, made by a rookie
+    while (patient != NULL) {
+        if(patient->data != infectpat) {
+            if(patient->data->seatingNumber <= seatingMax && patient->data->seatingNumber >= seatingMin) {
+                long exceptionDate = 0;
+                if(infectpat->departureDate == 0) exceptionDate = getDate();
+                else exceptionDate = infectpat->departureDate;
+                if(infectpat->arrivalDate <= patient->data->arrivalDate && patient->data->arrivalDate <= exceptionDate) {
+                    int exceptionTime = 0;
+                    if(infectpat->departureTime == 0) exceptionTime = getTime();
+                    else exceptionTime = infectpat->departureTime;
+                    if(infectpat->arrivalTime <= patient->data->arrivalTime && patient->data->arrivalTime <= exceptionTime) {
+                        if(neighbours->data == NULL) {
+                            neighbours->data = patient->data;
+                        } else {
+                            neighbours->next = (PatientList *)malloc(sizeof(PatientList));
+                            neighbours = neighbours->next;
+                            neighbours->data = patient->data;
+                            neighbours->next = NULL;
+                        }
+                    }
+                }
+            }
+        }
+        patient = patient->next;
+    }
+    return headNeighbour;
+}
+
 PatientRecord *findPatient(PatientList *head, unsigned long soz) {
     PatientList *patient = head;
     
@@ -65,6 +133,32 @@ PatientList* getPrioList(PatientList *head) {
 
     sortPatients(headPrio);
     return headPrio;
+}
+
+PatientList* getWaitList(PatientList *head) {
+    PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *headWait = wait;
+    PatientList *patient = head;
+
+    wait->data = NULL;
+    wait->next = NULL;
+
+    while(patient != NULL) {
+        if(patient->data->seatingNumber != -1 && patient->data->departureDate == 0) {
+            if(wait->data == NULL) {
+                wait->data = patient->data;
+            } else {
+                wait->next = (PatientList *)malloc(sizeof(PatientList));
+                wait = wait->next;
+                wait->data = patient->data;
+                wait->next = NULL;
+            }
+        }
+        patient = patient->next;
+    }
+
+    sortPatients(headWait);
+    return headWait;
 }
 
 void updateCSV(PatientList *head) {
@@ -225,7 +319,7 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
 
     int checkDefault = 0;
     printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
-//TODO CHECK IF SSN DOUBLE
+
     while (scanf("%lu", &tempPatient.ssn) != 1) {
         printf("Invalid input. Please enter a valid social security number (FORMAT: 0000YYMMDD):\n");
         while (getchar() != '\n');

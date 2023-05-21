@@ -1,21 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <catch2/catch.hpp>
 #include "../include/definitions.h"
 #include "../include/CSV_read.h"
 #include "../include/CSV_write.h"
 #include "../include/dateFunctions.h"
 #include "../include/otherfunctions.h"
-#include <catch2/catch.hpp>
-#include <string.h>
 #include "../include/printFunctions.h"
 
 
-
 #pragma region MAIN
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 
-
+//////////////////////////////////////
 #pragma region MichisMagicTestArea
 
 #if 0
@@ -52,8 +50,12 @@ return 10;
 
 
 #pragma endregion MichisMagicTestArea
+//////////////////////////////////////
 
+//////////////////////////////////////
+#pragma region EmilsMagicTestArea
 
+#if 0
     //Test find and Departure Time/Date
     //Test infection change
     //Test prio list
@@ -62,7 +64,10 @@ return 10;
     HEAD->data = NULL;
     HEAD->next = NULL;
     csv_read(HEAD);
-    pat = findPatient(HEAD, 97);
+    PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
+    prio = getSeatNeighbour(HEAD, 6789678988);
+    printPatientList(prio, WHOLE);
+    return 0;
     //printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n---neu---\n", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
     //addDeparture(HEAD, 97);
     //updateInfection(HEAD, 97);
@@ -74,8 +79,32 @@ return 10;
     return 0;
 */
 
+#endif
 
+#pragma endregion EmilsMagicTestArea
+//////////////////////////////////////
+
+#pragma region ZlatkosMagicTestArea
+
+#if 1
+    PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
+    PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
+    HEAD->data = NULL;
+    HEAD->next = NULL;
+    csv_read(HEAD);   
+    PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
+    wait = getWaitList(HEAD);
+    printPatientList(wait,WHOLE);
+    return 0;
+
+
+#endif
+
+#pragma endregion ZlatkosMagicTestArea
+//////////////////////////////////////
+//////////////////////////////////////
 #pragma region SEATING MAP
+#if 1
    //Initalize seating map
     Seat seatingMap[MAP_ROWS][MAP_COLUMNS];
     initializeSeatingMap(seatingMap);
@@ -91,17 +120,21 @@ return 10;
     //seatingMap[2][3] = 0;
     //printOutMap(seatingMap);
 
+#endif
 #pragma endregion
-   
+//////////////////////////////////////
+
+//////////////////////////////////////
+#pragma region REAL MAIN
+#if 0
+
+    PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
     menu(seatingMap, HEAD); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
 
-return 0;
+#endif
+#pragma endregion
+//////////////////////////////////////
 
-
+    return 0;
 }
-
 #pragma endregion MAIN
-
-
-
-
