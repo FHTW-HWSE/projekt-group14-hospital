@@ -397,7 +397,6 @@ unsigned long getSSNfromUser() {
 }
 
 //maybe some splitting up would be nice haha :(
-// no idea if it works, TBC
 int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     PatientRecord tempPatient = {0, "x", 0,0,0,0, 'N'};
     unsigned long ssn = getSSNfromUser();
@@ -448,12 +447,11 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
         }
         switch (tolower(c)) {
             case 'a':
-                printf("Patient by ambulance TBD\n");
                 tempPatient.seatingNumber = -1;
-                tempPatient.infectious = 'N';
+                printf("Patient by ambulance - saved!\n");
                 break;
             case 'o':
-                printf("Patient came by themself - current time & date has been saved!\n");
+                
 
                 tempPatient.arrivalTime = getTime();
                 tempPatient.arrivalDate = getDate();
@@ -475,7 +473,7 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
                             printf("Invalid input! Please enter a valid seating number between 1 and %d:\n", MAP_ROWS * MAP_COLUMNS);
                         }
                     }
-
+                printf("Patient came by themself - saved!\n");
                 break;
             default:
                 checkDefault++;
@@ -491,34 +489,11 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     }
     M_WRITEPATIENTDATASTRUCT((&tempPatient));
 
-
-/*
-    writePatientData(tempPatient.ssn, 
-    tempPatient.name, 
-    tempPatient.arrivalTime, 
-    tempPatient.arrivalDate, 
-    tempPatient.departureTime, 
-    tempPatient.departureDate, 
-    tempPatient.infectious, 
-    tempPatient.seatingNumber);
-
-    */
-    // TODO Write tempPatient to file
-    // writePatientData(tempPatient);
 /*TESTPRINT*/
-    printf("Patient Record:\n"
-       "SSN: %lu\n"
-       "Name: %s\n"
-       "Arrival Time: %d\n"
-       "Arrival Date: %ld\n"
-       "Departure Time: %d\n"
-       "Departure Date: %ld\n"
-       "Infectious: %c\n"
-       "Seating Number: %d\n",
-       tempPatient.ssn, tempPatient.name, tempPatient.arrivalTime, tempPatient.arrivalDate,
-       tempPatient.departureTime, tempPatient.departureDate, tempPatient.infectious, tempPatient.seatingNumber);
-
-
+    printf("Saved Patient Record:\n"
+       "SSN: %lu | Name: %s | Arrival Time: %d | Arrival Date: %ld | Infectious: %c | Seating Number: %d\n",
+        tempPatient.ssn, tempPatient.name, tempPatient.arrivalTime, tempPatient.arrivalDate,
+        tempPatient.infectious, tempPatient.seatingNumber);
 
     return 0;
 }
@@ -527,11 +502,13 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
 
 int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
     int static checkDefault = 0;
-
+    PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *patNeighbours = (PatientList *)malloc(sizeof(PatientList));
+    PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
+    unsigned long ssn = 0;
     while (1) {
-        PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
-        PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
-        PatientList *patNeighbours = (PatientList *)malloc(sizeof(PatientList));
+        
         
         printf("You are now in the menu...\n"
                "\t- Press 'n' to create a new patient\n"
@@ -540,6 +517,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
                "\t- Press 'c' to change the infectious status of a patient\n"
                "\t- Press 'i' to display infectious patients incl. seat neighbors\n"
                "\t- Press 's' to display the current seating arrangements\n"
+               "\t- Press 't' to remove of a patient through successful treatment"
                "\t- Press 'q' to close the program\n");
 
         int c = getchar();
@@ -563,7 +541,15 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
                 break;
             /***Change patients date***/
             case 'c':
-                printf("tbd Funktionsaufruf change infectious status\n");
+                ssn = getSSNfromUser();
+                if (ssn == 0) {
+                    printf("Error: Invalid social security number.\n");
+                    
+                } 
+                else {
+                updateInfection(head, ssn);
+                ssn = 0;
+                }
                 break;
             /***Display patients in the waiting area***/
             case 'w':
@@ -576,10 +562,18 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
                 break;
             /***Display infectious patients incl. seat neighbors***/
             case 'i':
-                printf("tbd Funktionsaufruf display infectious patients incl. seat neighbors\n");
-    //TODO ask for user 4 SSN of infectious patient
-                patNeighbours = getSeatNeighbour(head, 98765499);
+                printf("Seat neighbors of infectious patient\n");
+    //TEST with 5678901111
+                ssn = getSSNfromUser();
+                if (ssn == 0) {
+                    printf("Error: Invalid social security number.\n");
+                    
+                } 
+                else {
+                patNeighbours = getSeatNeighbour(head, ssn);
                 printPatientList(patNeighbours, WHOLE);
+                ssn = 0;
+                }
                 break;
             /***Display the current seating arrangements***/
             case 's':
@@ -587,7 +581,19 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
                 break;
             /***Removal of a patient through successful treatment***/
             case 't':
-                printf("tbd Removal of a patient through successful treatment\n");
+    //TEST mit 1234566778
+                
+                ssn = getSSNfromUser();
+                if (ssn == 0) {
+                    printf("Error: Invalid social security number.\n");
+                    
+                } 
+                else {
+                addDeparture(head, ssn);
+                pat = findPatient(head,ssn);
+                cancelReservationByNumber(pat->seatingNumber, seatingMap);
+                printf("successful treatment of patient saved in database!\n\n");
+                }
                 
                 break;
             /***Close program***/
