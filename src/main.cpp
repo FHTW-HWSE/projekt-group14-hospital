@@ -55,7 +55,7 @@ return 10;
 //////////////////////////////////////
 #pragma region EmilsMagicTestArea
 
-#if 0
+#if 1
     //Test find and Departure Time/Date
     //Test infection change
     //Test prio list
@@ -65,7 +65,7 @@ return 10;
     HEAD->next = NULL;
     csv_read(HEAD);
     PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
-    prio = getSeatNeighbour(HEAD, 6789678988);
+    prio = getSeatNeighbour(HEAD, 5678567877);
     printPatientList(prio, WHOLE);
     return 0;
     //printf("Name: %lu\nDepDate: %lu\nDepTime: %d\nInfection: %c\n---neu---\n", pat->ssn, pat->departureDate, pat->departureTime, pat->infectious);
@@ -86,7 +86,7 @@ return 10;
 
 #pragma region ZlatkosMagicTestArea
 
-#if 1
+#if 0
     PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
     PatientRecord *pat = (PatientRecord*) malloc(sizeof(PatientRecord));
     HEAD->data = NULL;
@@ -104,7 +104,7 @@ return 10;
 //////////////////////////////////////
 //////////////////////////////////////
 #pragma region SEATING MAP
-#if 1
+#if 0
    //Initalize seating map
     Seat seatingMap[MAP_ROWS][MAP_COLUMNS];
     initializeSeatingMap(seatingMap);

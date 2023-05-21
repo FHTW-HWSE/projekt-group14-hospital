@@ -27,7 +27,7 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
     infectpat = findPatient(head, soz);
 
     //check seating
-    if(infectpat->seatingNumber == -1) {
+    if(infectpat->seatingNumber < 0) {
         return NULL;
     } else if(infectpat->seatingNumber <= 5) {
         seatingMin = 0;
@@ -56,10 +56,7 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
                 if(infectpat->departureDate == 0) exceptionDate = getDate();
                 else exceptionDate = infectpat->departureDate;
                 if(infectpat->arrivalDate <= patient->data->arrivalDate && patient->data->arrivalDate <= exceptionDate) {
-                    int exceptionTime = 0;
-                    if(infectpat->departureTime == 0) exceptionTime = getTime();
-                    else exceptionTime = infectpat->departureTime;
-                    if(infectpat->arrivalTime <= patient->data->arrivalTime && patient->data->arrivalTime <= exceptionTime) {
+                    if(patient->data->arrivalDate < exceptionDate) {
                         if(neighbours->data == NULL) {
                             neighbours->data = patient->data;
                         } else {
@@ -67,6 +64,20 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
                             neighbours = neighbours->next;
                             neighbours->data = patient->data;
                             neighbours->next = NULL;
+                        }
+                    } else {
+                        int exceptionTime = 0;
+                        if(infectpat->departureTime == 0) exceptionTime = getTime();
+                        else exceptionTime = infectpat->departureTime;
+                        if(infectpat->arrivalTime <= patient->data->arrivalTime && patient->data->arrivalTime <= exceptionTime) {
+                            if(neighbours->data == NULL) {
+                                neighbours->data = patient->data;
+                            } else {
+                                neighbours->next = (PatientList *)malloc(sizeof(PatientList));
+                                neighbours = neighbours->next;
+                                neighbours->data = patient->data;
+                                neighbours->next = NULL;
+                            }
                         }
                     }
                 }
