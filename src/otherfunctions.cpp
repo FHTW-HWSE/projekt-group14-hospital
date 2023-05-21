@@ -341,7 +341,7 @@ void reserveSeatsFromPatientList(PatientList* patientList, Seat seatingMap[MAP_R
 int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     PatientRecord tempPatient = {0, "x", 0,0,0,0, 'N'};
 
-//TODO CHECK IF SSN DOUBLE
+
    char buffer[20];
     int checkDefault=0;
     int validInput = 0;
