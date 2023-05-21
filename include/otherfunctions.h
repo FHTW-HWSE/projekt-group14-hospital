@@ -35,7 +35,7 @@ void printOutMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 
 int isNumericInput(const char *str);
 
-unsigned long getSocialSecurityNumber();
+unsigned long getSSNfromUser();
 
 void reserveSeatsFromPatientList(PatientList* patientList, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 /**
