@@ -32,6 +32,10 @@ bool reserveSeatByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS])
 bool cancelReservationByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 
 void printOutMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+
+int isNumericInput(const char *str);
+
+void reserveSeatsFromPatientList(PatientList* patientList, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 /**
  * @brief Displays a menu and handles user input.
  *
