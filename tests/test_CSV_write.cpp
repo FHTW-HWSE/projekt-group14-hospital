@@ -1,11 +1,19 @@
 // Testregion
 
+
+#define CATCH_CONFIG_MAIN
+
 #include <catch2/catch.hpp>
 #include <cstdint>
-
+#include "../include/definitions.h"
 #include "../include/CSV_write.h"
 
-#if 1 //if to 0 to disable test
+
+TEST_CASE("Test writePatientData", "[writePatientData]") {
+REQUIRE(writePatientData(123456789, "Max Mustermann", 1234, 123456789, 1234, 123456789, 'Y', 1234) == CSV_WRITE_PD_EXECUTED_SUCCESSFULLY_AND_CRERATED_FILE);
+}
+
+#if 0 //if to 0 to disable test
 
 // Test case written using the catch2 framework
 TEST_CASE("Test writePatientData", "[writePatientData]") {

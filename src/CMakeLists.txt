@@ -28,11 +28,11 @@ add_executable(hospital14 main.cpp dateFunctions.cpp CSV_read.cpp CSV_write.cpp 
 else() 
 
 
-set(TEST_BINARY ${PROJECT_NAME}_test)
+set(TEST_BINARY ${PROJECT_NAME})
 #testing build
 add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp 
-../tests/test_PrintFunction_GenerateString.cpp 
-../tests/testMain.cpp
+../tests/test_CSV_write.cpp
+
 )
 target_link_libraries(hospital14 Catch2::Catch2)
 catch_discover_tests(${TEST_BINARY})
