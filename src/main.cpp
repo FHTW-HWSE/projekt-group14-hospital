@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 
 #if 0
 
-
+//hall0
     PatientList * HEAD2 = (PatientList *)malloc(sizeof(PatientList));
 HEAD2->data = NULL;
 HEAD2->next = NULL;
