@@ -308,24 +308,68 @@ bool cancelReservationByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COL
     }
     return false;
 }
+int isNumericInput(const char *str) {
+    // Überprüfen, ob jedes Zeichen in der Zeichenkette eine Ziffer ist
+    for (size_t i = 0; i < strlen(str); i++) {
+        if (!isdigit(str[i])) {
+            return 0; // Rückgabewert 0 bedeutet, dass die Zeichenkette keine gültige Zahl ist
+        }
+    }
+    return 1; // Rückgabewert 1 bedeutet, dass die Zeichenkette nur aus Zahlen besteht
+}
 
+void reserveSeatsFromPatientList(PatientList* patientList, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+    PatientList *currentPatientNode = patientList;
+
+    //loop through list
+    while (currentPatientNode != NULL) {
+        int seatNumber = currentPatientNode->data->seatingNumber;
+        
+        //check that the seat number is greater than 0 and does not exceed the total number of seats
+        if (seatNumber > 0 && seatNumber <= MAP_ROWS * MAP_COLUMNS) {
+            //reserve seat
+            reserveSeatByNumber(seatNumber, seatingMap);
+        }
+        
+        //next patient
+        currentPatientNode = currentPatientNode->next;
+    }
+}
 
 //maybe some splitting up would be nice haha :(
 // no idea if it works, TBC
 int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     PatientRecord tempPatient = {0, "x", 0,0,0,0, 'N'};
-    
-    //bool seatTaken[MAP_ROWS * MAP_COLUMNS] = {false};
 
-    int checkDefault = 0;
-    printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
 //TODO CHECK IF SSN DOUBLE
-    while (scanf("%lu", &tempPatient.ssn) != 1) {
-        printf("Invalid input. Please enter a valid social security number (FORMAT: 0000YYMMDD):\n");
-        while (getchar() != '\n');
-    }
-    getchar(); // remove the trailing newline character
+   char buffer[20];
+    int checkDefault=0;
+    int validInput = 0;
+    while (!validInput) {
+        printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
+        if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+            buffer[strcspn(buffer, "\n")] = '\0'; // Zeilenumbruch entfernen
 
+            if (!isNumericInput(buffer)) {
+                printf("Inavlid input! Please only use numbers.\n");
+            } else if (strlen(buffer) != 10) {
+                printf("invalid input! Please only use 10 digits!\n");
+            } else {
+                char *endptr;
+                tempPatient.ssn = strtoul(buffer, &endptr, 10);
+
+                // Überprüfen, ob alle Zeichen in der Eingabe erfolgreich konvertiert wurden
+                if (endptr == buffer || *endptr != '\0') {
+                    printf("inavlid input! Please try again\n");
+                } else {
+                    validInput = 1;
+                }
+            }
+        } else {
+            printf("Errore reading input\n");
+            return 1;
+        }
+    }
     printf("\nPlease enter the patients name (FORMAT: Surname Forename)\n");
     fgets(tempPatient.name, MAX_PATIENT_NAME, stdin);
     tempPatient.name[strcspn(tempPatient.name, "\n")] = 0; // Remove newline character from the string
