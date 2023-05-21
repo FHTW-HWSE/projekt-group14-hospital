@@ -359,40 +359,55 @@ void reserveSeatsFromPatientList(PatientList* patientList, Seat seatingMap[MAP_R
     }
 }
 
-//maybe some splitting up would be nice haha :(
-// no idea if it works, TBC
-int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
-    PatientRecord tempPatient = {0, "x", 0,0,0,0, 'N'};
 
+unsigned long getSSNfromUser() {
+    unsigned long ssn = 0;
+    int validCheck = 0;
+    char buffer[20];
 
-   char buffer[20];
-    int checkDefault=0;
-    int validInput = 0;
-    while (!validInput) {
-        printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
+    while (validCheck < 10) {
+        printf("Please enter the patient's social security number (FORMAT: 0000YYMMDD)\n");
         if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
             buffer[strcspn(buffer, "\n")] = '\0'; // Zeilenumbruch entfernen
 
             if (!isNumericInput(buffer)) {
-                printf("Inavlid input! Please only use numbers.\n");
+                printf("Invalid input! Please only use numbers.\n");
+                validCheck++;
             } else if (strlen(buffer) != 10) {
-                printf("invalid input! Please only use 10 digits!\n");
+                printf("Invalid input! Please only use 10 digits!\n");
+                validCheck++;
             } else {
                 char *endptr;
-                tempPatient.ssn = strtoul(buffer, &endptr, 10);
+                ssn = strtoul(buffer, &endptr, 10);
 
                 // Überprüfen, ob alle Zeichen in der Eingabe erfolgreich konvertiert wurden
                 if (endptr == buffer || *endptr != '\0') {
-                    printf("inavlid input! Please try again\n");
+                    printf("Invalid input! Please try again.\n");
+                    validCheck++;
                 } else {
-                    validInput = 1;
+                    validCheck = 10;
                 }
             }
         } else {
-            printf("Errore reading input\n");
-            return 1;
+            printf("Error reading input.\n");
+            return 0;
         }
     }
+    return ssn;
+}
+
+//maybe some splitting up would be nice haha :(
+// no idea if it works, TBC
+int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+    PatientRecord tempPatient = {0, "x", 0,0,0,0, 'N'};
+    unsigned long ssn = getSSNfromUser();
+    if (ssn == 0) {
+        printf("Error: Invalid social security number.\n");
+        return 1;
+    }
+    tempPatient.ssn = ssn;
+    int checkDefault=0;
+
     printf("\nPlease enter the patients name (FORMAT: Surname Forename)\n");
     fgets(tempPatient.name, MAX_PATIENT_NAME, stdin);
     tempPatient.name[strcspn(tempPatient.name, "\n")] = 0; // Remove newline character from the string
@@ -516,6 +531,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
     while (1) {
         PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
         PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
+        PatientList *patNeighbours = (PatientList *)malloc(sizeof(PatientList));
         
         printf("You are now in the menu...\n"
                "\t- Press 'n' to create a new patient\n"
@@ -561,15 +577,23 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
             /***Display infectious patients incl. seat neighbors***/
             case 'i':
                 printf("tbd Funktionsaufruf display infectious patients incl. seat neighbors\n");
+    //TODO ask for user 4 SSN of infectious patient
+                patNeighbours = getSeatNeighbour(head, 98765499);
+                printPatientList(patNeighbours, WHOLE);
                 break;
             /***Display the current seating arrangements***/
             case 's':
-                printf("tbd Funktionsaufruf display the current seating arrangements\n");
                 printOutMap(seatingMap);
+                break;
+            /***Removal of a patient through successful treatment***/
+            case 't':
+                printf("tbd Removal of a patient through successful treatment\n");
+                
                 break;
             /***Close program***/
             case 'q':
                 printf("You chose to close the program ... bye!\n\n");
+                
                 return 1;
             /***Default: Wrong input -> entering again menu***/
             default:
