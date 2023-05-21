@@ -319,7 +319,7 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
 
     int checkDefault = 0;
     printf("Please enter the patients social security number (FORMAT: 0000YYMMDD)\n");
-//TODO CHECK IF SSN DOUBLE
+
     while (scanf("%lu", &tempPatient.ssn) != 1) {
         printf("Invalid input. Please enter a valid social security number (FORMAT: 0000YYMMDD):\n");
         while (getchar() != '\n');
