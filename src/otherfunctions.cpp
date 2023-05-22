@@ -73,9 +73,9 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
                         int patDepTime = 0;
                         if(patient->data->departureTime == 0) patDepTime = getTime();
                         else patDepTime = patient->data->departureTime;
-                        if(infectpat->departureTime == 0) patDepTime = getTime();
-                        else patDepTime = infectpat->departureTime;
-                        if(infectpat->arrivalTime <= patDepTime && patient->data->arrivalTime <= patDepTime) {
+                        if(infectpat->departureTime == 0) infDepTime = getTime();
+                        else infDepTime = infectpat->departureTime;
+                        if(infectpat->arrivalTime <= patDepTime && patient->data->arrivalTime <= infDepTime) {
                             if(neighbours->data == NULL) {
                                 neighbours->data = patient->data;
                             } else {
