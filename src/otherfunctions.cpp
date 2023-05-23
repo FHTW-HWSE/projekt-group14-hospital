@@ -517,7 +517,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
                "\t- Press 'c' to change the infectious status of a patient\n"
                "\t- Press 'i' to display infectious patients incl. seat neighbors\n"
                "\t- Press 's' to display the current seating arrangements\n"
-               "\t- Press 't' to remove of a patient through successful treatment"
+               "\t- Press 't' to remove of a patient through successful treatment\n"
                "\t- Press 'q' to close the program\n");
 
         int c = getchar();
