@@ -1,5 +1,6 @@
+#define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
-#include <dateFunctions.h>
+#include ../include/dateFunctions.h"
 
 TEST_CASE("Time_returned_in_hhmm_format_as_int") {
     int test=0, time=0;

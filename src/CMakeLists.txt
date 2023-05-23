@@ -31,7 +31,7 @@ else()
 set(TEST_BINARY ${PROJECT_NAME})
 #testing build
 add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp 
-../tests/test_CSV_write.cpp
+../tests/wait_and_prio_list_tests #../tests/seatingMap_tests.cpp  ../tests/test_CSV_write.cpp  # ../tests/dateFunctions_tests.cpp ../tests/test_CSV_read.cpp ../tests/test_otherfunctions.cpp ../tests/test_
 
 )
 target_link_libraries(hospital14 Catch2::Catch2)
