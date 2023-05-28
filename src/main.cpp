@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 //////////////////////////////////////
 #pragma region MichisMagicTestArea
 
-#if 0
+#if 1
 
 //hall0
     PatientList * HEAD2 = (PatientList *)malloc(sizeof(PatientList));
@@ -32,7 +32,7 @@ HEAD2->next = NULL;
    
 
 
-short retPrint = printPatientList(HEAD2, SHORT);
+short retPrint = printPatientList(HEAD2, WHOLE);
    printf("retPrint: %d\n", retPrint);
 
     //printf("after printList\n");
