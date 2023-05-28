@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 //////////////////////////////////////
 #pragma region MichisMagicTestArea
 
-#if 1
+#if 0
 
 //hall0
     PatientList * HEAD2 = (PatientList *)malloc(sizeof(PatientList));
