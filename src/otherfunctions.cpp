@@ -4,6 +4,7 @@
 #include "string.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 #include "../include/dateFunctions.h"
 #include "../include/printFunctions.h"
@@ -253,6 +254,8 @@ int compare(PatientRecord* patient1, PatientRecord* patient2) {
 //////////////////////////////////////////////////////////////////////////////////////////
 //Valentina von Main
 
+#pragma region SEATING-MAP
+
 void printOutMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     printf("  Seating Map\n\n");
 
@@ -269,28 +272,6 @@ void printOutMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     }
     printf("------------------------------\n|");
 }
-
-/*
-void printOutMap(int (*seatingMap)[MAP_ROWS]){
-
-    printf("  Seating Map\n\n"); 
-
-    for (int i = 0; i < MAP_ROWS; i++) {
-        printf("------------------------------\n|");
-        for (int j = 0; j < MAP_COLUMNS; j++) {
-            if(seatingMap[i][j] == 0){          //if 0, seat number is occupied -> print X
-                printf("  X | ");
-            }
-            else{ 
-            printf(" %2d | ", seatingMap[i][j]);
-            }
-        }
-        printf("\n");
-    }
-    printf("------------------------------\n|");
-}
-*/
-
 
 void initializeSeatingMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     int seatNumber = 1;
@@ -331,15 +312,6 @@ bool cancelReservationByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COL
     }
     return false;
 }
-int isNumericInput(const char *str) {
-    // Überprüfen, ob jedes Zeichen in der Zeichenkette eine Ziffer ist
-    for (size_t i = 0; i < strlen(str); i++) {
-        if (!isdigit(str[i])) {
-            return 0; // Rückgabewert 0 bedeutet, dass die Zeichenkette keine gültige Zahl ist
-        }
-    }
-    return 1; // Rückgabewert 1 bedeutet, dass die Zeichenkette nur aus Zahlen besteht
-}
 
 void reserveSeatsFromPatientList(PatientList* patientList, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     PatientList *currentPatientNode = patientList;
@@ -359,134 +331,172 @@ void reserveSeatsFromPatientList(PatientList* patientList, Seat seatingMap[MAP_R
     }
 }
 
+#pragma endregion
 
-unsigned long getSSNfromUser() {
-    unsigned long ssn = 0;
-    int validCheck = 0;
-    char buffer[20];
-
-    while (validCheck < 10) {
-        printf("Please enter the patient's social security number (FORMAT: 0000YYMMDD)\n");
-        if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
-            buffer[strcspn(buffer, "\n")] = '\0'; // Zeilenumbruch entfernen
-
-            if (!isNumericInput(buffer)) {
-                printf("Invalid input! Please only use numbers.\n");
-                validCheck++;
-            } else if (strlen(buffer) != 10) {
-                printf("Invalid input! Please only use 10 digits!\n");
-                validCheck++;
-            } else {
-                char *endptr;
-                ssn = strtoul(buffer, &endptr, 10);
-
-                // Überprüfen, ob alle Zeichen in der Eingabe erfolgreich konvertiert wurden
-                if (endptr == buffer || *endptr != '\0') {
-                    printf("Invalid input! Please try again.\n");
-                    validCheck++;
-                } else {
-                    validCheck = 10;
-                }
-            }
-        } else {
-            printf("Error reading input.\n");
-            return 0;
+#pragma region ADD NEW PATIENTS
+bool isNumericInput(const char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!isdigit(str[i])) {
+            return false;
         }
     }
+    return true;
+}
+
+bool isValidSSN(const char *str) {
+    return (strlen(str) == 10 && isNumericInput(str));
+}
+
+unsigned long convertSSN(const char *str) {
+    char *endptr;
+    unsigned long ssn = strtoul(str, &endptr, 10);
+
+    if (endptr == str || *endptr != '\0') {
+        return 0; // Ungültige Eingabe
+    }
+
     return ssn;
 }
 
-//maybe some splitting up would be nice haha :(
-int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
-    PatientRecord tempPatient = {0, "x", 0,0,0,0, 'N'};
-    unsigned long ssn = getSSNfromUser();
-    if (ssn == 0) {
-        printf("Error: Invalid social security number.\n");
-        return 1;
-    }
-    tempPatient.ssn = ssn;
-    int checkDefault=0;
-
-    printf("\nPlease enter the patients name (FORMAT: Surname Forename)\n");
-    fgets(tempPatient.name, MAX_PATIENT_NAME, stdin);
-    tempPatient.name[strcspn(tempPatient.name, "\n")] = 0; // Remove newline character from the string
-
+unsigned long getSSNfromUser() {
+    unsigned long ssn = 0;
+    char buffer[20];
     int attempts = 0;
-    printf("\nIs the patient infectious? [Y/N]\n");
-    while (1) {
+    while (true) {
+        if (attempts >= 5) {
+            printf("Invalid input entered too many times. Exiting...\n");
+            return 0;
+        }
+        printf("Please enter the patient's social security number (FORMAT: 0000YYMMDD): ");
+        if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+            buffer[strcspn(buffer, "\n")] = '\0'; // Zeilenumbruch entfernen
+
+            if (!isValidSSN(buffer)) {
+                attempts++;
+                printf("Invalid input! Please enter a 10-digit numeric value.\n");
+            } else {
+                ssn = convertSSN(buffer);
+                break;
+            }
+        } else {
+            attempts++;
+            printf("Error reading input.\n");
+            break;
+        }
+    }
+
+    return ssn;
+}
+
+void enterPatientName(PatientRecord *patient) {
+    printf("\nPlease enter the patient's name (FORMAT: Surname Forename): ");
+    fgets(patient->name, MAX_PATIENT_NAME, stdin);
+    patient->name[strcspn(patient->name, "\n")] = '\0'; // Remove newline character
+}
+
+bool enterInfectiousStatus(PatientRecord *patient) {
+    int attempts = 0;
+    printf("\nIs the patient infectious? [Y/N]: ");
+    
+    while (true) {
         char c = getchar();
         if (getchar() != '\n') {
-            while (getchar() != '\n'); // discard extra characters
+            while (getchar() != '\n'); // Discard extra characters
         }
         switch (tolower(c)) {
             case 'y':
-                tempPatient.infectious = 'Y';
-                break;
+                patient->infectious = 'Y';
+                return true;
             case 'n':
-                tempPatient.infectious = 'N';
-                break;
+                patient->infectious = 'N';
+                return true;
             default:
                 attempts++;
-                if (attempts >= 3) {
+                if (attempts >= 5) {
+                    printf("Invalid input entered too many times. Exiting...\n");
+                    return false;
+                }
+                printf("Invalid input! Please enter 'Y' or 'N': ");
+                continue;
+        }
+    }
+}
+
+int selectSeatingNumber(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+    int seatingNumber;
+    printf("Please enter the seating number (1-%d): ", MAP_ROWS * MAP_COLUMNS);
+    int attempts = 0;
+    while (true) {
+        int result = scanf("%d", &seatingNumber);
+        while (getchar() != '\n'); // Discard extra characters
+
+        if (result == 1 && seatingNumber >= 1 && seatingNumber <= (MAP_ROWS * MAP_COLUMNS)) {
+            if (!reserveSeatByNumber(seatingNumber, seatingMap)) {
+                printf("Seat %d is already taken! Please enter another seating number (1-%d): ", seatingNumber, MAP_ROWS * MAP_COLUMNS);
+            } else {
+                return seatingNumber;
+            }
+        } else {
+            attempts++;
+                if (attempts >= 5) {
                     printf("Invalid input entered too many times. Exiting...\n");
                     return -1;
                 }
-                printf("Invalid input! Please enter 'Y' or 'N':\n");
-                continue;
+            printf("Invalid input! Please enter a valid seating number between 1 and %d: ", MAP_ROWS * MAP_COLUMNS);
+            
         }
-        break;
     }
+}
 
-
-
-    printf("\nPlease press 'a' if the patient came by ambluance or 'o' if they came by themself\n");
-    while (1) {
+bool enterModeOfArrival(PatientRecord *patient, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+    printf("\nPlease press 'a' if the patient came by ambulance or 'o' if they came by themselves: ");
+    int attempts = 0;
+    while (true) {
         char c = getchar();
         if (getchar() != '\n') {
             while (getchar() != '\n');
         }
         switch (tolower(c)) {
             case 'a':
-                tempPatient.seatingNumber = -1;
+                patient->seatingNumber = -1;
                 printf("Patient by ambulance - saved!\n");
-                break;
+                return true;
             case 'o':
-                
-
-                tempPatient.arrivalTime = getTime();
-                tempPatient.arrivalDate = getDate();
-
-                // TO DO: check if seat is already taken
-                printf("\nPlease enter the seating number (1-%d):\n", MAP_ROWS * MAP_COLUMNS);
-                    while (1) {
-                        int result = scanf("%d", &tempPatient.seatingNumber);
-                        while (getchar() != '\n'); // discard extra characters
-
-                        if (result == 1 && tempPatient.seatingNumber >= 1 && tempPatient.seatingNumber <= (MAP_ROWS * MAP_COLUMNS)) {
-                            if (reserveSeatByNumber(tempPatient.seatingNumber, seatingMap) == false) {
-                                printf("Seat %d is already taken! Please enter another seating number (1-%d):\n", tempPatient.seatingNumber, MAP_ROWS * MAP_COLUMNS);
-                            } else {
-                                reserveSeatByNumber(tempPatient.seatingNumber, seatingMap);
-                                break;
-                            }
-                        } else {
-                            printf("Invalid input! Please enter a valid seating number between 1 and %d:\n", MAP_ROWS * MAP_COLUMNS);
-                        }
-                    }
-                printf("Patient came by themself - saved!\n");
-                break;
-            default:
-                checkDefault++;
-                if (checkDefault > 10) {
-                    printf("Your input could not be processed for the %dth time...\n"
-                           "closing adding new patient...\n\n\n", checkDefault);
-                    return -1;
+                patient->seatingNumber = selectSeatingNumber(seatingMap);
+                if (patient->seatingNumber == -1) return false;
+                else {
+                printf("Patient came by themselves - saved!\n");
+                return true;
                 }
-                printf("Your input could not be processed! Please enter only one character\n\n");
+            default:
+                attempts++;
+                if(attempts >5){
+                    printf("Invalid input entered too many times. Exiting...\n");
+                    return false;
+                }
+                printf("Invalid input! Please enter 'a' or 'o': ");
+                
                 continue;
         }
-        break;
     }
+}
+
+int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
+    PatientRecord tempPatient = {0, "x", 0,0,0,0, 'N'};
+
+    unsigned long ssn = getSSNfromUser();
+    if (ssn == 0) {
+        printf("Error: Invalid social security number.\n");
+        return 1;
+    }
+    tempPatient.ssn = ssn;
+    
+    enterPatientName(&tempPatient);
+    tempPatient.arrivalTime = getTime();
+    tempPatient.arrivalDate = getDate();
+    if (enterInfectiousStatus(&tempPatient) == false) return 1;
+    if (enterModeOfArrival(&tempPatient, seatingMap) == false) return 1;
+
     M_WRITEPATIENTDATASTRUCT((&tempPatient));
 
 /*TESTPRINT*/
@@ -498,6 +508,7 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]) {
     return 0;
 }
 
+#pragma endregion
 
 
 int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
