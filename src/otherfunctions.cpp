@@ -29,7 +29,7 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
 
     //check seating
     if(infectpat->seatingNumber < 0) {
-        return NULL;
+        return headNeighbour;
     } else if(infectpat->seatingNumber <= 5) {
         seatingMin = 0;
         seatingMax = 5;
@@ -46,7 +46,7 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz) {
         seatingMin = 21;
         seatingMax = 25;
     } else {
-        return NULL;
+        return headNeighbour;
     }
 
     //extremly complicated code, made by a rookie
@@ -582,7 +582,8 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head) {
                 } 
                 else {
                 patNeighbours = getSeatNeighbour(head, ssn);
-                printPatientList(patNeighbours, WHOLE);
+                if(patNeighbours->data == NULL) printf("No seating neigbours found\n\n");
+                else printPatientList(patNeighbours, WHOLE);
                 ssn = 0;
                 }
                 break;
