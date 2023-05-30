@@ -15,6 +15,7 @@ include(Catch)
 ############################################    CMAKE FLAGS    ############################################
 #set TESTING to false for normal build, and true for testing build
 set (TESTING FALSE)
+set (TESTEVERYTHING FALSE)
 
 #select which Testfile will be compiled
 #!!only select one at a time!! <or compiling will be no bueno>
@@ -34,7 +35,19 @@ if (NOT TESTING)
 add_executable(hospital14 main.cpp dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp )
 
 
-else()
+else if(TESTING TESTEVERYTHING)
+add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp
+../tests/main_test.include
+../tests/dateFunctions_tests.cpp
+../tests/file_handling.cpp
+../tests/seatingMap_tests.cpp
+../tests/test_CSV_write.cpp
+../tests/test_PrintFunction_GenerateString.cpp
+../tests/wait_and_prio_list_tests 
+../tests/addNewPatients_tests.cpp
+)    
+endif(TESTING TESTEVERY)
+()
 #testing build
 
 set(TEST_BINARY ${PROJECT_NAME})
