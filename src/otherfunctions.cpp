@@ -639,8 +639,6 @@ void printErrorMsg(int error_code) {
     case ERR_MALLOC:
     fprintf(stderr,"Error allocating memory\n");
         return;
-    fprintf(stderr,"No error message was found\n");
-    return ;
     case ERR_WCSV_CLOSING_CSV_FILE:
     fprintf(stderr,"ERROR WriteCSV: the file could not be closed\n");
     return;
@@ -655,8 +653,8 @@ void printErrorMsg(int error_code) {
     return;
 
 
-          default:
-          fprintf(stderr,"An Unknown Error has occured!\n");
-            return;
+        default:
+        fprintf(stderr,"An Unknown Error has occured!\n");
+        return;
     }
 }
