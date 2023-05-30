@@ -1,8 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
-#include <stdio.h>
-#include <stdbool.h>
 #include "../include/otherfunctions.h"
+
 
 TEST_CASE("Test isNumericInput function", "[isNumericInput]") {
     SECTION("Valid numeric input") {
@@ -17,6 +16,7 @@ TEST_CASE("Test isNumericInput function", "[isNumericInput]") {
         REQUIRE(result == false);
     }
 }
+
 
 TEST_CASE("Test isValidSSN function", "[isValidSSN]") {
     SECTION("Valid SSN") {

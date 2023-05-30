@@ -14,7 +14,7 @@ include(CTest)
 include(Catch)
 ############################################    CMAKE FLAGS    ############################################
 #set TESTING to false for normal build, and true for testing build
-set (TESTING FALSE)
+set (TESTING TRUE)
 
 #select which Testfile will be compiled
 #!!only select one at a time!! <or compiling will be no bueno>
@@ -24,6 +24,7 @@ set(T_seatingMap FALSE)
 set(T_CSV_write FALSE)
 set(T_print_function_GernerateString FALSE)
 set(T_wait_and_prio_list FALSE)
+set(T_addNewPatients_tests TRUE)
 
 
 #if statement to disable the add executable when testing
@@ -67,6 +68,11 @@ endif()
 if(T_wait_and_prio_list)
 add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp 
 ../tests/wait_and_prio_list_tests 
+)
+endif()
+if(T_addNewPatients_tests)
+add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp 
+../tests/addNewPatients_tests.cpp
 )
 endif()
 
