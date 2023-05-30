@@ -155,7 +155,7 @@
 
 - **Given**: A patient is registered in the system
 - **When**: select the patient's name in the patient list
-- **Then**: The patient's information (name, age, arrival method, assigned seat, status) should be displayed along with their current status (waiting, being treated, discharged)
+- **Then**: The patient's information should be displayed along with their current status (waiting, discharged)
 
 <br>
 
@@ -179,7 +179,7 @@
 
 - **Given**: A patient has been registered in the program 
 - **When**: I select the "update patient information" option from the menu 
-- **Then**: I can edit any of the patient's information, such as name, age, or reason for visit. The updated information will be saved in the program.
+- **Then**: I can edit of the patient's infectious status
 
 <br>
 <br>
