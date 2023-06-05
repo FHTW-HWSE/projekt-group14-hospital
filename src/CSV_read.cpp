@@ -64,9 +64,6 @@ int csv_read(PatientList * HEAD) {
 // So data is only written to the first element in the first cycle
 skip:
 		
-			
-
-       
 
 		read = fscanf(file, "%ld,%49[^,],%d,%ld,%d,%ld,%c,%d\n",
 				&newPatient->ssn, newPatient->name, &newPatient->arrivalTime,
@@ -74,35 +71,6 @@ skip:
 				&newPatient->departureDate, &newPatient->infectious,
 				&newPatient->seatingNumber);
 
-
-/*
-		// patient has 8 struct-elements, if read =8 store the following information to the next patient
-		if (read == 8) {
-			 Alt von Zlatko
-			// Add the new patient to the end of the linked list
-			if (head == NULL) {
-				head = newPatient;
-			} else {
-				PatientRecord *current = head;
-				while (current->next != NULL) {
-					current = current->next;
-				}
-				current->next = newPatient;
-				
-			}
-			
-		}
-
-		*/
-
-	/*
-	Alt Zlatko
-		//if file format incorrect or eof error handling
-		if (read != 8 && !feof(file)) {
-			printf("File format incorrect.\n");
-			return NULL;
-		}
-		*/
 		//error handling file pointer
 		if (ferror(file)) {
 			printf("Error reading file.\n");
@@ -130,30 +98,4 @@ void freeLinkedList(PatientList * HEAD){
 }
 
 
-/*
 
-Michi, old but works, replaced with new function
-
-//function to print the linked list
-void printList(PatientList * HEAD){
-		PatientList * tempElement = HEAD;
-	while (tempElement->next != NULL){
-		tempElement = tempElement->next;
-
-		 printf("Patient Record:\n"
-       "SSN: %lu\n"
-       "Name: %s\n"
-       "Arrival Time: %d\n"
-       "Arrival Date: %ld\n"
-       "Departure Time: %d\n"
-       "Departure Date: %ld\n"
-       "Infectious: %c\n"
-       "Seating Number: %d\n\n\n",
-       tempElement->data->ssn, tempElement->data->name, tempElement->data->arrivalTime, tempElement->data->arrivalDate,
-       tempElement->data->departureTime, tempElement->data->departureDate, tempElement->data->infectious, tempElement->data->seatingNumber);
-
-	
-	}
-}
-
-*/

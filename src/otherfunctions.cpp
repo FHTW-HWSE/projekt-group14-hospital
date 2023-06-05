@@ -187,7 +187,7 @@ PatientList* getWaitList(PatientList *head) {
 
 void free_list(PatientList *head) {
     if (head == NULL) {
-        // Die Liste ist bereits leer, es gibt nichts zu tun
+        // list already emptyy
         return;
     }
 
