@@ -185,6 +185,26 @@ PatientList* getWaitList(PatientList *head) {
     return headWait;
 }
 
+void free_list(PatientList *head) {
+    if (head == NULL) {
+        // Die Liste ist bereits leer, es gibt nichts zu tun
+        return;
+    }
+
+    PatientList *current = head;
+
+    while (current != NULL) {
+        PatientList *temp = current;
+        current = current->next;
+
+        if (temp->data != NULL) {
+            free(temp->data);
+        }
+
+        free(temp);
+    }
+}
+
 void updateCSV(PatientList *head) {
     FILE* file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w"); //Startpoint "src/"
     if (file == NULL) {
