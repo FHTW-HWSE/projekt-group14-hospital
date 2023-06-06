@@ -2,6 +2,8 @@
 #include <catch2/catch.hpp>
 #include "../include/otherfunctions.h"
 #include "../include/CSV_read.h"
+
+
 TEST_CASE("CSV Read - Single Patient Test", "[csv_read]") {
     // create Single patient
     PatientRecord testData = {123456789, "John Doe", 10, 20230101, 15, 20230102, 'N', 1};
@@ -91,5 +93,7 @@ TEST_CASE("CSV Read - Multiple Patients Test", "[csv_read]") {
     // free list
     free_list(HEAD);
 }
+
+//what else? null pointer übergeben, pointer nicht null aber next data null
 
 

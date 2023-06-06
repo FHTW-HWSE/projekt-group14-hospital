@@ -81,7 +81,8 @@ skip:
 
 	fclose(file);
 
-	return 4;
+// Function finished successfully
+	return 1;
 }
 
 //function which frees all the memory allocated for the linked list and 

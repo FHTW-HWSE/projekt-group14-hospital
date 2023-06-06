@@ -6,7 +6,8 @@
  * @brief Reads a CSV file containing patient data and stores the data in a linked list.
  *
  * @param HEAD A pointer to the head of the linked list.
- * @return The number of successfully read patient records or -1 on error.
+ * @return  -1 on error.
+ *          1 on sucess
  */
 int csv_read(PatientList * HEAD);
 
