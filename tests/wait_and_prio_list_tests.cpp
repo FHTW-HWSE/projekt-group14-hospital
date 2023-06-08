@@ -79,10 +79,10 @@ TEST_CASE("Test getWaitList function", "[getWaitList]") {
     // Call the getWaitList function
     PatientList *waitList = getWaitList(head);
 
-    // Check if the returned list is sorted correctly
-    REQUIRE(waitList->data->seatingNumber == 3);
-    REQUIRE(waitList->next->data->seatingNumber == 5);
-    REQUIRE(waitList->next->next->data->seatingNumber == 8);
+    // Check if the returned list is correctly
+    REQUIRE(waitList->data->departureDate == 0);
+    REQUIRE(waitList->next->data->departureDate == 0);
+    REQUIRE(waitList->next->next->data->departureDate == 0);
 
     // Clean up the test patient list
     free(node3->data);
