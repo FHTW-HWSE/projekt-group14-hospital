@@ -140,7 +140,7 @@ return 10;
     csv_read(HEAD);
     reserveSeatsFromPatientList(HEAD, seatingMap);
     menu(seatingMap, HEAD); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
-
+    free_list(HEAD);
 #endif
 #pragma endregion
 //////////////////////////////////////
