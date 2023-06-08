@@ -3,14 +3,12 @@
 #define CSV_READ_H
 
 /**
- * @brief Reads the contents of a CSV file into linked list of patients
+ * @brief Reads a CSV file containing patient data and stores the data in a linked list.
  *
- * @return head pointer of patients list, -1 if  error
+ * @param HEAD A pointer to the head of the linked list.
+ * @return  -1 on error.
+ *          1 on sucess
  */
-
-
-// TO DO ZLATKO: definitions.h & änderung struct date & time in funktion beachten + 
-// struct PatientRecord hier löschen & verkettete liste beachten
 int csv_read(PatientList * HEAD);
 
 

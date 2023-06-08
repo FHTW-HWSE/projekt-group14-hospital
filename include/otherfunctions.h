@@ -20,6 +20,8 @@ PatientList* getPrioList(PatientList *head);
 
 PatientList* getWaitList(PatientList *head);
 
+void free_list(PatientList *head);
+
 #pragma region SORT functions 
 void swapPatients(PatientList* a, PatientList* b);
 void sortPatients(PatientList* head);

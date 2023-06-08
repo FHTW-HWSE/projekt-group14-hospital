@@ -23,6 +23,7 @@ set(T_date_functions FALSE)
 set(T_file_handling FALSE)
 set(T_seatingMap FALSE)
 set(T_CSV_write FALSE)
+set(T_CSV_read FALSE)
 set(T_print_function_GernerateString FALSE)
 set(T_wait_and_prio_list FALSE)
 set(T_addNewPatients_tests FALSE)
@@ -68,11 +69,20 @@ add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunc
 ../tests/seatingMap_tests.cpp
 )
 endif()
+
 if(T_CSV_write)
 add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp 
 ../tests/test_CSV_write.cpp
 )
 endif()
+
+if(T_CSV_read)
+add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp 
+../tests/test_csv_read.cpp
+)
+endif()
+
+
 if(T_print_function_GernerateString)
 add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp 
 ../tests/test_PrintFunction_GenerateString.cpp
