@@ -1,4 +1,4 @@
-#define CATCH_CONFIG_MAIN
+//#define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include "../include/otherfunctions.h"
 #include "../include/CSV_read.h"

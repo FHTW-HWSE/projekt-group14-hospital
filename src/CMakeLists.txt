@@ -13,8 +13,8 @@ include(CTest)
 include(Catch)
 ############################################    CMAKE FLAGS    ############################################
 #set TESTING to false for normal build, and true for testing build
-set (TESTING FALSE)
-set (TESTEVERYTHING FALSE)
+set (TESTING TRUE)
+set (TESTEVERYTHING TRUE)
 
 #select which Testfile will be compiled
 #!!only select one at a time!! <or compiling will be no bueno>
@@ -38,9 +38,9 @@ endif()
 
 if(TESTEVERYTHING AND TESTING) 
 add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp
-#../tests/main_test.include
-../tests/dateFunctions_tests.cpp
-../tests/file_handling.cpp
+../tests/_main_test.cpp
+#../tests/dateFunctions_tests.cpp
+#../tests/file_handling.cpp
 ../tests/seatingMap_tests.cpp
 ../tests/test_CSV_write.cpp
 ../tests/test_PrintFunction_GenerateString.cpp
