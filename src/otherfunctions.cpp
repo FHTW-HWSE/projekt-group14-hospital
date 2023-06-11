@@ -224,6 +224,7 @@ PatientList *getPrioList(PatientList *head)
 
     // if there are no patients to prioritize, return NULL
     if (headPrio->data == NULL) {
+        free_list(prio);
         return NULL;
     }
 
@@ -260,8 +261,10 @@ PatientList *getWaitList(PatientList *head)
     }
 
     // if there are no patients in the waiting area, return NULL
-    if (headWait->data == NULL)
+    if (headWait->data == NULL) {
+        free_list(wait);
         return NULL;
+    }
 
     sortPatients(headWait);
     return headWait;
