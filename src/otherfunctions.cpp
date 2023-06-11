@@ -279,14 +279,11 @@ void free_list(PatientList *head)
     {
         PatientList *temp = current;
         current = current->next;
-
-        if (temp->data != NULL)
-        {
-            free(temp->data);
-        }
-
+        
+        free(temp->data);
         free(temp);
     }
+    head == NULL;
 }
 
 void updateCSV(PatientList *head)
@@ -820,9 +817,9 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 printf("You chose to close the program ... bye!\n\n");
                 updateCSV(head);
                 free_list(head);
-                free_list(prio);
-                free_list(wait);
-                free_list(patNeighbours);
+                free(prio);
+                free(wait);
+                free(patNeighbours);
                 free(tempPat);
                 free(pat);
                 return 1;
@@ -835,9 +832,9 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                        checkDefault);
                 updateCSV(head);
                 free_list(head);
-                free_list(prio);
-                free_list(wait);
-                free_list(patNeighbours);
+                free(prio);
+                free(wait);
+                free(patNeighbours);
                 free(tempPat);
                 free(pat);
                 return -1;
