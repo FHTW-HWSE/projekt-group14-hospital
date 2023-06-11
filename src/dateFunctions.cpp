@@ -1,13 +1,6 @@
 #include "../include/dateFunctions.h"
 #include "../include/definitions.h"
 
-/**
- * @brief Calculates the time in the format hhmm as an integer.
- *
- * @param timeInfo Pointer to a struct tm containing the time information.
- *
- * @return The time in the format hhmm as an integer, or -1 if timeInfo is a null pointer.
- */
 
 int getTime() {
     
@@ -29,8 +22,6 @@ int getTime() {
 
     return result; //hhmm
 }
-
-
 
 
 long getDate() {

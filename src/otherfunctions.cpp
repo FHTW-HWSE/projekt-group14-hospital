@@ -68,11 +68,11 @@ PatientList *getSeatNeighbour(PatientList *head, unsigned long soz)
     {
         if (patient->data != infectpat)
         {
-            if (patient->data->seatingNumber <= seatingMax && patient->data->seatingNumber >= seatingMin)
+            if (patient->data->seatingNumber <= seatingMax && patient->data->seatingNumber >= seatingMin) //Check ob in selber Reihe saßen
             {
                 long infDepDate = 0;
                 long patDepDate = 0;
-                if (patient->data->departureDate == 0)
+                if (patient->data->departureDate == 0) //Sollte infected Patient noch vor Ort sein -> dep Date und Time bekommen
                     patDepDate = getDate();
                 else
                     patDepDate = patient->data->departureDate;
@@ -80,9 +80,9 @@ PatientList *getSeatNeighbour(PatientList *head, unsigned long soz)
                     infDepDate = getDate();
                 else
                     infDepDate = infectpat->departureDate;
-                if (infectpat->arrivalDate <= patDepDate && patient->data->arrivalDate <= infDepDate)
+                if (infectpat->arrivalDate <= patDepDate && patient->data->arrivalDate <= infDepDate) //InfectP Arr vor dem Dep der ContactP && ContactP Arr vor dem Dep InfectP
                 {
-                    if (patient->data->arrivalDate < infDepDate)
+                    if (patient->data->arrivalDate < infDepDate) //Abfangen eines Cornercases -> Dep Date CP vorm Dep Date infP (Time Vergleich damit irrelevant)
                     {
                         if (neighbours->data == NULL)
                         {
@@ -96,11 +96,11 @@ PatientList *getSeatNeighbour(PatientList *head, unsigned long soz)
                             neighbours->next = NULL;
                         }
                     }
-                    else
+                    else //Check der DepTime weil am selben Tag
                     {
                         int infDepTime = 0;
                         int patDepTime = 0;
-                        if (patient->data->departureTime == 0)
+                        if (patient->data->departureTime == 0) //Abfangen von vorort -> Time in Dep
                             patDepTime = getTime();
                         else
                             patDepTime = patient->data->departureTime;
@@ -108,7 +108,7 @@ PatientList *getSeatNeighbour(PatientList *head, unsigned long soz)
                             infDepTime = getTime();
                         else
                             infDepTime = infectpat->departureTime;
-                        if (infectpat->arrivalTime <= patDepTime && patient->data->arrivalTime <= infDepTime)
+                        if (infectpat->arrivalTime <= patDepTime && patient->data->arrivalTime <= infDepTime) //InfectP Arr vor dem Dep der ContactP && ContactP Arr vor dem Dep InfectP
                         {
                             if (neighbours->data == NULL)
                             {

@@ -6,29 +6,106 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+* @brief Retrieves a list of patients who were seated near a specific patient.
+* This function creates a new patient list containing the patients who were seated near the patient
+* with the specified social security number (soz). The seating arrangement is divided into rows of 5 seats.
+* The function checks for patients who were seated in the same row or adjacent rows as the specified patient.
+* The new patient list is returned, containing the neighbors of the specified patient.
+* @param head Pointer to the head of the patient list.
+* @param soz Social security number of the patient to find neighbors for.
+* @return Pointer to the head of the patient list containing the neighbors, or an empty list if no neighbors are found.
+*/
 PatientList* getSeatNeighbour(PatientList *head, unsigned long soz);
 
+/**
+* @brief Finds a patient with the specified social security number (soz).
+* This function searches for a patient with the given social security number in the patient list.
+* It returns a pointer to the patient record if found, or NULL if the patient is not found.
+* @param head Pointer to the head of the patient list.
+* @param soz Social security number of the patient to find.
+* @return Pointer to the patient record if found, or NULL if the patient is not found.
+*/
 PatientRecord *findPatient(PatientList *head, unsigned long soz);
 
+/**
+* @brief Adds departure information for a patient and updates the CSV file.
+* This function adds departure information for a patient with the specified social security number (soz).
+* The departure date is set to the current date, and the departure time is set to the current time.
+* After updating the departure information, the CSV file is updated with the new patient data.
+* @param head Pointer to the head of the patient list.
+* @param soz Social security number of the patient to update.
+*/
 void addDeparture(PatientList *head, unsigned long soz);
 
+
+/**
+* @brief Updates the CSV file with the patient data.
+* This function updates the CSV file with the patient data stored in the patient list.
+* It opens the CSV file in write mode, clears its contents, and then writes the new data.
+* If the file cannot be opened, an error message is printed and the function returns.
+* @param head Pointer to the head of the patient list.
+*/
 void updateCSV(PatientList *head);
 
+/**
+* @brief Updates the infectious status of the patients in the contact list and updates the CSV file.
+* This function updates the infectious status of the patients in the contact list
+* to indicate that they have been in contact with an infectious patient.
+* The infectious status of the patients in the contact list is set to 'C' (contact).
+* After updating the infectious status, the CSV file is updated with the new patient data.
+* @param head Pointer to the head of the patient list.
+* @param contact Pointer to the head of the contact list.
+*/
 void updateContact(PatientList *head, PatientList *contact);
 
+/**
+* @brief Updates the infectious status of a patient and updates the CSV file.
+* This function updates the infectious status of a patient with the specified social security number (soz).
+* If the patient's current infectious status is 'N' (not infectious), it is updated to 'Y' (infectious),
+* and if the current infectious status is 'Y', it is updated to 'N'.
+* After updating the infectious status, the CSV file is updated with the new patient data.
+* @param head Pointer to the head of the patient list.
+* @param soz Social security number of the patient to update.
+*/
 void updateInfection(PatientList *head, unsigned long soz);
 
+/**
+* @brief Retrieves a priority list of patients from the main patient list.
+* This function creates a new patient list containing only the patients with seatingNumber -1
+* and departureDate 0, indicating high priority patients.
+* The new priority list is sorted based on arrival date and time.
+* @param head Pointer to the head of the main patient list.
+* @return Pointer to the head of the priority patient list, or NULL if there are no patients to prioritize.
+*/
 PatientList* getPrioList(PatientList *head);
 
 PatientList* getWaitList(PatientList *head);
 
 void free_list(PatientList *head);
 
-#pragma region SORT functions 
+#pragma region SORT functions
+/**
+* @brief Swaps the patient records between two nodes in the patient list.
+* This function swaps the patient records between two nodes in the patient list.
+* @param a Pointer to the first node.
+* @param b Pointer to the second node.
+*/
 void swapPatients(PatientList* a, PatientList* b);
-void sortPatients(PatientList* head);
-int compare(PatientRecord* patient1, PatientRecord* patient2);
 
+/**
+* @brief Sorts the patient list based on arrival date and time.
+* @param head Pointer to the head of the patient list.
+*/
+void sortPatients(PatientList* head);
+
+/**
+* @brief Compares two patient records based on arrival date and time.
+* @param patient1 Pointer to the first patient record.
+* @param patient2 Pointer to the second patient record.
+* @return -1 if patient1 arrives before patient2, 1 if patient1 arrives after patient2, 0 if both patients arrive at the same date and time.
+*/
+int compare(PatientRecord* patient1, PatientRecord* patient2);
 #pragma endregion
 
 #pragma region SEATING-MAP
