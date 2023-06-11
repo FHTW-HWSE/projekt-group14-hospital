@@ -13,8 +13,8 @@ include(CTest)
 include(Catch)
 ############################################    CMAKE FLAGS    ############################################
 #set TESTING to false for normal build, and true for testing build
-set (TESTING TRUE)
-set (TESTEVERYTHING TRUE)
+set (TESTING FALSE)
+set (TESTEVERYTHING FALSE)
 
 #select which Testfile will be compiled
 #!!only select one at a time!! <or compiling will be no bueno>
@@ -99,9 +99,14 @@ endif()
 
 
 
+    
+
+
 target_link_libraries(hospital14 Catch2::Catch2)
 catch_discover_tests(${TEST_BINARY})
 
-endif() #testing endif
+endif(TESTING)
+
+
 
 #add_executable(hospital14 main.cpp dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp )
