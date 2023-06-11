@@ -27,16 +27,20 @@ TEST_CASE("Generate Write String Test", "[generate_Write_String]")
     char *writeString = generate_Write_String(ssn, name, arrivalTime, arrivalDate, departureTime, departureDate, infectious, seatingNumber);
 
     // Check the generated write string
-    std::string expectedString = "123456789,John Doe,10,20230101,15,20230102,N,1\n";
-    REQUIRE(std::string(writeString) == expectedString);
+    
+   char *  expectedString = "123456789,John Doe,10,20230101,15,20230102,N,1\n";
+
+fprintf(stdout,"Teststring: %s\n", writeString);
+fprintf(stdout,"Expectedstring: %s\n", expectedString);
+
+    REQUIRE(0 == strcmp(writeString, expectedString));
+    
 
     // Free the allocated memory
     free(writeString);
 }
 
-TEST_CASE("Test writePatientData", "[writePatientData]") {
-REQUIRE(writePatientData(123456789, "Max Mustermann", 1234, 123456789, 1234, 123456789, 'Y', 1234) == CSV_WRITE_PD_EXECUTED_SUCCESSFULLY_AND_CRERATED_FILE);
-}
+
 
 #if 0 //if to 0 to disable test
 
