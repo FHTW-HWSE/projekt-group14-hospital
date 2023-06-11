@@ -143,6 +143,7 @@ PatientRecord *findPatient(PatientList *head, unsigned long soz)
         }
         patient = patient->next;
     }
+    printf("Error: Patient not found.");
     return NULL;
 }
 
@@ -222,8 +223,9 @@ PatientList *getPrioList(PatientList *head)
     }
 
     // if there are no patients to prioritize, return NULL
-    if (headPrio->data == NULL)
+    if (headPrio->data == NULL) {
         return NULL;
+    }
 
     sortPatients(headPrio);
     return headPrio;
