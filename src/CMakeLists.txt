@@ -14,7 +14,7 @@ include(Catch)
 ############################################    CMAKE FLAGS    ############################################
 #set TESTING to false for normal build, and true for testing build
 #To test everything, set TESTEVERYTHING !AND! TESTING to true and make sure all the T_... Parameters are FALSE
-set (TESTING TRUE)
+set (TESTING FALSE)
 set (TESTEVERYTHING FALSE)
 
 #select which Testfile will be compiled
