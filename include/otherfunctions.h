@@ -124,13 +124,70 @@ int compare(PatientRecord* patient1, PatientRecord* patient2);
 #pragma endregion
 
 #pragma region SEATING-MAP
+/**
+ * @brief Initializes the seating map with seat numbers and availability.
+ *
+ * This function initializes the seating map by assigning seat numbers
+ * to each seat and setting their availability status to false.
+ *
+ * @param seatingMap The seating map array to be initialized.
+ */
 void initializeSeatingMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+/**
+ * @brief Reserves a seat by its seat number.
+ *
+ * This function reserves a seat in the seating map by searching for
+ * the seat with the specified seat number. If the seat is available,
+ * it is reserved (availability status set to true) and the function
+ * returns true. If the seat is already reserved or the seat number
+ * is not found, the function returns false.
+ *
+ * @param seatNumber The seat number of the seat to be reserved.
+ * @param seatingMap The seating map array to search for the seat.
+ * @return True if the seat was successfully reserved, false otherwise.
+ */
 
 bool reserveSeatByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+/**
+ * @brief Cancels a seat reservation by its seat number.
+ *
+ * This function cancels the reservation of a seat in the seating map
+ * by searching for the seat with the specified seat number. If the
+ * seat is currently reserved, the reservation is canceled (availability
+ * status set to false) and the function returns true. If the seat is
+ * not currently reserved or the seat number is not found, the function
+ * returns false.
+ *
+ * @param seatNumber The seat number of the seat to cancel the reservation.
+ * @param seatingMap The seating map array to search for the seat.
+ * @return True if the reservation was successfully canceled, false otherwise.
+ */
 
 bool cancelReservationByNumber(int seatNumber, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+/**
+ * @brief Prints out the seating map.
+ *
+ * This function prints out the seating map, displaying the seat numbers
+ * and their reservation status. Reserved seats are marked with 'X', while
+ * available seats are represented by their seat numbers. The seating map
+ * is printed in a grid format.
+ *
+ * @param seatingMap The seating map array to print.
+ */
 
 void printOutMap(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+/**
+ * @brief Reserves seats from the patient list on the seating map.
+ *
+ * This function reserves seats on the seating map based on the seating numbers
+ * specified in the patient list. It iterates through the patient list and for
+ * each patient, checks if their seating number is valid and if their departure
+ * date is not set. If the conditions are met, the corresponding seat on the
+ * seating map is reserved using the reserveSeatByNumber function.
+ *
+ * @param patientList The patient list containing the seating numbers.
+ * @param seatingMap The seating map array to reserve seats on.
+ */
 
 void reserveSeatsFromPatientList(PatientList* patientList, Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 
