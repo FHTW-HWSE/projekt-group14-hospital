@@ -9,8 +9,9 @@
 #include "../include/CSV_write.h"
 
 
-TEST_CASE("Write Patient Data Test", "[writePatientData]") {
-    // Generate test data
+TEST_CASE("Generate Write String Test", "[generate_Write_String]")
+{
+    // Define test data
     unsigned long ssn = 123456789;
     char name[MAX_PATIENT_NAME] = "John Doe";
     int arrivalTime = 10;
@@ -21,21 +22,14 @@ TEST_CASE("Write Patient Data Test", "[writePatientData]") {
     int seatingNumber = 1;
 
     // Call the function
-    int result = writePatientData(ssn, name, arrivalTime, arrivalDate, departureTime, departureDate, infectious, seatingNumber);
+    char *writeString = generate_Write_String(ssn, name, arrivalTime, arrivalDate, departureTime, departureDate, infectious, seatingNumber);
 
-    // Check if the function call was successful
-    REQUIRE(result == 0);
+    // Check the generated write string
+    std::string expectedString = "123456789,John Doe,10,20230101,15,20230102,N,1\n";
+    REQUIRE(std::string(writeString) == expectedString);
 
-    // Read the written data from the file and verify its correctness
-    FILE *file = fopen(PATH_TO_PATIENT_DATA_CSV_FILE, "r");
-    char buffer[100];
-    fgets(buffer, sizeof(buffer), file);
-    fclose(file);
-
-    // Compare the written data with the expected data
-    char expectedOutput[100];
-    sprintf(expectedOutput, "%lu,%s,%i,%li,%i,%li,%c,%i\n", ssn, name, arrivalTime, arrivalDate, departureTime, departureDate, infectious, seatingNumber);
-    REQUIRE(strcmp(buffer, expectedOutput) == 0);
+    // Free the allocated memory
+    free(writeString);
 }
 
 TEST_CASE("Test writePatientData", "[writePatientData]") {
