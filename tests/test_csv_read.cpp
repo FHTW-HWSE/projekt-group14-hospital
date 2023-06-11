@@ -2,6 +2,14 @@
 #include <catch2/catch.hpp>
 #include "../include/otherfunctions.h"
 #include "../include/CSV_read.h"
+#include "../include/definitions.h"
+
+
+/**
+ * @brief Test case for reading a single patient from CSV.
+ * @details This test case verifies that the function csv_read correctly reads a single patient from CSV and populates the patient list.
+ * It checks if the patient data matches the expected values.
+ */
 
 
 TEST_CASE("CSV Read - Single Patient Test", "[csv_read]") {
@@ -40,6 +48,12 @@ TEST_CASE("CSV Read - Single Patient Test", "[csv_read]") {
     // free list
     free_list(HEAD);
 }
+
+/**
+ * @brief Test case for reading multiple patients from CSV.
+ * @details This test case verifies that the function csv_read correctly reads multiple patients from CSV and populates the patient list.
+ * It checks if the number of patients in the list matches the expected value.
+ */
 
 TEST_CASE("CSV Read - Multiple Patients Test", "[csv_read]") {
     // creating testdata
