@@ -10,7 +10,6 @@
 #include "../include/printFunctions.h"
 #include <ctype.h>
 
-//test
 PatientList *getSeatNeighbour(PatientList *head, unsigned long soz)
 {
     PatientList *patient = head;
@@ -295,7 +294,6 @@ void free_list(PatientList *head)
         // Free the memory for the node
         free(temp);
     }
-    head == NULL;
 }
 
 void updateCSV(PatientList *head)

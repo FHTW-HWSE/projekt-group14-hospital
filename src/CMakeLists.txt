@@ -19,10 +19,10 @@ set (TESTEVERYTHING FALSE)
 
 #select which Testfile will be compiled
 #All false for TESTEVERYTHING
-set(T_date_functions FALSE)
+set(T_other_functions FALSE)
 set(T_file_handling FALSE)
 set(T_seatingMap FALSE)
-set(T_CSV_write TRUE)
+set(T_CSV_write FALSE)
 set(T_print_function_GernerateString FALSE)
 set(T_wait_and_prio_list FALSE)
 set(T_addNewPatients_tests FALSE)
@@ -41,7 +41,7 @@ endif()
 if(TESTEVERYTHING AND TESTING) 
 add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp
 ../tests/_main_test.cpp
-#../tests/dateFunctions_tests.cpp
+../tests/otherFunctions_tests.cpp
 #../tests/file_handling.cpp
 ../tests/seatingMap_tests.cpp
 ../tests/test_CSV_write.cpp
@@ -57,9 +57,9 @@ if (TESTING)
 set(TEST_BINARY ${PROJECT_NAME})
 
 #determine which testfile will be compiled
-if(T_date_functions)
+if(T_other_functions)
 add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunctions.cpp printFunctions.cpp ../tests/_main_test.cpp
-../tests/dateFunctions_tests.cpp
+../tests/otherFunctions_tests.cpp
 )
 endif()
 
