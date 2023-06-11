@@ -79,9 +79,24 @@ void updateInfection(PatientList *head, unsigned long soz);
 * @return Pointer to the head of the priority patient list, or NULL if there are no patients to prioritize.
 */
 PatientList* getPrioList(PatientList *head);
-
+/**
+ * @brief Creates a new linked list containing patients with seating numbers and no departure date.
+ *
+ * This function iterates through the given linked list of patients and creates a new linked list
+ * that contains only the patients with seating numbers and no departure date.
+ *
+ * @param head The head of the original linked list of patients.
+ * @return A new linked list containing patients with seating numbers and no departure date.
+ */
 PatientList* getWaitList(PatientList *head);
-
+/**
+ * @brief Frees the memory allocated for a linked list of patients.
+ *
+ * This function frees the memory allocated for each node in the linked list of patients,
+ * including the data stored in each node.
+ *
+ * @param head The head of the linked list of patients.
+ */
 void free_list(PatientList *head);
 
 #pragma region SORT functions

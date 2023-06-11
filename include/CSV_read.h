@@ -3,7 +3,7 @@
 #define CSV_READ_H
 
 /**
- * @brief Reads a CSV file containing patient data and stores the data in a linked list.
+ * @brief Reads a CSV file containing patient data and stores the data in a linked list of Patientrecords.
  *
  * @param HEAD A pointer to the head of the linked list.
  * @return  -1 on error.

@@ -234,6 +234,7 @@ PatientList *getPrioList(PatientList *head)
 
 PatientList *getWaitList(PatientList *head)
 {
+    // Create a new linked list for the wait list
     PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
     PatientList *headWait = wait;
     PatientList *patient = head;
@@ -241,10 +242,13 @@ PatientList *getWaitList(PatientList *head)
     wait->data = NULL;
     wait->next = NULL;
 
+// Iterate through the patients in the original linked list
     while (patient != NULL)
     {
+         // Check if the patient has a seating number and no departure date
         if (patient->data->seatingNumber != -1 && patient->data->departureDate == 0)
         {
+            // Create a new node in the wait list and copy the patient's data
             if (wait->data == NULL)
             {
                 wait->data = patient->data;
@@ -265,7 +269,7 @@ PatientList *getWaitList(PatientList *head)
         free_list(wait);
         return NULL;
     }
-
+     // Return the head of the wait list
     sortPatients(headWait);
     return headWait;
 }
@@ -285,7 +289,9 @@ void free_list(PatientList *head)
         PatientList *temp = current;
         current = current->next;
         
+        // Free the memory for the patient's data
         free(temp->data);
+        // Free the memory for the node
         free(temp);
     }
     head == NULL;
