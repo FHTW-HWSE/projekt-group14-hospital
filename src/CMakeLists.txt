@@ -14,7 +14,7 @@ include(Catch)
 ############################################    CMAKE FLAGS    ############################################
 #set TESTING to false for normal build, and true for testing build
 #To test everything, set TESTEVERYTHING !AND! TESTING to true and make sure all the T_... Parameters are FALSE
-set (TESTING FALSE)
+set (TESTING TRUE)
 set (TESTEVERYTHING FALSE)
 
 #select which Testfile will be compiled
@@ -26,7 +26,7 @@ set(T_CSV_write FALSE)
 set(T_print_function_GernerateString FALSE)
 set(T_wait_and_prio_list FALSE)
 set(T_addNewPatients_tests FALSE)
-set(T_test_CSV_read FALSE)
+set(T_test_CSV_read TRUE)
 
 
 #if statement to disable the add executable when testing

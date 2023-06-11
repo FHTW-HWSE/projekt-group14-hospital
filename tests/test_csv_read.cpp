@@ -12,41 +12,84 @@
  */
 
 
+
 TEST_CASE("CSV Read - Single Patient Test", "[csv_read]") {
-    // create Single patient
-    PatientRecord testData = {123456789, "John Doe", 10, 20230101, 15, 20230102, 'N', 1};
+    // Create a test patient list
+    PatientList *head = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *node1 = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *node2 = (PatientList *)malloc(sizeof(PatientList));
+    PatientList *node3 = (PatientList *)malloc(sizeof(PatientList));
 
-    // create empty patientlist
-    PatientList *HEAD = new PatientList();
-    HEAD->data = nullptr;
-    HEAD->next = nullptr;
+    head->data = (PatientRecord *)malloc(sizeof(PatientRecord));
+    head->data->ssn = 123456789;
+    strcpy(head->data->name, "John Doe");
+    head->data->arrivalTime = 10;
+    head->data->arrivalDate = 20230101;
+    head->data->departureTime = 15;
+    head->data->departureDate = 20230102;
+    head->data->infectious = 'N';
+    head->data->seatingNumber = -1;
+    head->next = node1;
 
-    // connecting testdata to patientlist
-    PatientList *listElement = new PatientList();
-    listElement->data = &testData;
-    listElement->next = nullptr;
-    HEAD->data = &testData;
-    HEAD->next = nullptr;
+    node1->data = (PatientRecord *)malloc(sizeof(PatientRecord));
+    node1->data->ssn = 987654321;
+    strcpy(node1->data->name, "Jane Smith");
+    node1->data->arrivalTime = 8;
+    node1->data->arrivalDate = 20230103;
+    node1->data->departureTime = 12;
+    node1->data->departureDate = 20230104;
+    node1->data->infectious = 'Y';
+    node1->data->seatingNumber = -1;
+    node1->next = node2;
 
-    // read testdata
-    int result = csv_read(HEAD);
+    node2->data = (PatientRecord *)malloc(sizeof(PatientRecord));
+    node2->data->ssn = 456789123;
+    strcpy(node2->data->name, "Bob Johnson");
+    node2->data->arrivalTime = 14;
+    node2->data->arrivalDate = 20230105;
+    node2->data->departureTime = 18;
+    node2->data->departureDate = 20230106;
+    node2->data->infectious = 'N';
+    node2->data->seatingNumber = 10;
+    node2->next = node3;
 
-    // result should be higher than -1
+    node3->data = (PatientRecord *)malloc(sizeof(PatientRecord));
+    node3->data->ssn = 789123456;
+    strcpy(node3->data->name, "Alice Davis");
+    node3->data->arrivalTime = 9;
+    node3->data->arrivalDate = 20230107;
+    node3->data->departureTime = 13;
+    node3->data->departureDate = 20230108;
+    node3->data->infectious = 'N';
+    node3->data->seatingNumber = -1;
+    node3->next = NULL;
+
+    // Read the test data
+    int result = csv_read(head);
+
+    // Check the result
     REQUIRE(result >= 0);
 
-    // compare read data with test data
-    PatientRecord *patient = HEAD->data;
-    REQUIRE(patient->ssn == testData.ssn);
-    REQUIRE(strcmp(patient->name, testData.name) == 0);
-    REQUIRE(patient->arrivalTime == testData.arrivalTime);
-    REQUIRE(patient->arrivalDate == testData.arrivalDate);
-    REQUIRE(patient->departureTime == testData.departureTime);
-    REQUIRE(patient->departureDate == testData.departureDate);
-    REQUIRE(patient->infectious == testData.infectious);
-    REQUIRE(patient->seatingNumber == testData.seatingNumber);
+    // Compare read data with test data
+    PatientRecord *patient = head->data;
+    REQUIRE(patient->ssn == 123456789);
+    REQUIRE(strcmp(patient->name, "John Doe") == 0);
+    REQUIRE(patient->arrivalTime == 10);
+    REQUIRE(patient->arrivalDate == 20230101);
+    REQUIRE(patient->departureTime == 15);
+    REQUIRE(patient->departureDate == 20230102);
+    REQUIRE(patient->infectious == 'N');
+    REQUIRE(patient->seatingNumber == -1);
 
-    // free list
-    free_list(HEAD);
+    // Free the memory
+    free(head->data);
+    free(node1->data);
+    free(node2->data);
+    free(node3->data);
+    free(head);
+    free(node1);
+    free(node2);
+    free(node3);
 }
 
 /**

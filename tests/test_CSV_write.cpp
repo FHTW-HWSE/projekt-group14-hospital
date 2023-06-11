@@ -7,7 +7,9 @@
 #include <string.h>
 #include "../include/definitions.h"
 #include "../include/CSV_write.h"
-
+/**
+ * @brief Unit test for generate_Write_String function.
+ */
 
 TEST_CASE("Generate Write String Test", "[generate_Write_String]")
 {
