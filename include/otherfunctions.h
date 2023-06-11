@@ -14,6 +14,8 @@ void addDeparture(PatientList *head, unsigned long soz);
 
 void updateCSV(PatientList *head);
 
+void updateContact(PatientList *head, PatientList *contact);
+
 void updateInfection(PatientList *head, unsigned long soz);
 
 PatientList* getPrioList(PatientList *head);

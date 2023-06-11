@@ -157,6 +157,24 @@ void addDeparture(PatientList *head, unsigned long soz)
     updateCSV(head);
 }
 
+void updateContact(PatientList *head, PatientList *contact)
+{
+    PatientList* patient = head;
+    PatientList* conList = contact;
+
+    while(conList != NULL) {
+        if(patient->data == conList->data) {
+            patient->data->infectious = 'C';
+            conList = conList->next;
+        }
+        patient = patient->next;
+        if(patient->data == NULL){
+            patient = head;
+        }
+    }
+    updateCSV(head);
+}
+
 void updateInfection(PatientList *head, unsigned long soz)
 {
     PatientRecord *patient;
