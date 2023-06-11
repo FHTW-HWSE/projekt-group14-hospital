@@ -10,6 +10,7 @@
 #include "../include/printFunctions.h"
 #include <ctype.h>
 
+//test
 PatientList *getSeatNeighbour(PatientList *head, unsigned long soz)
 {
     PatientList *patient = head;
