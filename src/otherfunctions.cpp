@@ -143,7 +143,7 @@ PatientRecord *findPatient(PatientList *head, unsigned long soz)
         }
         patient = patient->next;
     }
-    printf("Error: Patient not found.");
+    printf("Error: Patient not found.\n\n");
     return NULL;
 }
 
@@ -753,6 +753,8 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
             ssn = getSSNfromUser();
             if (ssn == 0) { printf("Error: Invalid social security number.\n");}
             pat = findPatient(head, ssn);
+            if(pat == NULL) break;
+            else{
                 printf("Info of the patient:\n");
                 printf("\tSSN: %-10lu\nPatient name: %-30s\n",pat->ssn, pat->name);
                 printf("\tArrival time & date (YYMMDD): %d:%d\t%lu\n", pat->arrivalTime/100, pat->arrivalTime%100, pat->arrivalDate);
@@ -763,6 +765,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                   printf("\tInfectious & Seating number: %c\t %d\n\n",pat->infectious, pat->seatingNumber);
 
                 break;
+                }
             /***Showing priorization list***/
             case 'p':
                 prio = getPrioList(head);
@@ -828,9 +831,9 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 printf("You chose to close the program ... bye!\n\n");
                 updateCSV(head);
                 free_list(head);
-                free(prio);
-                free(wait);
-                free(patNeighbours);
+                free_list(prio);
+                free_list(wait);
+                free_list(patNeighbours);
                 free(tempPat);
                 free(pat);
                 return 1;
@@ -843,9 +846,9 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                        checkDefault);
                 updateCSV(head);
                 free_list(head);
-                free(prio);
-                free(wait);
-                free(patNeighbours);
+                free_list(prio);
+                free_list(wait);
+                free_list(patNeighbours);
                 free(tempPat);
                 free(pat);
                 return -1;
