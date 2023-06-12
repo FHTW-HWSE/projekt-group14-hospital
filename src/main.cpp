@@ -10,8 +10,26 @@
 #include "../include/printFunctions.h"
 
 
-#pragma region MAIN
 int main(int argc, char *argv[]) {
+
+//////////////////////////////////////
+#pragma region REAL MAIN
+#if 1
+
+    Seat seatingMap[MAP_ROWS][MAP_COLUMNS];
+    initializeSeatingMap(seatingMap);
+   
+    PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
+
+    HEAD->data = NULL;
+    HEAD->next = NULL;
+    csv_read(HEAD);
+    reserveSeatsFromPatientList(HEAD, seatingMap);
+    menu(seatingMap, HEAD); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
+    
+#endif
+#pragma endregion
+//////////////////////////////////////
 
 //////////////////////////////////////
 #pragma region MichisMagicTestArea
@@ -106,7 +124,7 @@ return 10;
 //////////////////////////////////////
 
 //////////////////////////////////////
-#pragma region SEATING MAP
+#pragma region TEST AREA seating map
 #if 0
    //Initalize seating map
     Seat seatingMap[MAP_ROWS][MAP_COLUMNS];
@@ -127,25 +145,7 @@ return 10;
 #pragma endregion
 //////////////////////////////////////
 
-//////////////////////////////////////
-#pragma region REAL MAIN
-#if 1
 
-    Seat seatingMap[MAP_ROWS][MAP_COLUMNS];
-    initializeSeatingMap(seatingMap);
-   
-    PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
-
-    HEAD->data = NULL;
-    HEAD->next = NULL;
-    csv_read(HEAD);
-    reserveSeatsFromPatientList(HEAD, seatingMap);
-    menu(seatingMap, HEAD); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
-    
-#endif
-#pragma endregion
-//////////////////////////////////////
 
     return 0;
 }
-#pragma endregion MAIN
