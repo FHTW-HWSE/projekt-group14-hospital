@@ -86,6 +86,46 @@ skip:
 	return 1;
 }
 
+//Subfunction csv_read for unit testing
+
+int csv_read_from_buffer(PatientList *HEAD, const char *buffer) {
+    PatientRecord *newPatient = (PatientRecord *)malloc(sizeof(PatientRecord));
+    if (newPatient == NULL) {
+        printf("Error allocating memory.\n");
+        return -1;
+    }
+
+    int read = sscanf(buffer, "%ld,%49[^,],%d,%ld,%d,%ld,%c,%d",
+                      &newPatient->ssn, newPatient->name, &newPatient->arrivalTime,
+                      &newPatient->arrivalDate, &newPatient->departureTime,
+                      &newPatient->departureDate, &newPatient->infectious,
+                      &newPatient->seatingNumber);
+
+    if (read != 8) {
+        printf("Error parsing buffer.\n");
+        free(newPatient);
+        return -1;
+    }
+
+    PatientList *listElement = (PatientList *)malloc(sizeof(PatientList));
+    if (listElement == NULL) {
+        printf("Error allocating memory.\n");
+        free(newPatient);
+        return -1;
+    }
+
+    listElement->data = newPatient;
+    listElement->next = NULL;
+
+    if (HEAD->data == NULL) {
+        HEAD->data = newPatient;
+        HEAD->next = NULL;
+    } else {
+        HEAD->next = listElement;
+    }
+
+    return 1;
+}
 //function which frees all the memory allocated for the linked list and 
 void freeLinkedList(PatientList * HEAD){
 	//free all the memory for the linked list and its data elements in a loop
