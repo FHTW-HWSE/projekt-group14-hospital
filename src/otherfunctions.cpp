@@ -237,39 +237,6 @@ PatientList *getWaitList(PatientList *head)
 
 #pragma endregion
 
-#pragma region FREEs
-
-void freeAll(PatientList *prio, PatientList *wait, PatientList *patNeighbours, PatientRecord *pat, PatientRecord *tempPat){
-    free(prio); 
-    free(wait);
-    free(patNeighbours);
-    free(tempPat);
-    free(pat);
-}
-void free_list(PatientList *head)
-{
-    if (head == NULL)
-    {
-        // list already emptyy
-        return;
-    }
-
-    PatientList *current = head;
-
-    while (current != NULL)
-    {
-        PatientList *temp = current;
-        current = current->next;
-        
-        // Free the memory for the patient's data
-        free(temp->data);
-        // Free the memory for the node
-        free(temp);
-    }
-}
-
-#pragma endregion
-
 #pragma region UPDATE FUNCTIONS (departure, CSV, contact mark, infectious mark)
 void addDeparture(PatientList *head, unsigned long soz)
 {
@@ -889,6 +856,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
 #pragma endregion
 
 #pragma region ERROR MESSAGES
+
 void printErrorMsg(int error_code)
 
 {
@@ -921,4 +889,37 @@ void printErrorMsg(int error_code)
         return;
     }
 }
+#pragma endregion
+
+#pragma region FREEs
+
+void freeAll(PatientList *prio, PatientList *wait, PatientList *patNeighbours, PatientRecord *pat, PatientRecord *tempPat){
+    free(prio); 
+    free(wait);
+    free(patNeighbours);
+    free(tempPat);
+    free(pat);
+}
+void free_list(PatientList *head)
+{
+    if (head == NULL)
+    {
+        // list already emptyy
+        return;
+    }
+
+    PatientList *current = head;
+
+    while (current != NULL)
+    {
+        PatientList *temp = current;
+        current = current->next;
+        
+        // Free the memory for the patient's data
+        free(temp->data);
+        // Free the memory for the node
+        free(temp);
+    }
+}
+
 #pragma endregion

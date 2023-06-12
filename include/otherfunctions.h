@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#pragma region SEATING NEIGBOUR
 /**
 * @brief Retrieves a list of patients who were seated near a specific patient.
 * This function creates a new patient list containing the patients who were seated near the patient
@@ -18,6 +19,9 @@
 */
 PatientList* getSeatNeighbour(PatientList *head, unsigned long soz);
 
+#pragma endregion
+
+#pragma region SEARCH FOR PATIENT
 /**
 * @brief Finds a patient with the specified social security number (soz).
 * This function searches for a patient with the given social security number in the patient list.
@@ -28,6 +32,32 @@ PatientList* getSeatNeighbour(PatientList *head, unsigned long soz);
 */
 PatientRecord *findPatient(PatientList *head, unsigned long soz);
 
+#pragma endregion
+
+#pragma region PRIO & WAITING LIST
+/**
+* @brief Retrieves a priority list of patients from the main patient list.
+* This function creates a new patient list containing only the patients with seatingNumber -1
+* and departureDate 0, indicating high priority patients.
+* The new priority list is sorted based on arrival date and time.
+* @param head Pointer to the head of the main patient list.
+* @return Pointer to the head of the priority patient list, or NULL if there are no patients to prioritize.
+*/
+PatientList* getPrioList(PatientList *head);
+/**
+ * @brief Creates a new linked list containing patients with seating numbers and no departure date.
+ *
+ * This function iterates through the given linked list of patients and creates a new linked list
+ * that contains only the patients with seating numbers and no departure date.
+ *
+ * @param head The head of the original linked list of patients.
+ * @return A new linked list containing patients with seating numbers and no departure date.
+ */
+PatientList* getWaitList(PatientList *head);
+
+#pragma endregion
+
+#pragma region UPDATE FUNCTIONS (departure, CSV, contact mark, infectious mark)
 /**
 * @brief Adds departure information for a patient and updates the CSV file.
 * This function adds departure information for a patient with the specified social security number (soz).
@@ -70,40 +100,9 @@ void updateContact(PatientList *head, PatientList *contact);
 */
 void updateInfection(PatientList *head, unsigned long soz);
 
-/**
-* @brief Retrieves a priority list of patients from the main patient list.
-* This function creates a new patient list containing only the patients with seatingNumber -1
-* and departureDate 0, indicating high priority patients.
-* The new priority list is sorted based on arrival date and time.
-* @param head Pointer to the head of the main patient list.
-* @return Pointer to the head of the priority patient list, or NULL if there are no patients to prioritize.
-*/
-PatientList* getPrioList(PatientList *head);
-/**
- * @brief Creates a new linked list containing patients with seating numbers and no departure date.
- *
- * This function iterates through the given linked list of patients and creates a new linked list
- * that contains only the patients with seating numbers and no departure date.
- *
- * @param head The head of the original linked list of patients.
- * @return A new linked list containing patients with seating numbers and no departure date.
- */
-PatientList* getWaitList(PatientList *head);
+#pragma endregion
 
-void freeAll(PatientList *prio, PatientList *wait, PatientList *patNeighbours, PatientRecord *pat, PatientRecord *tempPat);
-/**
- * @brief Frees the memory allocated for a linked list of patients.
- *
- * This function frees the memory allocated for each node in the linked list of patients,
- * including the data stored in each node.
- *
- * @param head The head of the linked list of patients.
- */
-
-void free_list(PatientList *head);
-
-
-#pragma region SORT functions
+#pragma region HELPER FUNCTIONS (swap, sort, compare)
 /**
 * @brief Swaps the patient records between two nodes in the patient list.
 * This function swaps the patient records between two nodes in the patient list.
@@ -273,8 +272,7 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 
 #pragma endregion
 
-
-
+#pragma region MENU
 
 /**
  * @brief Displays a menu and handles user input.
@@ -286,6 +284,10 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
  * @return 1 if the program should be closed, -1 if an error occurred.
  */
 int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head);
+
+#pragma endregion
+
+#pragma region ERROR MESSAGES
 /**
  * @brief The declaration of error messages
  *
@@ -296,5 +298,31 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head);
  * @return  string, containing the correct messages
  */
 void printErrorMsg(int error_code);
+
+#pragma endregion
+
+#pragma region FREEs
+/**
+ * @brief Frees the allocated memory  
+ *
+ * This function frees the memory allocated for each allocated memory
+ *
+ * @param prio, wait, patNeighbours, pat, tempPat all allocated memory 
+ */
+
+void freeAll(PatientList *prio, PatientList *wait, PatientList *patNeighbours, PatientRecord *pat, PatientRecord *tempPat);
+/**
+ * @brief Frees the memory allocated for a linked list of patients.
+ *
+ * This function frees the memory allocated for each node in the linked list of patients,
+ * including the data stored in each node.
+ *
+ * @param head The head of the linked list of patients.
+ */
+
+void free_list(PatientList *head);
+
+#pragma endregion
+
 int readInPatientData(int elementCount, char ** returnWord);
 //_____End
