@@ -10,7 +10,7 @@
 #include "../include/printFunctions.h"
 #include <ctype.h>
 
-
+#pragma region SEATING NEIGHBOUR
 PatientList *getSeatNeighbour(PatientList *head, unsigned long soz)
 {
     PatientList *patient = head;
@@ -132,6 +132,9 @@ PatientList *getSeatNeighbour(PatientList *head, unsigned long soz)
     return headNeighbour;
 }
 
+#pragma endregion
+
+#pragma region SEARCH FOR PATIENT
 PatientRecord *findPatient(PatientList *head, unsigned long soz)
 {
     PatientList *patient = head;
@@ -148,18 +151,7 @@ PatientRecord *findPatient(PatientList *head, unsigned long soz)
     return NULL;
 }
 
-void addDeparture(PatientList *head, unsigned long soz)
-{
-    PatientRecord *patient;
-    patient = findPatient(head, soz);
-
-    patient->departureDate = getDate();
-    patient->departureTime = getTime();
-
-    updateCSV(head);
-}
-
-
+#pragma endregion
 
 #pragma region PRIO & WAITING LIST
 
@@ -278,7 +270,18 @@ void free_list(PatientList *head)
 
 #pragma endregion
 
-#pragma region UPDATE FUNCTIONS (CSV, contact mark, infectious mark)
+#pragma region UPDATE FUNCTIONS (departure, CSV, contact mark, infectious mark)
+void addDeparture(PatientList *head, unsigned long soz)
+{
+    PatientRecord *patient;
+    patient = findPatient(head, soz);
+
+    patient->departureDate = getDate();
+    patient->departureTime = getTime();
+
+    updateCSV(head);
+}
+
 void updateCSV(PatientList *head)
 {
     FILE *file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w"); // Startpoint "src/"
@@ -728,6 +731,7 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS])
 
 #pragma endregion
 
+#pragma region MENU
 int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
 {
     int static checkDefault = 0;
@@ -882,7 +886,11 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
     }
 }
 
+#pragma endregion
+
+#pragma region ERROR MESSAGES
 void printErrorMsg(int error_code)
+
 {
     switch (error_code)
     {
@@ -913,3 +921,4 @@ void printErrorMsg(int error_code)
         return;
     }
 }
+#pragma endregion
