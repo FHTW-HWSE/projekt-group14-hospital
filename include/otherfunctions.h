@@ -89,6 +89,8 @@ PatientList* getPrioList(PatientList *head);
  * @return A new linked list containing patients with seating numbers and no departure date.
  */
 PatientList* getWaitList(PatientList *head);
+
+void freeAll(PatientList *prio, PatientList *wait, PatientList *patNeighbours, PatientRecord *pat, PatientRecord *tempPat);
 /**
  * @brief Frees the memory allocated for a linked list of patients.
  *
@@ -97,7 +99,9 @@ PatientList* getWaitList(PatientList *head);
  *
  * @param head The head of the linked list of patients.
  */
+
 void free_list(PatientList *head);
+
 
 #pragma region SORT functions
 /**

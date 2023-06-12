@@ -10,6 +10,7 @@
 #include "../include/printFunctions.h"
 #include <ctype.h>
 
+
 PatientList *getSeatNeighbour(PatientList *head, unsigned long soz)
 {
     PatientList *patient = head;
@@ -158,41 +159,9 @@ void addDeparture(PatientList *head, unsigned long soz)
     updateCSV(head);
 }
 
-void updateContact(PatientList *head, PatientList *contact)
-{
-    PatientList* patient = head;
-    PatientList* conList = contact;
 
-    while(conList != NULL) {
-        if(patient->data == conList->data) {
-            patient->data->infectious = 'C';
-            conList = conList->next;
-        }
-        patient = patient->next;
-        if(patient->data == NULL){
-            patient = head;
-        }
-    }
-    updateCSV(head);
-}
 
-void updateInfection(PatientList *head, unsigned long soz)
-{
-    PatientRecord *patient;
-    patient = findPatient(head, soz);
-
-    if (patient->infectious == 'N')
-    {
-        patient->infectious = 'Y';
-        updateCSV(head);
-        printf("\n\tPatient infectious status updated to: YES\n\n");
-    } 
-    else {
-        patient->infectious == 'N';
-        updateCSV(head);
-        printf("\n\tPatient infectious status updated to: NO\n\n");
-    }
-}
+#pragma region PRIO & WAITING LIST
 
 PatientList *getPrioList(PatientList *head)
 {
@@ -274,6 +243,17 @@ PatientList *getWaitList(PatientList *head)
     return headWait;
 }
 
+#pragma endregion
+
+#pragma region FREEs
+
+void freeAll(PatientList *prio, PatientList *wait, PatientList *patNeighbours, PatientRecord *pat, PatientRecord *tempPat){
+    free(prio); 
+    free(wait);
+    free(patNeighbours);
+    free(tempPat);
+    free(pat);
+}
 void free_list(PatientList *head)
 {
     if (head == NULL)
@@ -296,6 +276,9 @@ void free_list(PatientList *head)
     }
 }
 
+#pragma endregion
+
+#pragma region UPDATE FUNCTIONS (CSV, contact mark, infectious mark)
 void updateCSV(PatientList *head)
 {
     FILE *file = fopen("../programFiles/PatientData/PatientDataDB.csv", "w"); // Startpoint "src/"
@@ -317,6 +300,45 @@ void updateCSV(PatientList *head)
     }
 }
 
+void updateContact(PatientList *head, PatientList *contact)
+{
+    PatientList* patient = head;
+    PatientList* conList = contact;
+
+    while(conList != NULL) {
+        if(patient->data == conList->data) {
+            patient->data->infectious = 'C';
+            conList = conList->next;
+        }
+        patient = patient->next;
+        if(patient->data == NULL){
+            patient = head;
+        }
+    }
+    updateCSV(head);
+}
+
+void updateInfection(PatientList *head, unsigned long soz)
+{
+    PatientRecord *patient;
+    patient = findPatient(head, soz);
+
+    if (patient->infectious == 'N')
+    {
+        patient->infectious = 'Y';
+        updateCSV(head);
+        printf("\n\tPatient infectious status updated to: YES\n\n");
+    } 
+    else {
+        patient->infectious == 'N';
+        updateCSV(head);
+        printf("\n\tPatient infectious status updated to: NO\n\n");
+    }
+}
+
+#pragma endregion
+
+#pragma region HELPER FUNCTIONS (swap, sort, compare)
 // Sort der Prio Liste (Bubblesort LinkedList)
 void swapPatients(PatientList *a, PatientList *b)
 {
@@ -381,6 +403,7 @@ int compare(PatientRecord *patient1, PatientRecord *patient2)
     }
 }
 
+#pragma endregion
 //////////////////////////////////////////////////////////////////////////////////////////
 // Valentina von Main
 
@@ -742,15 +765,18 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
         case 'n':
             if (addNewPatient(seatingMap) == 0)
                 printf("patient saved successfully!\n");
+            freeAll(prio,wait,patNeighbours,pat,tempPat);
             break;
         /***Display patient list***/
         case 'd':              
             printPatientList(head, WHOLE);    
+            freeAll(prio,wait,patNeighbours,pat,tempPat);
             break;
         /***Search for a patient & print out infos******/
         case 's':
             ssn = getSSNfromUser();
-            if (ssn == 0) { printf("Error: Invalid social security number.\n");}
+            if (ssn == 0) { 
+                printf("Error: Invalid social security number.\n");}
             pat = findPatient(head, ssn);
             if(pat == NULL) break;
             else{
@@ -762,9 +788,10 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 } else printf("\tPatient is still in treatment\n");
                 
                   printf("\tInfectious & Seating number: %c\t %d\n\n",pat->infectious, pat->seatingNumber);
-
-                break;
-                }
+            }
+            break;
+            freeAll(prio,wait,patNeighbours,pat,tempPat);
+                
             /***Showing priorization list***/
             case 'p':
                 prio = getPrioList(head);
@@ -773,6 +800,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 printf("\nPatients in the priorization list:\n");
                 printPatientList(prio, WHOLE);
                 }
+                freeAll(prio,wait,patNeighbours,pat,tempPat);
                 break;
             /***Change patients date***/
             case 'c':
@@ -782,6 +810,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 updateInfection(head, ssn);
                 ssn = 0;
                 }
+                freeAll(prio,wait,patNeighbours,pat,tempPat);
                 break;
             /***Display patients in the waiting area***/
             case 'w':
@@ -791,6 +820,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 printf("\nPatients in the waiting area:\n");
                 printPatientList(wait, WHOLE);
                 }
+                freeAll(prio,wait,patNeighbours,pat,tempPat);
                 break;
             /***Display infectious patients incl. seat neighbors***/
             case 'i':
@@ -806,10 +836,12 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                     printPatientList(patNeighbours, WHOLE);
                 ssn = 0;
                 }
+                freeAll(prio,wait,patNeighbours,pat,tempPat);
                 break;
             /***Display the current seating arrangements***/
             case 'm':
                 printOutMap(seatingMap);
+                freeAll(prio,wait,patNeighbours,pat,tempPat);
                 break;
             /***Removal of a patient through successful treatment***/
             case 't':
@@ -823,18 +855,14 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 cancelReservationByNumber(tempPat->seatingNumber, seatingMap);
                 printf("successful treatment of patient saved in database!\n\n");
                 }
-                
+                freeAll(prio,wait,patNeighbours,pat,tempPat);
                 break;
             /***Close program***/
             case 'q':
                 printf("You chose to close the program ... bye!\n\n");
                 updateCSV(head);
                 free_list(head);
-                free_list(prio);
-                free_list(wait);
-                free_list(patNeighbours);
-                free(tempPat);
-                free(pat);
+                freeAll(prio,wait,patNeighbours,pat,tempPat);
                 return 1;
             /***Default: Wrong input -> entering again menu***/
             default:
@@ -845,11 +873,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                        checkDefault);
                 updateCSV(head);
                 free_list(head);
-                free_list(prio);
-                free_list(wait);
-                free_list(patNeighbours);
-                free(tempPat);
-                free(pat);
+                freeAll(prio,wait,patNeighbours,pat,tempPat);
                 return -1;
                 }
                 printf("Your input could not be processed! Please enter only one character\n\n");
