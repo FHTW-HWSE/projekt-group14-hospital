@@ -738,12 +738,12 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 printf("patient saved successfully!\n"
                 "If you want to proceed with the new patient saved " 
                 "in the database, please restart the programm!\n\n");
-            freeAll(prio,wait,patNeighbours,pat,tempPat);
+            
             break;
         /***Display patient list***/
         case 'd':              
             printPatientList(head, WHOLE);    
-            freeAll(prio,wait,patNeighbours,pat,tempPat);
+            
             break;
         /***Search for a patient & print out infos******/
         case 's':
@@ -762,8 +762,9 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 
                   printf("\tInfectious & Seating number: %c\t %d\n\n",pat->infectious, pat->seatingNumber);
             }
+            
             break;
-            freeAll(prio,wait,patNeighbours,pat,tempPat);
+
                 
             /***Showing priorization list***/
             case 'p':
@@ -773,7 +774,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 printf("\nPatients in the priorization list:\n");
                 printPatientList(prio, WHOLE);
                 }
-                freeAll(prio,wait,patNeighbours,pat,tempPat);
+
                 break;
             /***Change patients date***/
             case 'c':
@@ -783,7 +784,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 updateInfection(head, ssn);
                 ssn = 0;
                 }
-                freeAll(prio,wait,patNeighbours,pat,tempPat);
+
                 break;
             /***Display patients in the waiting area***/
             case 'w':
@@ -793,7 +794,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 printf("\nPatients in the waiting area:\n");
                 printPatientList(wait, WHOLE);
                 }
-                freeAll(prio,wait,patNeighbours,pat,tempPat);
+
                 break;
             /***Display infectious patients incl. seat neighbors***/
             case 'i':
@@ -809,12 +810,12 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                     printPatientList(patNeighbours, WHOLE);
                 ssn = 0;
                 }
-                freeAll(prio,wait,patNeighbours,pat,tempPat);
+
                 break;
             /***Display the current seating arrangements***/
             case 'm':
                 printOutMap(seatingMap);
-                freeAll(prio,wait,patNeighbours,pat,tempPat);
+
                 break;
             /***Removal of a patient through successful treatment***/
             case 't':
@@ -828,7 +829,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
                 cancelReservationByNumber(tempPat->seatingNumber, seatingMap);
                 printf("successful treatment of patient saved in database!\n\n");
                 }
-                freeAll(prio,wait,patNeighbours,pat,tempPat);
+
                 break;
             /***Close program***/
             case 'q':
