@@ -735,7 +735,9 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
         /***Create new patient***/
         case 'n':
             if (addNewPatient(seatingMap) == 0)
-                printf("patient saved successfully!\n");
+                printf("patient saved successfully!\n"
+                "If you want to proceed with the new patient saved " 
+                "in the database, please restart the programm!\n\n");
             freeAll(prio,wait,patNeighbours,pat,tempPat);
             break;
         /***Display patient list***/
