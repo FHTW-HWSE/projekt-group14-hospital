@@ -374,8 +374,6 @@ int compare(PatientRecord *patient1, PatientRecord *patient2)
 }
 
 #pragma endregion
-//////////////////////////////////////////////////////////////////////////////////////////
-// Valentina von Main
 
 #pragma region SEATING-MAP
 

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "definitions.h"
 #include <time.h>
 #include <stdio.h>
@@ -324,5 +322,4 @@ void free_list(PatientList *head);
 
 #pragma endregion
 
-int readInPatientData(int elementCount, char ** returnWord);
-//_____End
+
