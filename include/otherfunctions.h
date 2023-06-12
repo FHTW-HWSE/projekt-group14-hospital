@@ -266,7 +266,7 @@ bool enterModeOfArrival(PatientRecord *patient, Seat seatingMap[MAP_ROWS][MAP_CO
  * @param seatingMap The seating map for available seats.
  * @return 0 if the patient is successfully added, 1 if there is an error or too many invalid attempts are made.
  */
-int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
+int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head);
 
 #pragma endregion
 
@@ -281,7 +281,7 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
  *
  * @return 1 if the program should be closed, -1 if an error occurred.
  */
-int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head);
+int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS]);
 
 #pragma endregion
 

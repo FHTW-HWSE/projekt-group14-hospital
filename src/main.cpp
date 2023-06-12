@@ -19,13 +19,7 @@ int main(int argc, char *argv[]) {
     Seat seatingMap[MAP_ROWS][MAP_COLUMNS];
     initializeSeatingMap(seatingMap);
    
-    PatientList *HEAD = (PatientList *)malloc(sizeof(PatientList));
-
-    HEAD->data = NULL;
-    HEAD->next = NULL;
-    csv_read(HEAD);
-    reserveSeatsFromPatientList(HEAD, seatingMap);
-    menu(seatingMap, HEAD); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
+    menu(seatingMap); //note: func.returns:1=user wants to close program/-1=too many wrong inputs from user
     
 #endif
 #pragma endregion

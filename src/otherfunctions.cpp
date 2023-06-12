@@ -293,17 +293,17 @@ void updateInfection(PatientList *head, unsigned long soz)
     PatientRecord *patient;
     patient = findPatient(head, soz);
 
-    if (patient->infectious == 'N')
+    if (patient->infectious == 'Y'){
+        patient->infectious = 'N';
+        updateCSV(head);
+        printf("\n\tPatient infectious status updated to: NO\n\n");
+    } else if (patient->infectious == 'N')
     {
         patient->infectious = 'Y';
         updateCSV(head);
         printf("\n\tPatient infectious status updated to: YES\n\n");
     } 
-    else {
-        patient->infectious == 'N';
-        updateCSV(head);
-        printf("\n\tPatient infectious status updated to: NO\n\n");
-    }
+   
 }
 
 #pragma endregion
@@ -697,9 +697,16 @@ int addNewPatient(Seat seatingMap[MAP_ROWS][MAP_COLUMNS])
 #pragma endregion
 
 #pragma region MENU
-int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS], PatientList *head)
+int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS])
 {
     int static checkDefault = 0;
+    PatientList *head = (PatientList *)malloc(sizeof(PatientList));
+
+    head->data = NULL;
+    head->next = NULL;
+    csv_read(head);
+    reserveSeatsFromPatientList(head, seatingMap);
+
     PatientList *prio = (PatientList *)malloc(sizeof(PatientList));
     PatientList *wait = (PatientList *)malloc(sizeof(PatientList));
     PatientList *patNeighbours = (PatientList *)malloc(sizeof(PatientList));
