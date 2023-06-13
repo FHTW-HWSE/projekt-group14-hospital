@@ -719,7 +719,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS])
         printf("You are now in the menu...\n"
                "\t- Press 'n' to create a new patient\n"
                "\t- Press 'd' to display a list of all patients\n"
-               "\t- Press 's' tp search for a patient & their information\n"
+               "\t- Press 's' to search for a patient & their information\n"
                "\t- Press 'p' to display the prioritization list\n"
                "\t- Press 'w' to display the waiting area list\n"
                "\t- Press 'c' to change the infectious status of a patient\n"
