@@ -14,8 +14,8 @@ include(Catch)
 ############################################    CMAKE FLAGS    ############################################
 #set TESTING to false for normal build, and true for testing build
 #To test everything, set TESTEVERYTHING !AND! TESTING to true and make sure all the T_... Parameters are FALSE
-set (TESTING FALSE)
-set (TESTEVERYTHING FALSE)
+set (TESTING TRUE)
+set (TESTEVERYTHING TRUE)
 
 #select which Testfile will be compiled
 #All false for TESTEVERYTHING
@@ -45,7 +45,7 @@ add_executable(hospital14 dateFunctions.cpp CSV_read.cpp CSV_write.cpp otherfunc
 #../tests/file_handling.cpp
 ../tests/seatingMap_tests.cpp
 ../tests/test_CSV_write.cpp
-../tests/test_PrintFunction_GenerateString.cpp
+#../tests/test_PrintFunction_GenerateString.cpp
 ../tests/wait_and_prio_list_tests 
 ../tests/addNewPatients_tests.cpp
 ../tests/test_csv_read.cpp

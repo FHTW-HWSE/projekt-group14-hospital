@@ -28,7 +28,7 @@ TEST_CASE("Generate Write String Test", "[generate_Write_String]")
 
     // Check the generated write string
     
-   char *  expectedString = "123456789,John Doe,10,20230101,15,20230102,N,1\n";
+   char  expectedString[] = "123456789,John Doe,10,20230101,15,20230102,N,1\n";
 
 fprintf(stdout,"Teststring: %s\n", writeString);
 fprintf(stdout,"Expectedstring: %s\n", expectedString);

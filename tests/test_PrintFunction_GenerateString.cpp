@@ -20,7 +20,7 @@ patient->arrivalTime = 123456789;
 patient->departureDate = 123456789;
 patient->departureTime = 123456789;
 patient->seatingNumber = 1;
-patient->infectious = 'n';
+patient->infectious = 'N';
 
 
 
@@ -30,7 +30,7 @@ patient->infectious = 'n';
     SECTION("Test generate print string with valid input") {
        
         REQUIRE(generatePatientString(patient, buffer, WHOLE) == 0);
-        REQUIRE(strcmp(buffer, "123456789,Max Mustermann,123456789,123456789,123456789,123456789,1,n\n") == 0);
+        REQUIRE(strcmp(buffer, "123456789,Max Mustermann,123456789,123456789,123456789,123456789,N,1\n") == 0);
         REQUIRE(generatePatientString(patient, buffer, SHORT) == 0);
         REQUIRE(strcmp(buffer, "123456789,Max Mustermann,123456789\n") == 0);
     
