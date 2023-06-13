@@ -293,7 +293,8 @@ void updateInfection(PatientList *head, unsigned long soz)
     PatientRecord *patient;
     patient = findPatient(head, soz);
 
-    if (patient->infectious == 'Y'){
+    if (patient->infectious == 'Y')
+    {
         patient->infectious = 'N';
         updateCSV(head);
         printf("\n\tPatient infectious status updated to: NO\n\n");
@@ -302,8 +303,12 @@ void updateInfection(PatientList *head, unsigned long soz)
         patient->infectious = 'Y';
         updateCSV(head);
         printf("\n\tPatient infectious status updated to: YES\n\n");
-    } 
-   
+    } else if (patient->infectious == 'C') 
+    {
+        patient->infectious = 'Y';
+        updateCSV(head);
+        printf("\n\tPatient infectious status updated to: YES\n\n");
+    }
 }
 
 #pragma endregion
