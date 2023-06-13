@@ -276,7 +276,7 @@ void updateContact(PatientList *head, PatientList *contact)
     PatientList* conList = contact;
 
     while(conList != NULL) {
-        if(patient->data == conList->data) {
+        if(patient->data == conList->data && patient->data->infectious == 'N') {
             patient->data->infectious = 'C';
             conList = conList->next;
         }
@@ -812,8 +812,10 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS])
                 if (patNeighbours->data == NULL)
                     printf("No seating neigbours found\n\n");
                 else
+                    updateContact(head,patNeighbours);
                     printPatientList(patNeighbours, WHOLE);
-                ssn = 0;
+                   
+                    ssn = 0;
                 }
 
                 break;
