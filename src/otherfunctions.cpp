@@ -817,7 +817,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS])
                 if (patNeighbours->data == NULL)
                     printf("No seating neigbours found\n\n");
                 else
-                    updateContact(head,patNeighbours);
+                    //updateContact(head,patNeighbours);
                     printPatientList(patNeighbours, WHOLE);
                    
                     ssn = 0;
