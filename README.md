@@ -20,7 +20,7 @@ projekt-group14-hospital created by GitHub Classroom
   - They are prioritized (treated before people who arrive independently) (and)
   - Program updates & outputs the prioritization list 
 
-## >> If a patient is registered the program automatically updates the database & Prio list can be printed out in the menu   
+## >> If a patient is registered the program automatically updates the database & Prio list can be printed out in the menu  'p' 
 
 <br>
  
@@ -30,7 +30,7 @@ projekt-group14-hospital created by GitHub Classroom
   - A seat must be assigned (and) 
   - Program ensures that a seat is only occupied once & seating is printed out 
 
-## >> Program ensures that a seat is only occupied once & seating map can be displayed in the menu
+## >> Program ensures that a seat is only occupied once & seating map can be displayed in the menu 'm'
  
 
 ## Waiting Room Map for Organizing Patient Seating
@@ -43,7 +43,7 @@ projekt-group14-hospital created by GitHub Classroom
 - **When**: Hospital employee is in the menu and opens the map 
 - **Then**: Program shows a map of the waiting area & shows seating 
 
-## >> Map can be opened in the menu
+## >> Map can be opened in the menu 'm'
 
  <br>
 
@@ -60,7 +60,7 @@ projekt-group14-hospital created by GitHub Classroom
   OR
   - Seat should be released and free again for the next person 
 
-## >> Patients can be removed in the menu & seats will be freed & due to the added departure time & date the patient will not longer be displayed in the prio list
+## >> Patients can be removed in the menu 't' & seats will be freed & due to the added departure time & date the patient will not longer be displayed in the prio list
 <br>
 
 ## Marking Patients with Infectious Diseases for Tracking Purposes
