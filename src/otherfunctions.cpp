@@ -764,7 +764,7 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS])
             if(pat == NULL) break;
             else{
                 printf("Info of the patient:\n");
-                printf("\tSSN: %-10lu\nPatient name: %-30s\n",pat->ssn, pat->name);
+                printf("\tSSN: %-10lu\n\tPatient name: %-30s\n",pat->ssn, pat->name);
                 printf("\tArrival time & date (YYMMDD): %d:%d\t%lu\n", pat->arrivalTime/100, pat->arrivalTime%100, pat->arrivalDate);
                 if (pat->departureDate > 0){
                    printf("\tDepature time & date (YYMMDD): %d:%d\t%lu\n", pat->departureTime/100, pat->departureTime%100, pat->departureDate);
