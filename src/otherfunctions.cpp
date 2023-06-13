@@ -745,10 +745,14 @@ int menu(Seat seatingMap[MAP_ROWS][MAP_COLUMNS])
         /***Create new patient***/
         case 'n':
             if (addNewPatient(seatingMap) == 0)
-                printf("patient saved successfully!\n"
-                "If you want to proceed with the new patient saved " 
-                "in the database, please restart the programm!\n\n");
+                printf("patient saved successfully!\n");
             
+            free_list(head);
+            head = (PatientList *)malloc(sizeof(PatientList));
+
+            head->data = NULL;
+            head->next = NULL;
+            csv_read(head);
             break;
         /***Display patient list***/
         case 'd':              
