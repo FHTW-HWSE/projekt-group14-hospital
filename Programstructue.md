@@ -107,6 +107,7 @@
 - **When**: I select that the patient has been infectious in the menu  
 - **Then**: A “Infectious disease” mark will be added to the patient's file/ dB entry.  
 <br>
+
 - **Given**: Patient had seating neighbours 
 - **When**: An “Infectious disease” mark has been set in the patient data  
 - **Then**: The Surrounding patients should automatically get added a “contact person” mark. 
